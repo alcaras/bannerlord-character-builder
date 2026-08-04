@@ -14,6 +14,9 @@ for (const k in PERKS_BY_SKILL) PERKS_BY_SKILL[k].sort((a, b) => a.tier - b.tier
 
 const REQ = C.tierSkillRequirements;
 const TRACK_MAX = REQ[REQ.length - 1];      // 300
+// The game's parchment band begins at the first perk tier, not at zero —
+// values below it put the marker on dark background, not on an empty strip.
+const TRACK_MIN = REQ[0] - 13;              // 12
 const MAX_SKILL = 330;
 
 const state = {
@@ -23,7 +26,6 @@ const state = {
   skill: Object.fromEntries(SKILLS.map(s => [s.id, 0])),
   perks: new Set(),
   sel: SKILLS[0].id,
-  hover: null,
 };
 
 /* ---------------- game rules ---------------- */
@@ -272,21 +274,11 @@ function renderDetail(focusCapped) {
 
   const ts = el('div', 'trackscroll'); ts.append(perkTrack(s, val, lim)); d.append(ts);
 
-  // hovered / selected perk readout
-  const info = el('div', 'perkinfo');
-  const p = state.hover ? PERKS.find(x => x.id === state.hover) : null;
-  if (p) {
-    info.append(el('h4', null, esc(p.name)));
-    const d1 = perkDesc(p, 0), d2 = perkDesc(p, 1);
-    if (d1) info.append(el('p', null, d1));
-    if (d2) info.append(el('p', null, d2));
-    info.append(el('div', 'req', `requires ${p.skill} ${p.requiredSkill}` +
-      (perkUnlocked(p) ? '' : ` — locked (you have ${val})`)));
-  } else {
-    info.className = 'perkinfo empty';
-    info.textContent = 'Hover a perk to see what it does · click to choose';
-  }
-  d.append(info);
+  // Hover readout: a persistent box the shields write into directly, so a
+  // hover never rebuilds the panel (that full re-render was the jank).
+  infoBox = el('div', 'perkinfo');
+  updateInfo(null);
+  d.append(infoBox);
 
   d.append(el('div', 'hint',
     'Perks unlock at the skill values marked under the track. One choice per tier. ' +
@@ -326,10 +318,47 @@ function summary() {
     grid.append(g);
   }
   box.append(grid);
+
+  // By role: the grouping that answers "what does this build DO" — each
+  // effect filed under the role it applies to (a perk can serve several).
+  const ROLE_LABEL = r => r.replace(/([a-z])([A-Z])/g, '$1 $2');
+  const byRole = new Map();
+  for (const p of PERKS) {
+    if (!state.perks.has(p.id)) continue;
+    (p.effects || []).forEach((e, i) => {
+      const line = perkDesc(p, i);
+      if (!line) return;
+      if (!byRole.has(e.role)) byRole.set(e.role, []);
+      byRole.get(e.role).push({ p, line });
+    });
+  }
+  if (byRole.size) {
+    box.append(el('h4', null, `By role <em>where each effect applies</em>`));
+    const rgrid = el('div', 'sgrid');
+    const order = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
+      'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'ArmyCommander', 'PartyMember'];
+    const roles = [...byRole.keys()].sort((a, b) =>
+      (order.indexOf(a) + 99 * (order.indexOf(a) < 0)) -
+      (order.indexOf(b) + 99 * (order.indexOf(b) < 0)));
+    for (const role of roles) {
+      const g = el('div', 'sgroup');
+      g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${byRole.get(role).length}`));
+      for (const { p, line } of byRole.get(role)) {
+        const item = el('div', 'sperk');
+        item.title = 'Show in track';
+        item.onclick = () => { state.sel = p.skill; render(); };
+        item.append(el('span', 'sname', `${esc(p.name)} <small>${esc(p.skill)} ${p.requiredSkill}</small>`));
+        item.append(el('span', 'seffect', line));
+        g.append(item);
+      }
+      rgrid.append(g);
+    }
+    box.append(rgrid);
+  }
   return box;
 }
 
-const xOf = v => clamp(v / TRACK_MAX, 0, 1) * 100;
+const xOf = v => clamp((v - TRACK_MIN) / (TRACK_MAX - TRACK_MIN), 0, 1) * 100;
 
 function perkTrack(s, val, lim) {
   const wrap = el('div', 'trackwrap');
@@ -364,10 +393,14 @@ function perkTrack(s, val, lim) {
       if (ic) b.append(ic);
       else b.append(el('span', 'pname', esc(p.name.length > 13 ? p.name.slice(0, 12) + '…' : p.name)));
       b.title = p.name;
-      b.disabled = !perkUnlocked(p);
-      b.onmouseenter = () => { state.hover = p.id; renderDetail(); };
-      b.onmouseleave = () => { state.hover = null; renderDetail(); };
+      if (!perkUnlocked(p)) b.classList.add('locked');
+      b.onmouseenter = () => updateInfo(p);
+      b.onmouseleave = () => updateInfo(null);
       b.onclick = () => {
+        // Clicking a locked perk raises the skill to its requirement — no
+        // typing the number first.
+        if (!perkUnlocked(p))
+          state.skill[p.skill] = Math.max(state.skill[p.skill], p.requiredSkill);
         if (state.perks.has(p.id)) state.perks.delete(p.id);
         else { for (const o of opts) state.perks.delete(o.id); state.perks.add(p.id); }
         commit();
@@ -402,6 +435,24 @@ function perkTrack(s, val, lim) {
     wrap.append(cap);
   }
   return wrap;
+}
+
+let infoBox = null;
+function updateInfo(p) {
+  if (!infoBox) return;
+  infoBox.innerHTML = '';
+  if (!p) {
+    infoBox.className = 'perkinfo empty';
+    infoBox.textContent = 'Hover a perk to see what it does · click to take it';
+    return;
+  }
+  infoBox.className = 'perkinfo';
+  infoBox.append(el('h4', null, esc(p.name)));
+  const d1 = perkDesc(p, 0), d2 = perkDesc(p, 1);
+  if (d1) infoBox.append(el('p', null, d1));
+  if (d2) infoBox.append(el('p', null, d2));
+  infoBox.append(el('div', 'req', `requires ${p.skill} ${p.requiredSkill}` +
+    (perkUnlocked(p) ? '' : ` — click to take it (sets skill to ${p.requiredSkill})`)));
 }
 
 /* drop perks a lowered skill no longer unlocks */
