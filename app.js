@@ -19,6 +19,36 @@ const TRACK_MAX = REQ[REQ.length - 1];      // 300
 const TRACK_MIN = REQ[0] - 13;              // 12
 const MAX_SKILL = 330;
 
+/* Default starting point: a sensible, popular sandbox build so the page is
+   immediately usable — level 25, Vlandia, merchant/social-INT background,
+   age 40 (+3 unspent attributes, +6 unspent focus). All changeable. */
+const DEFAULT_ORIGIN = {
+  mode: 'sandbox', culture: 'vlandia', level: 25,
+  picks: {
+    narrative_parent_menu: ['vlandia_merchant_option'],
+    narrative_childhood_menu: ['childhood_leader_option'],
+    narrative_education_menu: ['education_tutor_option'],
+    // the garrison option id varies by culture; first valid one wins
+    narrative_youth_menu: ['youth_guard_high_register_option',
+      'youth_guard_empire_register_option', 'youth_guard_low_register_option',
+      'youth_guard_garrisons_register_option'],
+    narrative_adulthood_menu: ['adulthood_nice_person_option'],
+    narrative_age_selection_menu: ['age_selection_middle_age_option'],
+  },
+};
+
+function applyDefaultOrigin() {
+  if (!ORIGIN) { state.mode = 'npc'; return; }
+  state.mode = DEFAULT_ORIGIN.mode;
+  state.culture = DEFAULT_ORIGIN.culture;
+  ORIGIN.stages.forEach((st, i) => {
+    const cands = DEFAULT_ORIGIN.picks[st.id] || [];
+    const hit = cands.map(id => st.options.find(o => o.id === id &&
+      (!o.cultures || o.cultures.includes(state.culture)))).find(Boolean);
+    state.origin[i] = hit ? hit.id : null;
+  });
+}
+
 const state = {
   level: 1,
   attr: Object.fromEntries(ATTRS.map(a => [a.id, 0])),
@@ -686,10 +716,19 @@ function commit() { applyFloors(); pruneAll(); render(); syncHash(); }
 document.getElementById('level').oninput = e => {
   state.level = clamp(parseInt(e.target.value) || 1, 1, C.maxCharacterLevel); commit();
 };
+/* Reset build: clear allocations back to the origin floors, keep the origin
+   itself (and level) — you iterate on point spends far more often than on
+   your backstory. */
 document.getElementById('reset').onclick = () => {
-  ATTRS.forEach(a => state.attr[a.id] = 0);
-  SKILLS.forEach(s => { state.focus[s.id] = 0; state.skill[s.id] = 0; });
-  state.perks.clear(); state.level = 1; commit();
+  state.perks.clear();
+  ATTRS.forEach(a => state.attr[a.id] = attrFloor(a.id));
+  SKILLS.forEach(s => { state.focus[s.id] = focusFloor(s.id); state.skill[s.id] = skillFloor(s.id); });
+  commit();
+};
+/* Reset origin: restore the default backstory, preserving whatever the user
+   has spent on top (floor-swap semantics). */
+document.getElementById('resetOrigin').onclick = () => {
+  withFloorSwap(() => { applyDefaultOrigin(); });
 };
 document.getElementById('share').onclick = async () => {
   syncHash();
@@ -721,6 +760,7 @@ function toast(m) {
   clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-if (location.hash.length > 1) decode(location.hash.slice(1));
-applyFloors();   // player mode starts from the base-2 seeding even with no origin picked
+const loaded = location.hash.length > 1 && decode(location.hash.slice(1));
+if (!loaded) { applyDefaultOrigin(); state.level = DEFAULT_ORIGIN.level; }
+applyFloors();
 render();

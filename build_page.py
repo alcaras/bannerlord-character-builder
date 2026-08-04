@@ -42,7 +42,8 @@ __CSS__
   <div class="tools">
     <label class="lvl">Level <input id="level" type="number" min="1" max="62" value="1"></label>
     <button id="share" class="btn primary">Copy share link</button>
-    <button id="reset" class="btn">Reset</button>
+    <button id="resetOrigin" class="btn">Reset origin</button>
+    <button id="reset" class="btn">Reset build</button>
   </div>
 </header>
 
