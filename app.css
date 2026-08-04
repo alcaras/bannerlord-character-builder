@@ -248,3 +248,5 @@ body{
   padding:.3rem .35rem;font:inherit;font-size:.75rem;max-width:15rem}
 .osel:hover{border-color:var(--gold)}
 .ochips{font-size:.7rem;color:var(--gold2);padding-bottom:.35rem}
+
+.btn.copied{background:#2c3d16;border-color:var(--green2);color:#b9e08a}

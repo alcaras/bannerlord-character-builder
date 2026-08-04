@@ -125,10 +125,10 @@ TRIMMED (the decoder zero-fills), so empty sections cost nothing:
     then 36 bytes 18 skills as u16 LE (values reach 330)
     then 47 bytes perk bitmap over the minting version's perk ordering
 
-Formats 1-3 (legacy, dotted b36 fields) still decode; see git history for
-their layouts. All indices resolve through VER.entries[dataVer] and remap by
-StringId, so links survive data reorders across game patches. */
-const B36 = n => n.toString(36);
+Only format 4 decodes (the dotted b36 formats 1-3 were retired before anyone
+linked to them; layouts in git history). Indices resolve through
+VER.entries[dataVer] and remap by StringId, so links survive data reorders
+across game patches. */
 const b64url = u8 => btoa(String.fromCharCode(...u8))
   .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const unb64url = str => {
@@ -229,27 +229,7 @@ function decode(hash) {
         i => buf[o + 48 + (i >> 3)] & (1 << (i & 7)));
       return true;
     }
-    // ---- legacy dotted formats ----
-    let orig = null, rest;
-    if (v === '3') { orig = parts[2]; rest = parts.slice(3); }
-    else if (v === '2') { rest = parts.slice(2); }
-    else if (v === '1') { ord = VER.entries[VER.v1]; rest = parts.slice(1); }
-    else return false;
-    if (!ord) return false;
-    const [lv, a, f, sk, p] = rest;
-    let bin = '';
-    if (p) bin = atob(p.replace(/-/g, '+').replace(/_/g, '/'));
-    if (orig && (orig[0] === 'p' || orig[0] === 'c'))
-      applyOrigin(ord, orig[0] === 'c' ? 'campaign' : 'sandbox',
-        parseInt(orig[1], 36) || 0,
-        i => { const ch = orig[2 + i]; return (!ch || ch === '-') ? null : parseInt(ch, 36); });
-    else state.mode = 'npc';
-    applyOrdered(ord, parseInt(lv, 36),
-      i => parseInt(a[i], 36) || 0,
-      i => parseInt(f[i], 36) || 0,
-      i => parseInt(sk.slice(i * 2, i * 2 + 2), 36) || 0,
-      i => bin && (bin.charCodeAt(i >> 3) & (1 << (i & 7))));
-    return true;
+    return false;
   } catch { return false; }
 }
 const syncHash = () => history.replaceState(null, '', '#' + encode());
@@ -672,8 +652,18 @@ document.getElementById('reset').onclick = () => {
 };
 document.getElementById('share').onclick = async () => {
   syncHash();
-  try { await navigator.clipboard.writeText(location.href); toast('Link copied'); }
-  catch { toast('Copy failed — the URL bar holds your build'); }
+  const btn = document.getElementById('share');
+  try {
+    await navigator.clipboard.writeText(location.href);
+    // feedback ON the button — a toast at the bottom of the screen is too far
+    // from where the user is looking
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => {
+      btn.classList.remove('copied'); btn.textContent = 'Copy share link';
+    }, 1600);
+  } catch { toast('Copy failed — the URL bar holds your build'); }
 };
 function toast(m) {
   const t = document.getElementById('toast');
