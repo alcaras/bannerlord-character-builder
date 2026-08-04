@@ -29,17 +29,22 @@ const state = {
   // Origin (campaign/sandbox character creation). mode 'player' models the
   // real player path: base 2 per attribute + free stage grants + level-ups.
   // mode 'npc' is the old 15/5 wanderer model.
-  mode: ORIGIN ? 'player' : 'npc',
+  mode: ORIGIN ? 'campaign' : 'npc',
   culture: ORIGIN ? ORIGIN.cultures[2] || ORIGIN.cultures[0] : null,   // empire default
   origin: ORIGIN ? ORIGIN.stages.map(() => null) : [],
 };
 
 /* ---------------- game rules ---------------- */
-/* Origin helpers. Chosen option objects per stage (player mode). */
+/* Origin helpers. 'campaign' (story) and 'sandbox' both use the player path;
+   they differ in which stages exist: sandbox has Starting Age (unspent-point
+   grants), campaign instead has the Story Background stage and starts at 20. */
+const isPlayer = () => state.mode === 'campaign' || state.mode === 'sandbox';
+const stageActive = st => !st.modes || st.modes.includes(state.mode);
 function chosenOptions() {
-  if (state.mode !== 'player' || !ORIGIN) return [];
-  return ORIGIN.stages.map((st, i) =>
-    st.options.find(o => o.id === state.origin[i]) || null).filter(Boolean);
+  if (!isPlayer() || !ORIGIN) return [];
+  return ORIGIN.stages.map((st, i) => stageActive(st)
+    ? (st.options.find(o => o.id === state.origin[i]) || null) : null)
+    .filter(Boolean);
 }
 function ageGrants() {
   let a = 0, f = 0;
@@ -48,29 +53,29 @@ function ageGrants() {
 }
 /* Free floor under each attribute: base 2 + stage grants (player mode). */
 function attrFloor(id) {
-  if (state.mode !== 'player') return 0;
+  if (!isPlayer()) return 0;
   let n = ORIGIN.grants.baseAttribute;
   for (const o of chosenOptions()) if (o.attr === id) n += ORIGIN.grants.attribute;
   return n;
 }
 function focusFloor(skillId) {
-  if (state.mode !== 'player') return 0;
+  if (!isPlayer()) return 0;
   let n = 0;
   for (const o of chosenOptions())
     if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.focus;
   return Math.min(n, C.maxFocusPerSkill);
 }
 function skillFloor(skillId) {
-  if (state.mode !== 'player') return 0;
+  if (!isPlayer()) return 0;
   let n = 0;
   for (const o of chosenOptions())
     if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.skillLevel;
   return n;
 }
-const attrBudget = lv => state.mode === 'player'
+const attrBudget = lv => isPlayer()
   ? Math.floor((lv - 1) / C.levelsPerAttributePoint) + ageGrants().a
   : Math.floor((lv - 1) / C.levelsPerAttributePoint) + C.attributePointsAtStart;
-const focusBudget = lv => state.mode === 'player'
+const focusBudget = lv => isPlayer()
   ? (lv - 1) * C.focusPointsPerLevel + ageGrants().f
   : (lv - 1) * C.focusPointsPerLevel + C.focusPointsAtStart;
 /* Spent = what came out of the budget, i.e. value above the free floor. */
@@ -78,7 +83,7 @@ const attrSpent = () => ATTRS.reduce((n, a) => n + Math.max(0, state.attr[a.id] 
 const focusSpent = () => SKILLS.reduce((n, s) => n + Math.max(0, state.focus[s.id] - focusFloor(s.id)), 0);
 /* Origin floors are hard minima; commit() re-asserts them after any change. */
 function applyFloors() {
-  if (state.mode !== 'player') return;
+  if (!isPlayer()) return;
   for (const a of ATTRS) state.attr[a.id] = Math.max(state.attr[a.id], attrFloor(a.id));
   for (const sk of SKILLS) {
     state.focus[sk.id] = Math.max(state.focus[sk.id], focusFloor(sk.id));
@@ -107,8 +112,9 @@ const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
 /* ---------------- share link ----------------
 
 Format 3 (current): 3.<dataVer>.<origin>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
-                    origin = 'n' (npc mode) or 'p'+cultureIdx+6x optionIdx
-                    (b36 per stage, '-' = unchosen), indices into VER orderings
+                    origin = 'n' (npc) or ('c' campaign | 'p' sandbox) +
+                    cultureIdx + one b36 optionIdx per stage ('-' = unchosen /
+                    stage not in that mode), indices into VER orderings
 Format 2 (legacy):  2.<dataVer>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
 Format 1 (legacy):  1.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
 
@@ -131,12 +137,14 @@ function encode() {
   let bin = ''; bits.forEach(b => bin += String.fromCharCode(b));
   const p = btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   let orig = 'n';
-  if (state.mode === 'player' && ORIGIN) {
+  if (isPlayer() && ORIGIN) {
     const ci = Math.max(0, ORIGIN.cultures.indexOf(state.culture));
-    orig = 'p' + B36(ci) + ORIGIN.stages.map((st, i) => {
-      const oi = st.options.findIndex(o => o.id === state.origin[i]);
-      return oi < 0 ? '-' : B36(oi);
-    }).join('');
+    orig = (state.mode === 'campaign' ? 'c' : 'p') + B36(ci) +
+      ORIGIN.stages.map((st, i) => {
+        if (!stageActive(st)) return '-';
+        const oi = st.options.findIndex(o => o.id === state.origin[i]);
+        return oi < 0 ? '-' : B36(oi);
+      }).join('');
   }
   return `3.${VER.cur}.${orig}.${B36(state.level)}.${a}.${f}.${sk}.${p}`;
 }
@@ -168,8 +176,8 @@ function decode(hash) {
     // origin segment (v3): remap culture + per-stage options by id via the
     // minting version's orderings, exactly like perks
     state.mode = 'npc';
-    if (orig && orig[0] === 'p' && ORIGIN) {
-      state.mode = 'player';
+    if (orig && (orig[0] === 'p' || orig[0] === 'c') && ORIGIN) {
+      state.mode = orig[0] === 'c' ? 'campaign' : 'sandbox';
       const cid = (ord.c || ORIGIN.cultures)[parseInt(orig[1], 36) || 0];
       state.culture = ORIGIN.cultures.includes(cid) ? cid : ORIGIN.cultures[0];
       const g = ord.g || ORIGIN.stages.map(st => st.options.map(o => o.id));
@@ -257,13 +265,14 @@ function renderOrigin() {
   const wrap = el('div', 'origin');
 
   const mode = el('select', 'osel');
-  mode.append(new Option('Campaign / Sandbox character', 'player'),
+  mode.append(new Option('Campaign (story)', 'campaign'),
+              new Option('Sandbox', 'sandbox'),
               new Option('Wanderer / NPC (15 + 5 start)', 'npc'));
   mode.value = state.mode;
   mode.onchange = () => { state.mode = mode.value; commit(); };
   wrap.append(field('Mode', mode));
 
-  if (state.mode === 'player') {
+  if (isPlayer()) {
     const cult = el('select', 'osel');
     for (const c of ORIGIN.cultures)
       cult.append(new Option(c[0].toUpperCase() + c.slice(1), c));
@@ -280,6 +289,7 @@ function renderOrigin() {
     wrap.append(field('Culture', cult));
 
     ORIGIN.stages.forEach((st, i) => {
+      if (!stageActive(st)) return;
       const sel = el('select', 'osel');
       sel.append(new Option('—', ''));
       for (const o of st.options) {

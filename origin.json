@@ -490,6 +490,10 @@
       "khuzait"
      ]
     }
+   ],
+   "modes": [
+    "campaign",
+    "sandbox"
    ]
   },
   {
@@ -559,6 +563,10 @@
      ],
      "attr": "endurance"
     }
+   ],
+   "modes": [
+    "campaign",
+    "sandbox"
    ]
   },
   {
@@ -688,6 +696,10 @@
      ],
      "attr": "endurance"
     }
+   ],
+   "modes": [
+    "campaign",
+    "sandbox"
    ]
   },
   {
@@ -961,6 +973,10 @@
       "aserai"
      ]
     }
+   ],
+   "modes": [
+    "campaign",
+    "sandbox"
    ]
   },
   {
@@ -1170,6 +1186,10 @@
      "traitLevel": 1,
      "renown": 5
     }
+   ],
+   "modes": [
+    "campaign",
+    "sandbox"
    ]
   },
   {
@@ -1207,7 +1227,83 @@
      "unspentFocus": 8,
      "unspentAttr": 4
     }
+   ],
+   "modes": [
+    "sandbox"
+   ]
+  },
+  {
+   "id": "narrative_escape_menu",
+   "prev": "narrative_adulthood_menu",
+   "next": "",
+   "title": "Story Background",
+   "desc": "Like many families in Calradia, your life was upended by war. Your home was ravaged by the passage of army after army. Eventually, you sold your property and set off with your father, mother, brother, and your two younger siblings to a new town you'd heard was safer. But you did not make it. Along the way, the inn at which you were staying was attacked by raiders. Your parents were slain and your two youngest siblings seized, but you and your brother survived because...",
+   "options": [
+    {
+     "id": "escape_subdued_raider_option",
+     "label": "you subdued a raider.",
+     "desc": "You were able to grab a knife in the confusion of the attack. You stabbed a raider blocking your way.",
+     "skills": [
+      "OneHanded",
+      "Athletics"
+     ],
+     "attr": "vigor"
+    },
+    {
+     "id": "escape_arrow_option",
+     "label": "you drove them off with arrows.",
+     "desc": "You grabbed a bow and sent a few arrows the raiders' way. They took cover, giving you the opportunity to flee with your brother.",
+     "skills": [
+      "Bow",
+      "Tactics"
+     ],
+     "attr": "control"
+    },
+    {
+     "id": "escape_horse_option",
+     "label": "you rode off on a fast horse.",
+     "desc": "Jumping on the two remaining horses in the inn's burning stable, you and your brother broke out of the encircling raiders and rode off.",
+     "skills": [
+      "Riding",
+      "Scouting"
+     ],
+     "attr": "endurance"
+    },
+    {
+     "id": "escape_tricked_option",
+     "label": "you tricked the raiders.",
+     "desc": "In the confusion of the attack you shouted that someone had found treasure in the back room. You then made your way out of the undefended entrance with your brother.",
+     "skills": [
+      "Roguery",
+      "Tactics"
+     ],
+     "attr": "cunning"
+    },
+    {
+     "id": "escape_breakout_option",
+     "label": "you organized the travelers to break out.",
+     "desc": "You encouraged the few travellers in the inn to break out in a coordinated fashion. Raiders killed or captured most but you and your brother were able to escape.",
+     "skills": [
+      "Leadership",
+      "Charm"
+     ],
+     "attr": "social"
+    },
+    {
+     "id": "escape_makeshift_fortification_option",
+     "label": "you threw up makeshift fortifications.",
+     "desc": "You encouraged the few travellers in the inn to break out in a coordinated fashion. Raiders killed or captured most but you and your brother were able to escape.",
+     "skills": [
+      "Engineering",
+      "TwoHanded"
+     ],
+     "attr": "intelligence"
+    }
+   ],
+   "modes": [
+    "campaign"
    ]
   }
- ]
+ ],
+ "campaignStartingAge": 20
 }
