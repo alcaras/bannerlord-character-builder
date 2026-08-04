@@ -109,6 +109,15 @@ function withFloorSwap(change) {
       skillFloor(k.id) + Math.max(0, state.skill[k.id] - oldS[k.id]));
   }
   commit();
+  // If the change shrank a budget below what's already spent (e.g. leaving a
+  // Starting Age whose unspent points were used), say so — the red negative
+  // counter alone reads like a bug.
+  const overF = focusSpent() - focusBudget(state.level);
+  const overA = attrSpent() - attrBudget(state.level);
+  if (overF > 0) denyPoints('focusPts',
+    `That change removed focus-point income — you are ${overF} over budget; unspend some focus`);
+  else if (overA > 0) denyPoints('attrPts',
+    `That change removed attribute-point income — you are ${overA} over budget; unspend some attributes`);
 }
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 const skillById = id => SKILLS.find(s => s.id === id);
