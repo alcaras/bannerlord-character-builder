@@ -163,7 +163,7 @@ body{
 .shield.alt{background:linear-gradient(#2b2620,#181410);color:#756c5f}
 .shield.locked{opacity:.82}
 .shield.locked:hover{opacity:1}
-.shield.solo{margin-bottom:3.6rem}
+
 .tickrow{position:absolute;left:0;right:0;bottom:-1.05rem;height:1rem}
 .tick{position:absolute;transform:translateX(-50%);font-size:.6rem;color:var(--faint)}
 /* pins */
