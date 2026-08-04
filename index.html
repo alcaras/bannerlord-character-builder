@@ -1721,11 +1721,16 @@ function skillFloor(skillId) {
     if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.skillLevel;
   return n;
 }
+/* Player level-up income counts from level ZERO: ClearHero() zeroes
+   Hero.Level at creation, and OnGainLevel fires on every ++ including 0->1,
+   so a level-L player has earned L focus points and floor(L/4) attribute
+   points (verified against a real save: 12 origin + 25 levels = 37 focus at
+   level 25, to the point). NPCs use SetupDefaultPoints' (L-1)-based formula. */
 const attrBudget = lv => isPlayer()
-  ? Math.floor((lv - 1) / C.levelsPerAttributePoint) + ageGrants().a
+  ? Math.floor(lv / C.levelsPerAttributePoint) + ageGrants().a
   : Math.floor((lv - 1) / C.levelsPerAttributePoint) + C.attributePointsAtStart;
 const focusBudget = lv => isPlayer()
-  ? (lv - 1) * C.focusPointsPerLevel + ageGrants().f
+  ? lv * C.focusPointsPerLevel + ageGrants().f
   : (lv - 1) * C.focusPointsPerLevel + C.focusPointsAtStart;
 /* Spent = what came out of the budget, i.e. value above the free floor. */
 const attrSpent = () => ATTRS.reduce((n, a) => n + Math.max(0, state.attr[a.id] - attrFloor(a.id)), 0);
