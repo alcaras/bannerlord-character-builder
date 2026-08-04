@@ -1,1 +1,10 @@
 .DS_Store
+
+# Never commit game code or assets from the install — the extractors in the
+# companion bannerlord repo read them; only derived data/icons belong here.
+*.cs
+*.dll
+*.tpac
+Modules/
+code/
+Win64_Shipping_Client/

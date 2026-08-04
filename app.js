@@ -311,10 +311,17 @@ function summary() {
     const g = el('div', 'sgroup');
     g.append(el('b', null, `${esc(sk.name)} · ${chosen.length}`));
     for (const p of chosen) {
-      const line = el('span', null, `${esc(p.name)} <small style="color:#6b5c44">${p.requiredSkill}</small>`);
-      line.title = 'Show in track';
-      line.onclick = () => { state.sel = sk.id; render(); };
-      g.append(line);
+      const item = el('div', 'sperk');
+      item.title = 'Show in track';
+      item.onclick = () => { state.sel = sk.id; render(); };
+      const head = el('span', 'sname',
+        `${esc(p.name)} <small>${p.requiredSkill}</small>`);
+      item.append(head);
+      // the actual effects, same substitution as the hover readout
+      const d1 = perkDesc(p, 0), d2 = perkDesc(p, 1);
+      if (d1) item.append(el('span', 'seffect', d1));
+      if (d2) item.append(el('span', 'seffect', d2));
+      g.append(item);
     }
     grid.append(g);
   }

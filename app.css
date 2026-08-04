@@ -206,13 +206,17 @@ body{
 .summary h4::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 .summary h4 em{font-style:normal;font-size:.68rem;color:var(--faint);letter-spacing:.06em;
   text-transform:uppercase}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.3rem .7rem}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.5rem .9rem}
 .sgroup{font-size:.72rem}
 .sgroup b{color:var(--dim);font-weight:600;display:block;font-size:.66rem;
-  text-transform:uppercase;letter-spacing:.06em;margin-bottom:.1rem}
-.sgroup span{display:block;color:var(--gold2);padding-left:.5rem;line-height:1.5;cursor:pointer}
-.sgroup span:hover{color:#fff1d2;text-decoration:underline}
-.sgroup span::before{content:"◆ ";color:var(--edge);font-size:.6rem}
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem}
+.sperk{padding:.15rem 0 .3rem .5rem;cursor:pointer;border-left:2px solid transparent}
+.sperk:hover{border-left-color:var(--gold)}
+.sperk .sname{display:block;color:var(--gold2);line-height:1.4}
+.sperk .sname::before{content:"◆ ";color:var(--edge);font-size:.6rem}
+.sperk .sname small{color:var(--faint);font-weight:400;margin-left:.25rem}
+.sperk:hover .sname{color:#fff1d2}
+.sperk .seffect{display:block;color:var(--dim);line-height:1.4;padding-left:.85rem;font-size:.7rem}
 .summary .none{color:var(--faint);font-size:.75rem}
 
 /* ---------- extracted game icons (CSS mask so we can tint by state) ---------- */
