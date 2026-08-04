@@ -90,6 +90,26 @@ function applyFloors() {
     state.skill[sk.id] = Math.max(state.skill[sk.id], skillFloor(sk.id));
   }
 }
+
+/* Changing origin/mode/culture must not leave residue: the old floors' share
+   of each value is swapped for the new floors', keeping only what the user
+   added on top. Without this, browsing options ratchets values upward and the
+   ghost points eat the budget ("calc should have no more than what I put in"). */
+function withFloorSwap(change) {
+  const oldA = Object.fromEntries(ATTRS.map(a => [a.id, attrFloor(a.id)]));
+  const oldF = Object.fromEntries(SKILLS.map(k => [k.id, focusFloor(k.id)]));
+  const oldS = Object.fromEntries(SKILLS.map(k => [k.id, skillFloor(k.id)]));
+  change();
+  for (const a of ATTRS)
+    state.attr[a.id] = attrFloor(a.id) + Math.max(0, state.attr[a.id] - oldA[a.id]);
+  for (const k of SKILLS) {
+    state.focus[k.id] = Math.min(C.maxFocusPerSkill,
+      focusFloor(k.id) + Math.max(0, state.focus[k.id] - oldF[k.id]));
+    state.skill[k.id] = Math.min(MAX_SKILL,
+      skillFloor(k.id) + Math.max(0, state.skill[k.id] - oldS[k.id]));
+  }
+  commit();
+}
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 const skillById = id => SKILLS.find(s => s.id === id);
 
@@ -287,7 +307,7 @@ function renderOrigin() {
               new Option('Sandbox', 'sandbox'),
               new Option('Wanderer / NPC (15 + 5 start)', 'npc'));
   mode.value = state.mode;
-  mode.onchange = () => { state.mode = mode.value; commit(); };
+  mode.onchange = () => withFloorSwap(() => { state.mode = mode.value; });
   wrap.append(field('Mode', mode));
 
   if (isPlayer()) {
@@ -295,15 +315,14 @@ function renderOrigin() {
     for (const c of ORIGIN.cultures)
       cult.append(new Option(c[0].toUpperCase() + c.slice(1), c));
     cult.value = state.culture;
-    cult.onchange = () => {
+    cult.onchange = () => withFloorSwap(() => {
       state.culture = cult.value;
       // culture change invalidates culture-gated picks
       ORIGIN.stages.forEach((st, i) => {
         const o = st.options.find(x => x.id === state.origin[i]);
         if (o && o.cultures && !o.cultures.includes(state.culture)) state.origin[i] = null;
       });
-      commit();
-    };
+    });
     wrap.append(field('Culture', cult));
 
     ORIGIN.stages.forEach((st, i) => {
@@ -312,12 +331,13 @@ function renderOrigin() {
       sel.append(new Option('—', ''));
       for (const o of st.options) {
         if (o.cultures && !o.cultures.includes(state.culture)) continue;
-        const extra = o.attr ? ` (+1 ${o.attr.slice(0,3).toUpperCase()})`
-          : (o.unspentAttr ? ` (+${o.unspentAttr} attr, +${o.unspentFocus} focus)` : '');
+        const sk = (o.skills || []).map(x => SKILLS.find(s2 => s2.id === x)?.name || x).join(', ');
+        const extra = o.attr ? ` — +1 ${o.attr.slice(0,3).toUpperCase()}${sk ? ' · ' + sk : ''}`
+          : (o.unspentAttr ? ` — +${o.unspentAttr} attr, +${o.unspentFocus} focus` : '');
         sel.append(new Option(o.label + extra, o.id));
       }
       sel.value = state.origin[i] || '';
-      sel.onchange = () => { state.origin[i] = sel.value || null; commit(); };
+      sel.onchange = () => withFloorSwap(() => { state.origin[i] = sel.value || null; });
       sel.title = st.desc;
       wrap.append(field(st.title, sel));
     });
