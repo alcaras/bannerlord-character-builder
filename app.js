@@ -83,14 +83,15 @@ function ageGrants() {
 }
 /* Free floor under each attribute: base 2 + stage grants (player mode). */
 function attrFloor(id) {
-  if (!isPlayer()) return 0;
-  let n = ORIGIN.grants.baseAttribute;
+  let n = perkAttrGrant(id);
+  if (!isPlayer()) return n;
+  n += ORIGIN.grants.baseAttribute;
   for (const o of chosenOptions()) if (o.attr === id) n += ORIGIN.grants.attribute;
   return n;
 }
 function focusFloor(skillId) {
-  if (!isPlayer()) return 0;
-  let n = 0;
+  let n = perkFocusGrant(skillId);
+  if (!isPlayer()) return Math.min(n, C.maxFocusPerSkill);
   for (const o of chosenOptions())
     if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.focus;
   return Math.min(n, C.maxFocusPerSkill);
@@ -167,6 +168,30 @@ function learningRate(s) {
   return Math.max(0, C.baseLearningRate * (1 + f));
 }
 const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
+
+/* Perks that permanently grant points when taken
+   (PerkActivationHandlerCampaignBehavior) — they raise the free floors. */
+const PERK_GRANTS = {
+  CraftingVigorousSmith: { attr: 'vigor' },
+  CraftingStrongSmith: { attr: 'control' },
+  CraftingEnduringSmith: { attr: 'endurance' },
+  CraftingWeaponMasterSmith: { focus: ['OneHanded', 'TwoHanded'] },
+  AthleticsDurable: { attr: 'endurance' },
+  AthleticsSteady: { attr: 'control' },
+  AthleticsStrong: { attr: 'vigor' },
+};
+function perkAttrGrant(id) {
+  let n = 0;
+  for (const pid of state.perks)
+    if (PERK_GRANTS[pid] && PERK_GRANTS[pid].attr === id) n++;
+  return n;
+}
+function perkFocusGrant(skillId) {
+  let n = 0;
+  for (const pid of state.perks)
+    if ((PERK_GRANTS[pid] && PERK_GRANTS[pid].focus || []).includes(skillId)) n++;
+  return n;
+}
 
 /* ---------------- share link ----------------
 
@@ -648,13 +673,16 @@ function perkTrack(s, val, lim) {
       if (!perkUnlocked(p)) b.classList.add('locked');
       b.onmouseenter = () => updateInfo(p);   // sticky: no clear on leave
       b.onclick = () => {
-        // Clicking a locked perk raises the skill to its requirement — no
-        // typing the number first.
-        if (!perkUnlocked(p))
-          state.skill[p.skill] = Math.max(state.skill[p.skill], p.requiredSkill);
-        if (state.perks.has(p.id)) state.perks.delete(p.id);
-        else { for (const o of opts) state.perks.delete(o.id); state.perks.add(p.id); }
-        commit();
+        const apply = () => {
+          if (!perkUnlocked(p))
+            state.skill[p.skill] = Math.max(state.skill[p.skill], p.requiredSkill);
+          if (state.perks.has(p.id)) state.perks.delete(p.id);
+          else { for (const o of opts) state.perks.delete(o.id); state.perks.add(p.id); }
+        };
+        // Point-granting perks change the free floors; swap floors so the
+        // grant appears/disappears cleanly instead of ratcheting.
+        if (PERK_GRANTS[p.id] || opts.some(o => PERK_GRANTS[o.id])) withFloorSwap(apply);
+        else { apply(); commit(); }
       };
       col.append(b);
     }
