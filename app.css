@@ -181,7 +181,7 @@ body{
 
 /* perk detail readout */
 .perkinfo{border:1px solid var(--line);border-radius:4px;background:#1a1510;padding:.5rem .65rem;
-  min-height:3.4rem}
+  height:7.6rem;overflow-y:auto}
 .perkinfo h4{margin:0 0 .15rem;font-size:.85rem;color:var(--gold2);font-weight:600}
 .perkinfo p{margin:.1rem 0;font-size:.75rem;color:var(--dim)}
 .perkinfo .req{font-size:.66rem;color:var(--faint)}
@@ -237,3 +237,14 @@ body{
 
 .ic-img{display:block;image-rendering:auto}
 .ic-img.ticon{background-blend-mode:normal!important;opacity:1!important}
+
+/* ---------- origin bar ---------- */
+.origin{display:flex;flex-wrap:wrap;gap:.4rem .7rem;align-items:flex-end;
+  padding:.45rem .9rem;background:linear-gradient(#201a13,#181310);
+  border-bottom:1px solid var(--line)}
+.ofield{display:flex;flex-direction:column;gap:.15rem;min-width:0}
+.ofield>span{font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+.osel{background:#15110d;color:var(--ink);border:1px solid var(--line);border-radius:3px;
+  padding:.3rem .35rem;font:inherit;font-size:.75rem;max-width:15rem}
+.osel:hover{border-color:var(--gold)}
+.ochips{font-size:.7rem;color:var(--gold2);padding-bottom:.35rem}

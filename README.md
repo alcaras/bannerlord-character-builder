@@ -10,8 +10,17 @@ in one self-contained file; the URL hash carries your whole build, so
 
 ## Rules implemented
 
-- Budgets: 15 attribute points +1 per 4 levels; 5 focus points +1 per level
-  (`HeroDeveloper.SetupDefaultPoints`)
+Two modes, because the game has two point models:
+
+- **Campaign/Sandbox character** (default): the real player path — every
+  attribute starts at 2 free (`SetMainHeroInitialStats`), each character-
+  creation stage choice grants +1 attribute, +1 focus and +10 levels to its
+  skills (all budget-exempt), the starting-age choice grants unspent points
+  (20/30/40/50 → +1/+2/+3/+4 attr, +2/+4/+6/+8 focus), and level-ups add
+  +1 focus per level, +1 attribute per 4 levels. Pick culture and the six
+  stages in the top bar; the builder seeds everything exactly.
+- **Wanderer/NPC**: 15 attribute points + 5 focus at start
+  (`HeroDeveloper.SetupDefaultPoints`) — the model NPC heroes use.
 - Skill cap: `max(0, (attribute − 1) × 10) + focus × 30`
 - Learning rate: `1.25 × (1 + 0.4·attr + focus)`, collapsing by `1 + 0.1` per
   point over cap (`DefaultCharacterDevelopmentModel.CalculateLearningRate`)

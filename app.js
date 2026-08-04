@@ -26,13 +26,65 @@ const state = {
   skill: Object.fromEntries(SKILLS.map(s => [s.id, 0])),
   perks: new Set(),
   sel: SKILLS[0].id,
+  // Origin (campaign/sandbox character creation). mode 'player' models the
+  // real player path: base 2 per attribute + free stage grants + level-ups.
+  // mode 'npc' is the old 15/5 wanderer model.
+  mode: ORIGIN ? 'player' : 'npc',
+  culture: ORIGIN ? ORIGIN.cultures[2] || ORIGIN.cultures[0] : null,   // empire default
+  origin: ORIGIN ? ORIGIN.stages.map(() => null) : [],
 };
 
 /* ---------------- game rules ---------------- */
-const attrBudget = lv => Math.floor((lv - 1) / C.levelsPerAttributePoint) + C.attributePointsAtStart;
-const focusBudget = lv => (lv - 1) * C.focusPointsPerLevel + C.focusPointsAtStart;
-const attrSpent = () => ATTRS.reduce((n, a) => n + state.attr[a.id], 0);
-const focusSpent = () => SKILLS.reduce((n, s) => n + state.focus[s.id], 0);
+/* Origin helpers. Chosen option objects per stage (player mode). */
+function chosenOptions() {
+  if (state.mode !== 'player' || !ORIGIN) return [];
+  return ORIGIN.stages.map((st, i) =>
+    st.options.find(o => o.id === state.origin[i]) || null).filter(Boolean);
+}
+function ageGrants() {
+  let a = 0, f = 0;
+  for (const o of chosenOptions()) { a += o.unspentAttr || 0; f += o.unspentFocus || 0; }
+  return { a, f };
+}
+/* Free floor under each attribute: base 2 + stage grants (player mode). */
+function attrFloor(id) {
+  if (state.mode !== 'player') return 0;
+  let n = ORIGIN.grants.baseAttribute;
+  for (const o of chosenOptions()) if (o.attr === id) n += ORIGIN.grants.attribute;
+  return n;
+}
+function focusFloor(skillId) {
+  if (state.mode !== 'player') return 0;
+  let n = 0;
+  for (const o of chosenOptions())
+    if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.focus;
+  return Math.min(n, C.maxFocusPerSkill);
+}
+function skillFloor(skillId) {
+  if (state.mode !== 'player') return 0;
+  let n = 0;
+  for (const o of chosenOptions())
+    if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.skillLevel;
+  return n;
+}
+const attrBudget = lv => state.mode === 'player'
+  ? Math.floor((lv - 1) / C.levelsPerAttributePoint) + ageGrants().a
+  : Math.floor((lv - 1) / C.levelsPerAttributePoint) + C.attributePointsAtStart;
+const focusBudget = lv => state.mode === 'player'
+  ? (lv - 1) * C.focusPointsPerLevel + ageGrants().f
+  : (lv - 1) * C.focusPointsPerLevel + C.focusPointsAtStart;
+/* Spent = what came out of the budget, i.e. value above the free floor. */
+const attrSpent = () => ATTRS.reduce((n, a) => n + Math.max(0, state.attr[a.id] - attrFloor(a.id)), 0);
+const focusSpent = () => SKILLS.reduce((n, s) => n + Math.max(0, state.focus[s.id] - focusFloor(s.id)), 0);
+/* Origin floors are hard minima; commit() re-asserts them after any change. */
+function applyFloors() {
+  if (state.mode !== 'player') return;
+  for (const a of ATTRS) state.attr[a.id] = Math.max(state.attr[a.id], attrFloor(a.id));
+  for (const sk of SKILLS) {
+    state.focus[sk.id] = Math.max(state.focus[sk.id], focusFloor(sk.id));
+    state.skill[sk.id] = Math.max(state.skill[sk.id], skillFloor(sk.id));
+  }
+}
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 const skillById = id => SKILLS.find(s => s.id === id);
 
@@ -54,7 +106,10 @@ const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
 
 /* ---------------- share link ----------------
 
-Format 2 (current): 2.<dataVer>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
+Format 3 (current): 3.<dataVer>.<origin>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
+                    origin = 'n' (npc mode) or 'p'+cultureIdx+6x optionIdx
+                    (b36 per stage, '-' = unchosen), indices into VER orderings
+Format 2 (legacy):  2.<dataVer>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
 Format 1 (legacy):  1.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
 
 Indices and the perk bitmap are meaningful only against the orderings of the
@@ -75,14 +130,30 @@ function encode() {
   }
   let bin = ''; bits.forEach(b => bin += String.fromCharCode(b));
   const p = btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  return `2.${VER.cur}.${B36(state.level)}.${a}.${f}.${sk}.${p}`;
+  let orig = 'n';
+  if (state.mode === 'player' && ORIGIN) {
+    const ci = Math.max(0, ORIGIN.cultures.indexOf(state.culture));
+    orig = 'p' + B36(ci) + ORIGIN.stages.map((st, i) => {
+      const oi = st.options.findIndex(o => o.id === state.origin[i]);
+      return oi < 0 ? '-' : B36(oi);
+    }).join('');
+  }
+  return `3.${VER.cur}.${orig}.${B36(state.level)}.${a}.${f}.${sk}.${p}`;
 }
 
 function decode(hash) {
   try {
     const parts = hash.split('.');
-    let ord, rest;
-    if (parts[0] === '2') {
+    let ord, rest, orig = null;
+    if (parts[0] === '3') {
+      ord = VER.entries[parts[1]];
+      orig = parts[2];
+      rest = parts.slice(3);
+      if (!ord) {
+        ord = VER.entries[VER.cur];
+        toast('Link uses a newer data version — loading best-effort');
+      }
+    } else if (parts[0] === '2') {
       ord = VER.entries[parts[1]];
       rest = parts.slice(2);
       if (!ord) {           // link minted by a newer build than this page
@@ -94,6 +165,21 @@ function decode(hash) {
       rest = parts.slice(1);
     } else return false;
     if (!ord) return false;
+    // origin segment (v3): remap culture + per-stage options by id via the
+    // minting version's orderings, exactly like perks
+    state.mode = 'npc';
+    if (orig && orig[0] === 'p' && ORIGIN) {
+      state.mode = 'player';
+      const cid = (ord.c || ORIGIN.cultures)[parseInt(orig[1], 36) || 0];
+      state.culture = ORIGIN.cultures.includes(cid) ? cid : ORIGIN.cultures[0];
+      const g = ord.g || ORIGIN.stages.map(st => st.options.map(o => o.id));
+      state.origin = ORIGIN.stages.map((st, i) => {
+        const ch = orig[2 + i];
+        if (!ch || ch === '-') return null;
+        const id = (g[i] || [])[parseInt(ch, 36)];
+        return st.options.some(o => o.id === id) ? id : null;
+      });
+    }
     const [lv, a, f, sk, p] = rest;
     state.level = clamp(parseInt(lv, 36) || 1, 1, C.maxCharacterLevel);
     // Everything below maps by StringId: position i in the minting version's
@@ -162,6 +248,70 @@ function iconEl(key, size) {
   return n;
 }
 
+/* ---------------- origin bar ---------------- */
+function renderOrigin() {
+  const bar = document.getElementById('originbar');
+  if (!bar) return;
+  bar.innerHTML = '';
+  if (!ORIGIN) return;
+  const wrap = el('div', 'origin');
+
+  const mode = el('select', 'osel');
+  mode.append(new Option('Campaign / Sandbox character', 'player'),
+              new Option('Wanderer / NPC (15 + 5 start)', 'npc'));
+  mode.value = state.mode;
+  mode.onchange = () => { state.mode = mode.value; commit(); };
+  wrap.append(field('Mode', mode));
+
+  if (state.mode === 'player') {
+    const cult = el('select', 'osel');
+    for (const c of ORIGIN.cultures)
+      cult.append(new Option(c[0].toUpperCase() + c.slice(1), c));
+    cult.value = state.culture;
+    cult.onchange = () => {
+      state.culture = cult.value;
+      // culture change invalidates culture-gated picks
+      ORIGIN.stages.forEach((st, i) => {
+        const o = st.options.find(x => x.id === state.origin[i]);
+        if (o && o.cultures && !o.cultures.includes(state.culture)) state.origin[i] = null;
+      });
+      commit();
+    };
+    wrap.append(field('Culture', cult));
+
+    ORIGIN.stages.forEach((st, i) => {
+      const sel = el('select', 'osel');
+      sel.append(new Option('—', ''));
+      for (const o of st.options) {
+        if (o.cultures && !o.cultures.includes(state.culture)) continue;
+        const extra = o.attr ? ` (+1 ${o.attr.slice(0,3).toUpperCase()})`
+          : (o.unspentAttr ? ` (+${o.unspentAttr} attr, +${o.unspentFocus} focus)` : '');
+        sel.append(new Option(o.label + extra, o.id));
+      }
+      sel.value = state.origin[i] || '';
+      sel.onchange = () => { state.origin[i] = sel.value || null; commit(); };
+      sel.title = st.desc;
+      wrap.append(field(st.title, sel));
+    });
+
+    // summary chips: traits + renown from origin
+    const opts = chosenOptions();
+    const traits = opts.flatMap(o => (o.traits || []).map(t => t));
+    const renown = opts.reduce((n, o) => n + (o.renown || 0), 0);
+    if (traits.length || renown) {
+      wrap.append(el('span', 'ochips',
+        [traits.length ? 'Traits: ' + traits.join(', ') : '',
+         renown ? `Renown +${renown}` : ''].filter(Boolean).join(' · ')));
+    }
+  }
+  bar.append(wrap);
+}
+function field(label, ctl) {
+  const f = el('label', 'ofield');
+  f.append(el('span', null, esc(label)), ctl);
+  return f;
+}
+
 /* ---------------- render ---------------- */
 function render() {
   const ab = attrBudget(state.level), fb = focusBudget(state.level);
@@ -178,6 +328,7 @@ function render() {
   fp.title = `Focus points: ${fs} spent of ${fb}`;
   document.getElementById('level').value = state.level;
 
+  renderOrigin();
   renderRows(as >= ab, fs >= fb);
   renderDetail(fs >= fb);
 }
@@ -192,7 +343,7 @@ function renderRows(attrCapped, focusCapped) {
     tab.append(el('div', 'ab', esc(a.abbrev)), el('div', 'av', String(state.attr[a.id])));
     const ctl = el('div', 'ctl');
     const dec = el('button', null, '−'), inc = el('button', null, '+');
-    dec.disabled = state.attr[a.id] <= 0;
+    dec.disabled = state.attr[a.id] <= attrFloor(a.id);
     inc.disabled = state.attr[a.id] >= C.maxAttribute || attrCapped;
     dec.onclick = () => { state.attr[a.id]--; commit(); };
     inc.onclick = () => { state.attr[a.id]++; commit(); };
@@ -260,7 +411,9 @@ function renderDetail(focusCapped) {
   for (let i = 1; i <= C.maxFocusPerSkill; i++) {
     const dot = el('i', i <= state.focus[s.id] ? 'on' : '');
     dot.onclick = () => {
-      const cur = state.focus[s.id], next = cur === i ? i - 1 : i;
+      const cur = state.focus[s.id];
+      let next = cur === i ? i - 1 : i;
+      next = Math.max(next, focusFloor(s.id));
       if (next > cur && focusSpent() + (next - cur) > focusBudget(state.level)) return;
       state.focus[s.id] = next; commit();
     };
@@ -394,8 +547,7 @@ function perkTrack(s, val, lim) {
       else b.append(el('span', 'pname', esc(p.name.length > 13 ? p.name.slice(0, 12) + '…' : p.name)));
       b.title = p.name;
       if (!perkUnlocked(p)) b.classList.add('locked');
-      b.onmouseenter = () => updateInfo(p);
-      b.onmouseleave = () => updateInfo(null);
+      b.onmouseenter = () => updateInfo(p);   // sticky: no clear on leave
       b.onclick = () => {
         // Clicking a locked perk raises the skill to its requirement — no
         // typing the number first.
@@ -459,7 +611,7 @@ function updateInfo(p) {
 function pruneAll() {
   for (const s of SKILLS) for (const p of PERKS_BY_SKILL[s.id]) if (!perkUnlocked(p)) state.perks.delete(p.id);
 }
-function commit() { pruneAll(); render(); syncHash(); }
+function commit() { applyFloors(); pruneAll(); render(); syncHash(); }
 
 /* ---------------- wiring ---------------- */
 document.getElementById('level').oninput = e => {
@@ -482,4 +634,5 @@ function toast(m) {
 }
 
 if (location.hash.length > 1) decode(location.hash.slice(1));
+applyFloors();   // player mode starts from the base-2 seeding even with no origin picked
 render();

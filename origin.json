@@ -1,0 +1,1213 @@
+{
+ "grants": {
+  "focus": 1,
+  "skillLevel": 10,
+  "attribute": 1,
+  "baseAttribute": 2
+ },
+ "cultures": [
+  "aserai",
+  "battania",
+  "empire",
+  "khuzait",
+  "nord",
+  "sturgia",
+  "vlandia"
+ ],
+ "stages": [
+  {
+   "id": "narrative_parent_menu",
+   "prev": "start",
+   "next": "narrative_childhood_menu",
+   "title": "Family",
+   "desc": "You were born into a family of...",
+   "options": [
+    {
+     "id": "empire_lanlord_option",
+     "label": "A landlord's retainers",
+     "desc": "Your father was a trusted lieutenant of the local landowning aristocrat. He rode with the lord's cavalry, fighting as an armored lancer.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_merchant_option",
+     "label": "Urban merchants",
+     "desc": "Your family were merchants in one of the main cities of the Empire. They sometimes organized caravans to nearby towns, and discussed issues in the town council.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_farmer_option",
+     "label": "Freeholders",
+     "desc": "Your family were small farmers with just enough land to feed themselves and make a small profit. People like them were the pillars of the imperial rural economy, as well as the backbone of the levy.",
+     "skills": [
+      "Athletics",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_artisan_option",
+     "label": "Urban artisans",
+     "desc": "Your family owned their own workshop in a city, making goods from raw materials brought in from the countryside. Your father played an active if minor role in the town council, and also served in the militia.",
+     "skills": [
+      "Crafting",
+      "Crossbow"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_hunter_option",
+     "label": "Foresters",
+     "desc": "Your family lived in a village, but did not own their own land. Instead, your father supplemented paid jobs with long trips in the woods, hunting and trapping, always keeping a wary eye for the lord's game wardens.",
+     "skills": [
+      "Scouting",
+      "Bow"
+     ],
+     "attr": "control",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_vagabond_option",
+     "label": "Urban vagabonds",
+     "desc": "Your family numbered among the many poor migrants living in the slums that grow up outside the walls of imperial cities, making whatever money they could from a variety of odd jobs. Sometimes they did service for one of the Empire's many criminal gangs, and you had an early look at the dark side of life.",
+     "skills": [
+      "Roguery",
+      "Throwing"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "vlandia_retainer_option",
+     "label": "A baron's retainers",
+     "desc": "Your father was a bailiff for a local feudal magnate. He looked after his liege's estates, resolved disputes in the village, and helped train the village levy. He rode with the lord's cavalry, fighting as an armored knight.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_merchant_option",
+     "label": "Urban merchants",
+     "desc": "Your family were merchants in one of the main cities of the kingdom. They organized caravans to nearby towns and were active in the local merchant's guild.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_farmer_option",
+     "label": "Yeomen",
+     "desc": "Your family were small farmers with just enough land to feed themselves and make a small profit. People like them were the pillars of the kingdom's economy, as well as the backbone of the levy.",
+     "skills": [
+      "Polearm",
+      "Crossbow"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_blacksmith_option",
+     "label": "Urban blacksmith",
+     "desc": "Your family owned a smithy in a city. Your father played an active if minor role in the town council, and also served in the militia.",
+     "skills": [
+      "Crafting",
+      "TwoHanded"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_hunter_option",
+     "label": "Hunters",
+     "desc": "Your family lived in a village, but did not own their own land. Instead, your father supplemented paid jobs with long trips in the woods, hunting and trapping, always keeping a wary eye for the lord's game wardens.",
+     "skills": [
+      "Scouting",
+      "Crossbow"
+     ],
+     "attr": "control",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_mercenary_option",
+     "label": "Mercenaries",
+     "desc": "Your father joined one of Vlandia's many mercenary companies, composed of men who got such a taste for war in their lord's service that they never took well to peace. Their crossbowmen were much valued across Calradia. Your mother was a camp follower, taking you along in the wake of bloody campaigns.",
+     "skills": [
+      "Roguery",
+      "Crossbow"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "sturgia_companion_option",
+     "label": "A boyar's companions",
+     "desc": "Your father was a member of a boyar's druzhina, the 'companions' that make up his retinue. He sat at his lord's table in the great hall, oversaw the boyar's estates, and stood by his side in the center of the shield wall in battle.",
+     "skills": [
+      "Riding",
+      "TwoHanded"
+     ],
+     "attr": "social",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_trader_option",
+     "label": "Urban traders",
+     "desc": "Your family were merchants who lived in one of Sturgia's great river ports, organizing the shipment of the north's bounty of furs, honey and other goods to faraway lands.",
+     "skills": [
+      "Trade",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_farmer_option",
+     "label": "Free farmers",
+     "desc": "Your family had just enough land to feed themselves and make a small profit. People like them were the pillars of the kingdom's economy, as well as the backbone of the levy.",
+     "skills": [
+      "Athletics",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_artisan_option",
+     "label": "Urban artisans",
+     "desc": "Your family owned their own workshop in a city, making goods from raw materials brought in from the countryside. Your father played an active if minor role in the town council, and also served in the militia.",
+     "skills": [
+      "Crafting",
+      "OneHanded"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_hunter_option",
+     "label": "Hunters",
+     "desc": "Your family had no taste for the authority of the boyars. They made their living deep in the woods, slashing and burning fields which they tended for a year or two before moving on. They hunted and trapped fox, hare, ermine, and other fur-bearing animals.",
+     "skills": [
+      "Scouting",
+      "Bow"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_vagabond_option",
+     "label": "Vagabonds",
+     "desc": "Your family numbered among the poor migrants living in the slums that grow up outside the walls of the river cities, making whatever money they could from a variety of odd jobs. Sometimes they did services for one of the region's many criminal gangs.",
+     "skills": [
+      "Roguery",
+      "Throwing"
+     ],
+     "attr": "control",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "aserai_kinsfolk_option",
+     "label": "Kinsfolk of an emir",
+     "desc": "Your family was from a smaller offshoot of an emir's tribe. Your father's land gave him enough income to afford a horse but he was not quite wealthy enough to buy the armor needed to join the heavier cavalry. He fought as one of the light horsemen for which the desert is famous.",
+     "skills": [
+      "Riding",
+      "Throwing"
+     ],
+     "attr": "social",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_slave_option",
+     "label": "Warrior-slaves",
+     "desc": "Your father was part of one of the slave-bodyguards maintained by the Aserai emirs. He fought by his master's side with tribe's armored cavalry, and was freed - perhaps for an act of valor, or perhaps he paid for his freedom with his share of the spoils of battle. He then married your mother.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_physician_option",
+     "label": "Physician",
+     "desc": "Your family were respected physicians in an oasis town. They set bones and cured the sick, and their skills were in much demand. They were respected in the higher echelons of society too.",
+     "skills": [
+      "Medicine",
+      "Charm"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_farmer_option",
+     "label": "Oasis farmers",
+     "desc": "Your family tilled the soil in one of the oases of the Nahasa and tended the palm orchards that produced the desert's famous dates. Your father was a member of the main foot levy of his tribe, fighting with his kinsmen under the emir's banner.",
+     "skills": [
+      "Athletics",
+      "OneHanded"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_herder_option",
+     "label": "Bedouin",
+     "desc": "Your family were part of a nomadic clan, crisscrossing the wastes between wadi beds and wells to feed their herds of goats and camels on the scraggly scrubs of the Nahasa.",
+     "skills": [
+      "Scouting",
+      "Bow"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_artisan_option",
+     "label": "Urban back-alley thugs",
+     "desc": "Your father worked for a fitiwi, one of the strongmen who keep order in the poorer quarters of the oasis towns. He resolved disputes over land, dice and insults, imposing his authority with the fitiwi's traditional staff.",
+     "skills": [
+      "Roguery",
+      "Polearm"
+     ],
+     "attr": "control",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "battania_retainer_option",
+     "label": "Members of the chieftain's hearthguard",
+     "desc": "Your family were the trusted kinfolk of a Battanian chieftain, and sat at his table in his great hall. Your father assisted his chief in running the affairs of the clan and trained with the traditional weapons of the Battanian elite, the two-handed sword or falx and the bow.",
+     "skills": [
+      "TwoHanded",
+      "Bow"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_healer_option",
+     "label": "Healers",
+     "desc": "Your parents were healers who gathered herbs and treated the sick. As a living reservoir of Battanian tradition, they were also asked to adjudicate many disputes between the clans.",
+     "skills": [
+      "Medicine",
+      "Charm"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_farmer_option",
+     "label": "Tribespeople",
+     "desc": "Your family were middle-ranking members of a Battanian clan, who tilled their own land. Your father fought with the kern, the main body of his people's warriors, joining in the screaming charges for which the Battanians were famous.",
+     "skills": [
+      "Athletics",
+      "Throwing"
+     ],
+     "attr": "control",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_artisan_option",
+     "label": "Smiths",
+     "desc": "Your family were smiths, a revered profession among the Battanians. They crafted everything from fine filigree jewelry in geometric designs to the well-balanced longswords favored by the Battanian aristocracy.",
+     "skills": [
+      "Crafting",
+      "TwoHanded"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_hunter_option",
+     "label": "Foresters",
+     "desc": "Your family had little land of their own, so they earned their living from the woods, hunting and trapping. They taught you from an early age that skills like finding game trails and killing an animal with one shot could make the difference between eating and starvation.",
+     "skills": [
+      "Scouting",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_bard_option",
+     "label": "Bards",
+     "desc": "Your father was a bard, drifting from chieftain's hall to chieftain's hall making his living singing the praises of one Battanian aristocrat and mocking his enemies, then going to his enemy's hall and doing the reverse. You learned from him that a clever tongue could spare you  from a life toiling in the fields, if you kept your wits about you.",
+     "skills": [
+      "Roguery",
+      "Charm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "khuzait_retainer_option",
+     "label": "A noyan's kinsfolk",
+     "desc": "Your family were the trusted kinsfolk of a Khuzait noyan, and shared his meals in the chieftain's yurt. Your father assisted his chief in running the affairs of the clan and fought in the core of armored lancers in the center of the Khuzait battle line.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_merhant_option",
+     "label": "Merchants",
+     "desc": "Your family came from one of the merchant clans that dominated the cities in eastern Calradia before the Khuzait conquest. They adjusted quickly to their new masters, keeping the caravan routes running and ensuring that the tariff revenues that once went into imperial coffers now flowed to the khanate.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_mercenary_option",
+     "label": "Tribespeople",
+     "desc": "Your family were middle-ranking members of one of the Khuzait clans. He had some herds of his own, but was not rich. When the Khuzait horde was summoned to battle, he fought with the horse archers, shooting and wheeling and wearing down the enemy before the lancers delivered the final punch.",
+     "skills": [
+      "Bow",
+      "Riding"
+     ],
+     "attr": "control",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_farmer_option",
+     "label": "Farmers",
+     "desc": "Your family tilled one of the small patches of arable land in the steppes for generations. When the Khuzaits came, they ceased paying taxes to the emperor and providing conscripts for his army, and served the khan instead.",
+     "skills": [
+      "Polearm",
+      "Throwing"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_healer_option",
+     "label": "Shamans",
+     "desc": "Your family were guardians of the sacred traditions of the Khuzaits, channelling the spirits of the wilderness and of the ancestors. They tended the sick and dispensed wisdom, resolving disputes and providing practical advice.",
+     "skills": [
+      "Medicine",
+      "Charm"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_herder_option",
+     "label": "Nomads",
+     "desc": "Your family's clan never pledged its loyalty to the khan and never settled down, preferring to live out in the deep steppe away from his authority. They remain some of the finest trackers and scouts in the grasslands, as the ability to spot an enemy coming and move quickly is often all that protects their herds from their neighbors' predations.",
+     "skills": [
+      "Scouting",
+      "Riding"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "khuzait"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "narrative_childhood_menu",
+   "prev": "narrative_parent_menu",
+   "next": "narrative_education_menu",
+   "title": "Early Childhood",
+   "desc": "As a child you were noted for...",
+   "options": [
+    {
+     "id": "childhood_leadership_option",
+     "label": "your leadership skills.",
+     "desc": "If the wolf pup gang of your early childhood had an alpha, it was definitely you. All the other kids followed your lead as you decided what to play and where to play, and led them in games and mischief.",
+     "skills": [
+      "Leadership",
+      "Tactics"
+     ],
+     "attr": "cunning"
+    },
+    {
+     "id": "childhood_brawn_option",
+     "label": "your brawn.",
+     "desc": "You were big, and other children looked to have you around in any scrap with children from a neighboring village. You pushed a plough and threw an axe like an adult.",
+     "skills": [
+      "TwoHanded",
+      "Throwing"
+     ],
+     "attr": "vigor"
+    },
+    {
+     "id": "childhood_detail_option",
+     "label": "your attention to detail.",
+     "desc": "You were quick on your feet and attentive to what was going on around you. Usually you could run away from trouble, though you could give a good account of yourself in a fight with other children if cornered.",
+     "skills": [
+      "Athletics",
+      "Bow"
+     ],
+     "attr": "control"
+    },
+    {
+     "id": "childhood_smart_option",
+     "label": "your aptitude for numbers.",
+     "desc": "Most children around you had only the most rudimentary education, but you lingered after class to study letters and mathematics. You were fascinated by the marketplace - weights and measures, tallies and accounts, the chatter about profits and losses.",
+     "skills": [
+      "Engineering",
+      "Trade"
+     ],
+     "attr": "intelligence"
+    },
+    {
+     "id": "childhood_leader_option",
+     "label": "your way with people.",
+     "desc": "You were always attentive to other people, good at guessing their motivations. You studied how individuals were swayed, and tried out what you learned from adults on your friends.",
+     "skills": [
+      "Charm",
+      "Leadership"
+     ],
+     "attr": "social"
+    },
+    {
+     "id": "childhood_horse_option",
+     "label": "your skill with horses.",
+     "desc": "You were always drawn to animals, and spent as much time as possible hanging out in the village stables. You could calm horses, and were sometimes called upon to break in new colts. You learned the basics of veterinary arts, much of which is applicable to humans as well.",
+     "skills": [
+      "Riding",
+      "Medicine"
+     ],
+     "attr": "endurance"
+    }
+   ]
+  },
+  {
+   "id": "narrative_education_menu",
+   "prev": "narrative_childhood_menu",
+   "next": "narrative_youth_menu",
+   "title": "Adolescence",
+   "desc": "Like all village children you helped out in the fields. You also...",
+   "options": [
+    {
+     "id": "education_herder_option",
+     "label": "herded the sheep.",
+     "desc": "You went with other fleet-footed youths to take the villages' sheep, goats or cattle to graze in pastures near the village. You were in charge of chasing down stray beasts, and always kept a big stone on hand to be hurled at lurking predators if necessary.",
+     "skills": [
+      "Athletics",
+      "Throwing"
+     ],
+     "attr": "control"
+    },
+    {
+     "id": "education_smith_option",
+     "label": "worked in the village smithy.",
+     "desc": "You were apprenticed to the local smith. You learned how to heat and forge metal, hammering for hours at a time until your muscles ached.",
+     "skills": [
+      "TwoHanded",
+      "Crafting"
+     ],
+     "attr": "vigor"
+    },
+    {
+     "id": "education_engineer_option",
+     "label": "repaired projects.",
+     "desc": "You helped dig wells, rethatch houses, and fix broken plows. You learned about the basics of construction, as well as what it takes to keep a farming community prosperous.",
+     "skills": [
+      "Crafting",
+      "Engineering"
+     ],
+     "attr": "intelligence"
+    },
+    {
+     "id": "education_doctor_option",
+     "label": "gathered herbs in the wild.",
+     "desc": "You were sent by the village healer up into the hills to look for useful medicinal plants. You learned which herbs healed wounds or brought down a fever, and how to find them.",
+     "skills": [
+      "Medicine",
+      "Scouting"
+     ],
+     "attr": "endurance"
+    },
+    {
+     "id": "education_hunter_option",
+     "label": "hunted small game.",
+     "desc": "You accompanied a local hunter as he went into the wilderness, helping him set up traps and catch small animals.",
+     "skills": [
+      "Bow",
+      "Tactics"
+     ],
+     "attr": "cunning"
+    },
+    {
+     "id": "education_merchant_option",
+     "label": "sold product at the market.",
+     "desc": "You took your family's goods to the nearest town to sell your produce and buy supplies. It was hard work, but you enjoyed the hubbub of the marketplace.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "social"
+    },
+    {
+     "id": "education_watcher_option",
+     "label": "watched the militia training.",
+     "desc": "You watched the town's watch practice shooting and perfect their plans to defend the walls in case of a siege.",
+     "skills": [
+      "Polearm",
+      "Tactics"
+     ],
+     "attr": "control"
+    },
+    {
+     "id": "education_ganger_option",
+     "label": "hung out with the gangs in the alleys.",
+     "desc": "The gang leaders who kept watch over the slums of Calradian cities were always in need of poor youth to run messages and back them up in turf wars, while thrill-seeking merchants' sons and daughters sometimes slummed it in their company as well.",
+     "skills": [
+      "Roguery",
+      "OneHanded"
+     ],
+     "attr": "cunning"
+    },
+    {
+     "id": "education_docker_option",
+     "label": "helped at building sites.",
+     "desc": "All towns had their share of projects that were constantly in need of both skilled and unskilled labor. You learned how hoists and scaffolds were constructed, how planks and stones were hewn and fitted, and other skills.",
+     "skills": [
+      "Athletics",
+      "Crafting"
+     ],
+     "attr": "vigor"
+    },
+    {
+     "id": "education_marketer_option",
+     "label": "worked in the markets and caravanserais.",
+     "desc": "You helped your family handle their business affairs, going down to the marketplace to make purchases and oversee the arrival of caravans.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "social"
+    },
+    {
+     "id": "education_tutor_option",
+     "label": "studied with your private tutor.",
+     "desc": "Your family arranged for a private tutor and you took full advantage, reading voraciously on history, mathematics, and philosophy and discussing what you read with your tutor and classmates.",
+     "skills": [
+      "Engineering",
+      "Leadership"
+     ],
+     "attr": "intelligence"
+    },
+    {
+     "id": "education_horser_option",
+     "label": "cared for the horses.",
+     "desc": "Your family owned a few horses at the town stables and you took charge of their care. Many evenings you would take them out beyond the walls and gallup through the fields, racing other youth.",
+     "skills": [
+      "Riding",
+      "Steward"
+     ],
+     "attr": "endurance"
+    }
+   ]
+  },
+  {
+   "id": "narrative_youth_menu",
+   "prev": "narrative_education_menu",
+   "next": "narrative_adulthood_menu",
+   "title": "Youth",
+   "desc": "",
+   "options": [
+    {
+     "id": "youth_staff_first_option",
+     "label": "joined a commander's staff.",
+     "desc": "You were chosen by your superior officer to serve an imperial strategos as a courier. You were not given major responsibilities - mostly carrying messages and tending to his horse - but it did give you a chance to see how campaigns were planned and men were deployed in battle.",
+     "skills": [
+      "Steward",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "youth_staff_second_option",
+     "label": "joined a commander's staff.",
+     "desc": "You were picked as the courier of the commander of the local forces. You were not given major responsibilities - mostly carrying messages and tending to his horse - but it did give you a chance to see how campaigns were planned and men were deployed in battle.",
+     "skills": [
+      "Steward",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "youth_groom_option",
+     "label": "served as a baron's groom.",
+     "desc": "You were chosen by a knight to accompany a minor baron of the Vlandian kingdom. You were not given major responsibilities - mostly carrying messages and tending to his horse - but it did give you a chance to see how campaigns were planned and men were deployed in battle.",
+     "skills": [
+      "Charm",
+      "Tactics"
+     ],
+     "attr": "social",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "youth_servant_first_option",
+     "label": "were a chieftain's servant.",
+     "desc": "Your were choosen among others to accompany a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse - but it did give you a chance to see how campaigns were planned and men were deployed in battle.",
+     "skills": [
+      "Steward",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "youth_servant_second_option",
+     "label": "were a chieftain's servant.",
+     "desc": "Local wise man picked you to become the messenger of a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse - but it did give you a chance to see how campaigns were planned and men were deployed in battle.",
+     "skills": [
+      "Steward",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "youth_cavalry_option",
+     "label": "trained with the cavalry.",
+     "desc": "You could never have bought the equipment on your own, but you were a good enough rider so that the local lord lent you a horse and equipment. You joined the armored cavalry, training with the lance.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "youth_hearth_option",
+     "label": "trained with the hearth guard.",
+     "desc": "You were a big and imposing enough youth that the chief's guard allowed you to train alongside them, in preparation to join them some day.",
+     "skills": [
+      "Riding",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "sturgia",
+      "battania"
+     ]
+    },
+    {
+     "id": "youth_guard_high_register_option",
+     "label": "stood guard with the garrisons.",
+     "desc": "Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.",
+     "skills": [
+      "Crossbow",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "youth_guard_low_register_option",
+     "label": "stood guard with the garrisons.",
+     "desc": "Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons.",
+     "skills": [
+      "Bow",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_guard_garrisons_register_option",
+     "label": "stood guard with the garrisons.",
+     "desc": "The garrisons spent most of their time guarding the town walls, and their training focused largely on missile weapons.",
+     "skills": [
+      "Bow",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "battania",
+      "khuzait",
+      "aserai"
+     ]
+    },
+    {
+     "id": "youth_guard_empire_register_option",
+     "label": "stood guard with the garrisons.",
+     "desc": "Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons.",
+     "skills": [
+      "Crossbow",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "youth_rider_high_register_option",
+     "label": "rode with the scouts.",
+     "desc": "All of Calradia's kingdoms recognize the value of good light cavalry and horse archers, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a good bow so that you could fulfill their levy obligations.",
+     "skills": [
+      "Riding",
+      "Bow"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "empire",
+      "khuzait"
+     ]
+    },
+    {
+     "id": "youth_rider_low_register_option",
+     "label": "rode with the scouts.",
+     "desc": "All of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.",
+     "skills": [
+      "Riding",
+      "Bow"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "aserai",
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_infantry_option",
+     "label": "trained with the infantry.",
+     "desc": "Levy armed with spear and shield, drawn from smallholding farmers, have always been the backbone of most armies of Calradia.",
+     "skills": [
+      "Polearm",
+      "OneHanded"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "empire",
+      "vlandia",
+      "khuzait",
+      "aserai",
+      "battania",
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_skirmisher_option",
+     "label": "joined the skirmishers.",
+     "desc": "Younger recruits, or those of a slighter build, or those too poor to buy shield and armor tend to join the skirmishers. Fighting with bow and javelin, they try to stay out of reach of the main enemy forces.",
+     "skills": [
+      "Throwing",
+      "OneHanded"
+     ],
+     "attr": "control",
+     "cultures": [
+      "empire",
+      "vlandia",
+      "khuzait",
+      "aserai",
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_kern_option",
+     "label": "joined the kern.",
+     "desc": "Many Battanians fight as kern, versatile troops who could both harass the enemy line with their javelins or join in the final screaming charge once it weakened.",
+     "skills": [
+      "Throwing",
+      "OneHanded"
+     ],
+     "attr": "control",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "youth_camp_option",
+     "label": "marched with the camp followers.",
+     "desc": "You avoided service with one of the main forces of your realm's armies, but followed instead in the train - the troops' wives, lovers and servants, and those who make their living by caring for, entertaining, or cheating the soldiery.",
+     "skills": [
+      "Roguery",
+      "Throwing"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "vlandia",
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_envoys_guard_first_option",
+     "label": "served in an envoy's entourage",
+     "desc": "Your family arranged for you to accompany an envoy. You were not given major responsibilities - mostly carrying arms and trying to look imposing. - but it did give you a chance to travel a lot and socialise and see the world.",
+     "skills": [
+      "Charm",
+      "Scouting"
+     ],
+     "attr": "social",
+     "cultures": [
+      "empire",
+      "khuzait"
+     ]
+    },
+    {
+     "id": "youth_envoys_guard_second_option",
+     "label": "served in an envoy's entourage",
+     "desc": "Your family arranged for you to accompany an envoy. You were not given major responsibilities but it did give you a chance to travel and socialise and see a bit of the world.",
+     "skills": [
+      "Charm",
+      "Scouting"
+     ],
+     "attr": "social",
+     "cultures": [
+      "battania",
+      "aserai"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "narrative_adulthood_menu",
+   "prev": "narrative_youth_menu",
+   "next": "narrative_age_selection_menu",
+   "title": "Young Adulthood",
+   "desc": "Before you set out for a life of adventure, your biggest achievement was...",
+   "options": [
+    {
+     "id": "adulthood_defeated_enemy_option",
+     "label": "you defeated an enemy in battle.",
+     "desc": "Not everyone who musters for the levy marches to war, and not everyone who goes on campaign sees action. You did both, and you also took down an enemy warrior in direct one-to-one combat, in the full view of your comrades.",
+     "skills": [
+      "OneHanded",
+      "TwoHanded"
+     ],
+     "attr": "vigor",
+     "traits": [
+      "Valor"
+     ],
+     "traitLevel": 1,
+     "renown": 20
+    },
+    {
+     "id": "adulthood_manhunt_option",
+     "label": "you led a successful manhunt.",
+     "desc": "When your community needed to organize a posse to pursue horse thieves, you were the obvious choice. You hunted down the raiders, surrounded them and forced their surrender, and took back your stolen property.",
+     "skills": [
+      "Tactics",
+      "Leadership"
+     ],
+     "attr": "cunning",
+     "traits": [
+      "Calculating"
+     ],
+     "traitLevel": 1,
+     "renown": 10,
+     "cultures": [
+      "vlandia",
+      "empire",
+      "aserai",
+      "battania",
+      "khuzait"
+     ]
+    },
+    {
+     "id": "adulthood_caravan_leader_option",
+     "label": "you led a caravan.",
+     "desc": "Your family needed someone trustworthy to take a caravan to a neighboring town. You organized supplies, ensured a constant watch to keep away bandits, and brought it safely to its destination.",
+     "skills": [
+      "Trade",
+      "Leadership"
+     ],
+     "attr": "cunning",
+     "traits": [
+      "Calculating"
+     ],
+     "traitLevel": 1,
+     "renown": 10,
+     "cultures": [
+      "vlandia",
+      "sturgia",
+      "empire",
+      "aserai",
+      "khuzait",
+      "nord"
+     ]
+    },
+    {
+     "id": "adulthood_saved_village_option",
+     "label": "you saved your village from a flood.",
+     "desc": "When a sudden storm caused the local stream to rise suddenly, your neighbors needed quick-thinking leadership. You provided it, directing them to build levees to save their homes.",
+     "skills": [
+      "Tactics",
+      "Leadership"
+     ],
+     "attr": "cunning",
+     "traits": [
+      "Valor"
+     ],
+     "traitLevel": 1,
+     "renown": 10,
+     "cultures": [
+      "sturgia",
+      "nord"
+     ]
+    },
+    {
+     "id": "adulthood_saved_city_option",
+     "label": "you saved your city quarter from a fire.",
+     "desc": "When a sudden blaze broke out in a back alley, your neighbors needed quick-thinking leadership and you provided it. You organized a bucket line to the nearest well, putting the fire out before any homes were lost.",
+     "skills": [
+      "Tactics",
+      "Leadership"
+     ],
+     "attr": "cunning",
+     "traits": [
+      "Calculating"
+     ],
+     "traitLevel": 1,
+     "renown": 10,
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "adulthood_workshop_option",
+     "label": "you invested some money in a workshop.",
+     "desc": "Your parents didn't give you much money, but they did leave just enough for you to secure a loan against a larger amount to build a small workshop. You paid back what you borrowed, and sold your enterprise for a profit.",
+     "skills": [
+      "Trade",
+      "Crafting"
+     ],
+     "attr": "intelligence",
+     "traits": [
+      "Calculating"
+     ],
+     "traitLevel": 1,
+     "renown": 10
+    },
+    {
+     "id": "adulthood_investor_option",
+     "label": "you invested some money in land.",
+     "desc": "Your parents didn't give you much money, but they did leave just enough for you to purchase a plot of unused land at the edge of the village. You cleared away rocks and dug an irrigation ditch, raised a few seasons of crops, than sold it for a considerable profit.",
+     "skills": [
+      "Trade",
+      "Crafting"
+     ],
+     "attr": "intelligence",
+     "traits": [
+      "Calculating"
+     ],
+     "traitLevel": 1,
+     "renown": 10
+    },
+    {
+     "id": "adulthood_hunter_option",
+     "label": "you hunted a dangerous animal.",
+     "desc": "Wolves, bears are a constant menace to the flocks of northern Calradia, while hyenas and leopards trouble the south. You went with a group of your fellow villagers and fired the missile that brought down the beast.",
+     "skills": [
+      "Polearm",
+      "Athletics"
+     ],
+     "attr": "control",
+     "traits": [
+      "Valor"
+     ],
+     "traitLevel": 1,
+     "renown": 5
+    },
+    {
+     "id": "adulthood_siege_survivor_option",
+     "label": "you survived a siege.",
+     "desc": "Your hometown was briefly placed under siege, and you were called to defend the walls. Everyone did their part to repulse the enemy assault, and everyone is justly proud of what they endured.",
+     "skills": [
+      "Bow",
+      "Crossbow"
+     ],
+     "attr": "control",
+     "renown": 5
+    },
+    {
+     "id": "adulthood_escapade_high_register_option",
+     "label": "you had a famous escapade in town.",
+     "desc": "Maybe it was a love affair, or maybe you cheated at dice, or maybe you just chose your words poorly when drinking with a dangerous crowd. Anyway, on one of your trips into town you got into the kind of trouble from which only a quick tongue or quick feet get you out alive.",
+     "skills": [
+      "Athletics",
+      "Roguery"
+     ],
+     "attr": "endurance",
+     "traits": [
+      "Valor"
+     ],
+     "traitLevel": 1,
+     "renown": 5
+    },
+    {
+     "id": "adulthood_escapade_low_register_option",
+     "label": "you had a famous escapade.",
+     "desc": "Maybe it was a love affair, or maybe you cheated at dice, or maybe you just chose your words poorly when drinking with a dangerous crowd. Anyway, you got into the kind of trouble from which only a quick tongue or quick feet get you out alive.",
+     "skills": [
+      "Athletics",
+      "Roguery"
+     ],
+     "attr": "endurance",
+     "traits": [
+      "Valor"
+     ],
+     "traitLevel": 1,
+     "renown": 5
+    },
+    {
+     "id": "adulthood_nice_person_option",
+     "label": "you treated people well.",
+     "desc": "Yours wasn't the kind of reputation that local legends are made of, but it was the kind that wins you respect among those around you. You were consistently fair and honest in your business dealings and helpful to those in trouble. In doing so, you got a sense of what made people tick.",
+     "skills": [
+      "Charm",
+      "Steward"
+     ],
+     "attr": "social",
+     "traits": [
+      "Mercy",
+      "Generosity",
+      "Honor"
+     ],
+     "traitLevel": 1,
+     "renown": 5
+    }
+   ]
+  },
+  {
+   "id": "narrative_age_selection_menu",
+   "prev": "narrative_adulthood_menu",
+   "next": "",
+   "title": "Starting Age",
+   "desc": "Your character started off on the adventuring path at the age of...",
+   "options": [
+    {
+     "id": "age_selection_young_adult_option",
+     "label": "20",
+     "desc": "While lacking experience a bit, you are full with youthful energy, you are fully eager, for the long years of adventuring ahead.",
+     "unspentFocus": 2,
+     "unspentAttr": 1
+    },
+    {
+     "id": "age_selection_adult_option",
+     "label": "30",
+     "desc": "You are at your prime, You still have some youthful energy but also have a substantial amount of experience under your belt.",
+     "unspentFocus": 4,
+     "unspentAttr": 2
+    },
+    {
+     "id": "age_selection_middle_age_option",
+     "label": "40",
+     "desc": "This is the right age for starting off, you have years of experience, and you are old enough for people to respect you and gather under your banner.",
+     "unspentFocus": 6,
+     "unspentAttr": 3
+    },
+    {
+     "id": "age_selection_elder_option",
+     "label": "50",
+     "desc": "While you are past your prime, there is still enough time to go on that last big adventure for you. And you have all the experience you need to overcome anything!",
+     "unspentFocus": 8,
+     "unspentAttr": 4
+    }
+   ]
+  }
+ ]
+}

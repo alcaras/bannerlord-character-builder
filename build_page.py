@@ -15,6 +15,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data.json"
+ORIGIN = HERE / "origin.json"
 APP_CSS = HERE / "app.css"
 APP_JS = HERE / "app.js"
 ICONS_PNG = HERE / "icons.png"
@@ -45,6 +46,8 @@ __CSS__
   </div>
 </header>
 
+<div id="originbar"></div>
+
 <div class="screen">
   <aside class="skillspanel">
     <div class="panel-head">
@@ -67,6 +70,7 @@ __CSS__
 const DATA = __DATA__;
 const ICONS = __ICONS__;
 const VER = __VER__;
+const ORIGIN = __ORIGIN__;
 __JS__
 </script>
 </body>
@@ -85,10 +89,15 @@ def data_version(data) -> tuple[str, dict]:
     minted it, remapping by stable StringId and dropping ids that no longer
     exist.
     """
+    origin = json.loads(ORIGIN.read_text()) if ORIGIN.exists() else None
     ordering = {
         "p": [x["id"] for x in data["perks"]],
         "s": [x["id"] for x in data["skills"]],
         "a": [x["id"] for x in data["attributes"]],
+        # origin orderings: culture list + per-stage option ids, so v3 links
+        # survive reorders exactly like perks do
+        "c": origin["cultures"] if origin else [],
+        "g": [[o["id"] for o in st["options"]] for st in origin["stages"]] if origin else [],
     }
     dv = hashlib.sha1(json.dumps(ordering, separators=(",", ":"))
                       .encode()).hexdigest()[:4]
@@ -121,7 +130,9 @@ def main() -> None:
         print(f"  icons: {ICONS_PNG.stat().st_size/1024:.0f} KB -> "
               f"{len(b64)/1024:.0f} KB base64")
 
+    origin_js = ORIGIN.read_text() if ORIGIN.exists() else "null"
     html = (HTML
+            .replace("__ORIGIN__", origin_js)
             .replace("__VER__", json.dumps(
                 {"cur": dv, "v1": reg["v1"], "entries": reg["entries"]},
                 separators=(",", ":")))
