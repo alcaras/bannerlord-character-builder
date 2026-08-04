@@ -372,9 +372,14 @@ function renderRows(attrCapped, focusCapped) {
     const ctl = el('div', 'ctl');
     const dec = el('button', null, '−'), inc = el('button', null, '+');
     dec.disabled = state.attr[a.id] <= attrFloor(a.id);
-    inc.disabled = state.attr[a.id] >= C.maxAttribute || attrCapped;
+    inc.disabled = state.attr[a.id] >= C.maxAttribute;
     dec.onclick = () => { state.attr[a.id]--; commit(); };
-    inc.onclick = () => { state.attr[a.id]++; commit(); };
+    inc.onclick = () => {
+      if (attrCapped) { denyPoints('attrPts', attrBudget(state.level) === 0
+        ? 'No attribute points yet — raise Level; one is granted every 4 levels'
+        : 'Out of attribute points — raise Level or free some elsewhere'); return; }
+      state.attr[a.id]++; commit();
+    };
     ctl.append(dec, inc); tab.append(ctl);
     tab.title = `${a.name} — ${a.description}`;
     row.append(tab);
@@ -441,8 +446,15 @@ function renderDetail(focusCapped) {
     dot.onclick = () => {
       const cur = state.focus[s.id];
       let next = cur === i ? i - 1 : i;
+      if (next < cur && next < focusFloor(s.id)) { denyPoints('focusPts',
+        'Those focus points come from your origin choices — they cannot be removed'); return; }
       next = Math.max(next, focusFloor(s.id));
-      if (next > cur && focusSpent() + (next - cur) > focusBudget(state.level)) return;
+      if (next > cur && focusSpent() + (next - cur) > focusBudget(state.level)) {
+        denyPoints('focusPts', focusBudget(state.level) === 0
+          ? 'No focus points yet — raise Level (top right); each level grants one'
+          : 'Out of focus points — raise Level or free some elsewhere');
+        return;
+      }
       state.focus[s.id] = next; commit();
     };
     fx.append(dot);
@@ -665,6 +677,15 @@ document.getElementById('share').onclick = async () => {
     }, 1600);
   } catch { toast('Copy failed — the URL bar holds your build'); }
 };
+/* Rejected spend: pulse the relevant counter and explain why, right away —
+   a silent no-op reads as "the button is broken". */
+function denyPoints(counterId, msg) {
+  const n = document.getElementById(counterId);
+  n.classList.remove('deny'); void n.offsetWidth;   // restart animation
+  n.classList.add('deny');
+  toast(msg);
+}
+
 function toast(m) {
   const t = document.getElementById('toast');
   t.textContent = m; t.classList.add('show');

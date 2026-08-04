@@ -250,3 +250,8 @@ body{
 .ochips{font-size:.7rem;color:var(--gold2);padding-bottom:.35rem}
 
 .btn.copied{background:#2c3d16;border-color:var(--green2);color:#b9e08a}
+
+@keyframes denypulse{0%,100%{transform:none}20%,60%{transform:translateX(-3px)}40%,80%{transform:translateX(3px)}}
+.pts.deny{animation:denypulse .45s ease}
+.pts.deny .ic{border-color:var(--red);color:#e8705c}
+.pts.deny .num{color:#e8705c}
