@@ -111,106 +111,144 @@ const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
 
 /* ---------------- share link ----------------
 
-Format 3 (current): 3.<dataVer>.<origin>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
-                    origin = 'n' (npc) or ('c' campaign | 'p' sandbox) +
-                    cultureIdx + one b36 optionIdx per stage ('-' = unchosen /
-                    stage not in that mode), indices into VER orderings
-Format 2 (legacy):  2.<dataVer>.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
-Format 1 (legacy):  1.<level b36>.<attrs>.<focus>.<skills>.<perkBits>
+Format 4 (current): 4.<dataVer>.<payload>
+The payload is a byte array, base64url encoded, with ALL TRAILING ZERO BYTES
+TRIMMED (the decoder zero-fills), so empty sections cost nothing:
 
-Indices and the perk bitmap are meaningful only against the orderings of the
-data version that minted the link, so v2 carries a 4-hex data-version key and
-the page embeds VER.entries — every ordering any past build used (owtt-style
-versionMaps). Decoding remaps by StringId into the current arrays and drops
-ids that no longer exist. v1 links predate the key and decode against the
-ordering registered as VER.v1. */
+    [0]  mode: 0 npc, 1 campaign, 2 sandbox
+    [1]  level
+    [2]  cultureIdx+1 (0 = none)
+    [3..3+S)      per-stage option idx+1 (0 = none), S = stages in the
+                  minting version's registry entry
+    then 3 bytes  6 attribute nibbles (hi,lo per byte)
+    then 9 bytes  18 focus nibbles
+    then 36 bytes 18 skills as u16 LE (values reach 330)
+    then 47 bytes perk bitmap over the minting version's perk ordering
+
+Formats 1-3 (legacy, dotted b36 fields) still decode; see git history for
+their layouts. All indices resolve through VER.entries[dataVer] and remap by
+StringId, so links survive data reorders across game patches. */
 const B36 = n => n.toString(36);
+const b64url = u8 => btoa(String.fromCharCode(...u8))
+  .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64url = str => {
+  const bin = atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+  const u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  return u8;
+};
+
 function encode() {
-  const a = ATTRS.map(x => B36(state.attr[x.id])).join('');
-  const f = SKILLS.map(s => B36(state.focus[s.id])).join('');
-  const sk = SKILLS.map(s => B36(state.skill[s.id]).padStart(2, '0')).join('');
-  const bits = new Uint8Array(Math.ceil(PERKS.length / 8));
+  const S = ORIGIN ? ORIGIN.stages.length : 0;
+  const buf = new Uint8Array(3 + S + 3 + 9 + 36 + Math.ceil(PERKS.length / 8));
+  buf[0] = state.mode === 'campaign' ? 1 : state.mode === 'sandbox' ? 2 : 0;
+  buf[1] = state.level;
+  buf[2] = ORIGIN ? ORIGIN.cultures.indexOf(state.culture) + 1 : 0;
+  for (let i = 0; i < S; i++) {
+    const oi = ORIGIN.stages[i].options.findIndex(o => o.id === state.origin[i]);
+    buf[3 + i] = oi + 1;
+  }
+  let o = 3 + S;
+  ATTRS.forEach((a, i) => {
+    if (i % 2 === 0) buf[o + (i >> 1)] = state.attr[a.id] << 4;
+    else buf[o + (i >> 1)] |= state.attr[a.id];
+  });
+  o += 3;
+  SKILLS.forEach((sk, i) => {
+    if (i % 2 === 0) buf[o + (i >> 1)] = state.focus[sk.id] << 4;
+    else buf[o + (i >> 1)] |= state.focus[sk.id];
+  });
+  o += 9;
+  SKILLS.forEach((sk, i) => {
+    const v = state.skill[sk.id];
+    buf[o + i * 2] = v & 0xff; buf[o + i * 2 + 1] = v >> 8;
+  });
+  o += 36;
   for (const id of state.perks) {
     const i = PERK_INDEX.get(id);
-    if (i !== undefined) bits[i >> 3] |= 1 << (i & 7);
+    if (i !== undefined) buf[o + (i >> 3)] |= 1 << (i & 7);
   }
-  let bin = ''; bits.forEach(b => bin += String.fromCharCode(b));
-  const p = btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  let orig = 'n';
-  if (isPlayer() && ORIGIN) {
-    const ci = Math.max(0, ORIGIN.cultures.indexOf(state.culture));
-    orig = (state.mode === 'campaign' ? 'c' : 'p') + B36(ci) +
-      ORIGIN.stages.map((st, i) => {
-        if (!stageActive(st)) return '-';
-        const oi = st.options.findIndex(o => o.id === state.origin[i]);
-        return oi < 0 ? '-' : B36(oi);
-      }).join('');
-  }
-  return `3.${VER.cur}.${orig}.${B36(state.level)}.${a}.${f}.${sk}.${p}`;
+  let end = buf.length;
+  while (end > 0 && buf[end - 1] === 0) end--;
+  return `4.${VER.cur}.${b64url(buf.slice(0, end))}`;
+}
+
+function applyOrdered(ord, lv, attrs, focus, skills, perkBit) {
+  state.level = clamp(lv || 1, 1, C.maxCharacterLevel);
+  ATTRS.forEach(x => state.attr[x.id] = 0);
+  (ord.a || []).forEach((id, i) => {
+    if (id in state.attr) state.attr[id] = clamp(attrs(i), 0, C.maxAttribute);
+  });
+  SKILLS.forEach(s => { state.focus[s.id] = 0; state.skill[s.id] = 0; });
+  (ord.s || []).forEach((id, i) => {
+    if (!(id in state.focus)) return;
+    state.focus[id] = clamp(focus(i), 0, C.maxFocusPerSkill);
+    state.skill[id] = clamp(skills(i), 0, MAX_SKILL);
+  });
+  state.perks.clear();
+  (ord.p || []).forEach((id, i) => {
+    if (perkBit(i) && PERK_INDEX.has(id)) state.perks.add(id);
+  });
+}
+
+function applyOrigin(ord, modeVal, cultIdx, optIdx) {
+  state.mode = modeVal;
+  if (!isPlayer() || !ORIGIN) return;
+  const cid = (ord.c || ORIGIN.cultures)[cultIdx];
+  state.culture = ORIGIN.cultures.includes(cid) ? cid : ORIGIN.cultures[0];
+  const g = ord.g || ORIGIN.stages.map(st => st.options.map(o => o.id));
+  state.origin = ORIGIN.stages.map((st, i) => {
+    const oi = optIdx(i);
+    if (oi == null) return null;
+    const id = (g[i] || [])[oi];
+    return st.options.some(o => o.id === id) ? id : null;
+  });
 }
 
 function decode(hash) {
   try {
     const parts = hash.split('.');
-    let ord, rest, orig = null;
-    if (parts[0] === '3') {
-      ord = VER.entries[parts[1]];
-      orig = parts[2];
-      rest = parts.slice(3);
-      if (!ord) {
-        ord = VER.entries[VER.cur];
-        toast('Link uses a newer data version — loading best-effort');
-      }
-    } else if (parts[0] === '2') {
-      ord = VER.entries[parts[1]];
-      rest = parts.slice(2);
-      if (!ord) {           // link minted by a newer build than this page
-        ord = VER.entries[VER.cur];
-        toast('Link uses a newer data version — loading best-effort');
-      }
-    } else if (parts[0] === '1') {
-      ord = VER.entries[VER.v1];
-      rest = parts.slice(1);
-    } else return false;
+    const v = parts[0];
+    let ord = VER.entries[parts[1]];
+    if ((v === '4' || v === '3' || v === '2') && !ord) {
+      ord = VER.entries[VER.cur];
+      toast('Link uses a newer data version — loading best-effort');
+    }
+    if (v === '4') {
+      const S = (ord.g || []).length;
+      const need = 3 + S + 3 + 9 + 36 + Math.ceil((ord.p || []).length / 8);
+      const raw = parts[2] ? unb64url(parts[2]) : new Uint8Array(0);
+      const buf = new Uint8Array(need); buf.set(raw.slice(0, need));
+      const o = 3 + S;
+      applyOrigin(ord, buf[0] === 1 ? 'campaign' : buf[0] === 2 ? 'sandbox' : 'npc',
+        buf[2] - 1, i => buf[3 + i] ? buf[3 + i] - 1 : null);
+      applyOrdered(ord, buf[1],
+        i => (buf[o + (i >> 1)] >> (i % 2 === 0 ? 4 : 0)) & 0xf,
+        i => (buf[o + 3 + (i >> 1)] >> (i % 2 === 0 ? 4 : 0)) & 0xf,
+        i => buf[o + 12 + i * 2] | (buf[o + 12 + i * 2 + 1] << 8),
+        i => buf[o + 48 + (i >> 3)] & (1 << (i & 7)));
+      return true;
+    }
+    // ---- legacy dotted formats ----
+    let orig = null, rest;
+    if (v === '3') { orig = parts[2]; rest = parts.slice(3); }
+    else if (v === '2') { rest = parts.slice(2); }
+    else if (v === '1') { ord = VER.entries[VER.v1]; rest = parts.slice(1); }
+    else return false;
     if (!ord) return false;
-    // origin segment (v3): remap culture + per-stage options by id via the
-    // minting version's orderings, exactly like perks
-    state.mode = 'npc';
-    if (orig && (orig[0] === 'p' || orig[0] === 'c') && ORIGIN) {
-      state.mode = orig[0] === 'c' ? 'campaign' : 'sandbox';
-      const cid = (ord.c || ORIGIN.cultures)[parseInt(orig[1], 36) || 0];
-      state.culture = ORIGIN.cultures.includes(cid) ? cid : ORIGIN.cultures[0];
-      const g = ord.g || ORIGIN.stages.map(st => st.options.map(o => o.id));
-      state.origin = ORIGIN.stages.map((st, i) => {
-        const ch = orig[2 + i];
-        if (!ch || ch === '-') return null;
-        const id = (g[i] || [])[parseInt(ch, 36)];
-        return st.options.some(o => o.id === id) ? id : null;
-      });
-    }
     const [lv, a, f, sk, p] = rest;
-    state.level = clamp(parseInt(lv, 36) || 1, 1, C.maxCharacterLevel);
-    // Everything below maps by StringId: position i in the minting version's
-    // ordering -> id -> current slot. Unknown ids are dropped, missing stay 0.
-    ATTRS.forEach(x => state.attr[x.id] = 0);
-    ord.a.forEach((id, i) => {
-      if (id in state.attr)
-        state.attr[id] = clamp(parseInt(a[i], 36) || 0, 0, C.maxAttribute);
-    });
-    SKILLS.forEach(s => { state.focus[s.id] = 0; state.skill[s.id] = 0; });
-    ord.s.forEach((id, i) => {
-      if (!(id in state.focus)) return;
-      state.focus[id] = clamp(parseInt(f[i], 36) || 0, 0, C.maxFocusPerSkill);
-      state.skill[id] = clamp(parseInt(sk.slice(i * 2, i * 2 + 2), 36) || 0, 0, MAX_SKILL);
-    });
-    state.perks.clear();
-    if (p) {
-      const bin = atob(p.replace(/-/g, '+').replace(/_/g, '/'));
-      ord.p.forEach((id, i) => {
-        if ((bin.charCodeAt(i >> 3) & (1 << (i & 7))) && PERK_INDEX.has(id))
-          state.perks.add(id);
-      });
-    }
+    let bin = '';
+    if (p) bin = atob(p.replace(/-/g, '+').replace(/_/g, '/'));
+    if (orig && (orig[0] === 'p' || orig[0] === 'c'))
+      applyOrigin(ord, orig[0] === 'c' ? 'campaign' : 'sandbox',
+        parseInt(orig[1], 36) || 0,
+        i => { const ch = orig[2 + i]; return (!ch || ch === '-') ? null : parseInt(ch, 36); });
+    else state.mode = 'npc';
+    applyOrdered(ord, parseInt(lv, 36),
+      i => parseInt(a[i], 36) || 0,
+      i => parseInt(f[i], 36) || 0,
+      i => parseInt(sk.slice(i * 2, i * 2 + 2), 36) || 0,
+      i => bin && (bin.charCodeAt(i >> 3) & (1 << (i & 7))));
     return true;
   } catch { return false; }
 }

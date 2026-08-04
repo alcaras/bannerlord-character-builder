@@ -31,8 +31,10 @@ Two modes, because the game has two point models:
 
 ## Share-link versioning
 
-Links encode indices into the data arrays, so their meaning depends on the
-data version that minted them. Format `2.<ver>.…` carries a 4-hex data-version
+Links pack the whole build into a byte array — mode, level, culture, creation
+choices, attributes, focus, skills, perk bitmap — with trailing zero bytes
+trimmed and the rest base64url'd, so a fresh build is ~24 characters and even
+a maxed one stays ~150. The `4.<ver>.` prefix carries a 4-hex data-version
 key; `versions.json` is an append-only registry of every ordering a build has
 shipped, embedded into the page. Old links decode against their own version's
 ordering and remap by stable id — a future game patch that adds or reorders
