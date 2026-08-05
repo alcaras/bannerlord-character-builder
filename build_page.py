@@ -29,6 +29,9 @@ HTML = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bannerlord Character Builder — v1.4.7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700&display=swap">
 <style>
 __ICONS_CSS__
 __CSS__
@@ -41,8 +44,8 @@ __CSS__
   </div>
   <div class="tools">
     <label class="lvl">Level <input id="level" type="number" min="1" max="62" value="1"></label>
-    <button id="share" class="btn primary">Copy share link</button>
-    <button id="resetOrigin" class="btn">Reset origin</button>
+    <label class="chk"><input id="navalToggle" type="checkbox" checked> War Sails</label>
+    <button id="share" class="btn primary">Copy build link</button>
     <button id="reset" class="btn">Reset build</button>
   </div>
 </header>
@@ -62,7 +65,31 @@ __CSS__
     </div>
     <div class="rows" id="rows"></div>
   </aside>
-  <section class="detail" id="detail"></section>
+  <section class="rightcol">
+    <div class="panelbox">
+      <section class="detail" id="detail"></section>
+    </div>
+    <div class="panelbox">
+      <div class="panel-head sub">
+        <h2>Chosen perks</h2>
+        <span class="badge" id="chosenBadge">0 selected</span>
+      </div>
+      <div class="chosenbody" id="chosen"></div>
+    </div>
+  </section>
+</div>
+
+<div id="originModal" class="omodal" hidden>
+  <div class="omodal-card">
+    <div class="panel-head sub"><h2>Origin</h2></div>
+    <div class="obody" id="originFields"></div>
+    <p class="odesc" id="originDesc"></p>
+    <div class="ofoot">
+      <span class="ochips" id="originChips"></span>
+      <button id="resetOrigin" class="btn">Reset origin</button>
+      <button id="originDone" class="btn primary">Done</button>
+    </div>
+  </div>
 </div>
 
 <div id="toast" class="toast"></div>

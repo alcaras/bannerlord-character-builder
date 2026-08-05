@@ -368,13 +368,51 @@ function iconEl(key, size) {
   return n;
 }
 
-/* ---------------- origin bar ---------------- */
+/* ---------------- origin: summary bar + edit modal ---------------- */
+const cap1 = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+
+function originSummaryText() {
+  if (!isPlayer()) return 'Wanderer / NPC — 15 attribute + 5 focus points at start';
+  const parts = [state.mode === 'campaign' ? 'Campaign' : 'Sandbox', cap1(state.culture)];
+  ORIGIN.stages.forEach((st, i) => {
+    if (!stageActive(st)) return;
+    const o = st.options.find(x => x.id === state.origin[i]);
+    if (o) parts.push(st.id.includes('age') ? 'age ' + o.label : o.label);
+  });
+  return parts.join(' · ');
+}
+
+function originChipsText() {
+  const opts = chosenOptions();
+  const traits = opts.flatMap(o => (o.traits || []).map(t => t));
+  const renown = opts.reduce((n, o) => n + (o.renown || 0), 0);
+  return [traits.length ? 'Traits: ' + traits.join(', ') : '',
+          renown ? `Renown +${renown}` : ''].filter(Boolean).join(' · ');
+}
+
+/* Transient: the description of the stage option last touched in the modal. */
+let originDescText = '';
+
 function renderOrigin() {
   const bar = document.getElementById('originbar');
-  if (!bar) return;
+  if (!bar || !ORIGIN) return;
   bar.innerHTML = '';
-  if (!ORIGIN) return;
-  const wrap = el('div', 'origin');
+  const wrap = el('div', 'originline');
+  wrap.append(el('span', 'olabel', 'Origin'));
+  const sum = el('span', 'osummary', esc(originSummaryText()));
+  sum.title = originSummaryText();
+  wrap.append(sum);
+  const edit = el('button', 'btn', 'Edit origin');
+  edit.onclick = () => { document.getElementById('originModal').hidden = false; };
+  wrap.append(edit);
+  bar.append(wrap);
+  renderOriginFields();
+}
+
+function renderOriginFields() {
+  const box = document.getElementById('originFields');
+  if (!box || !ORIGIN) return;
+  box.innerHTML = '';
 
   const mode = el('select', 'osel');
   mode.append(new Option('Campaign (story)', 'campaign'),
@@ -382,12 +420,12 @@ function renderOrigin() {
               new Option('Wanderer / NPC (15 + 5 start)', 'npc'));
   mode.value = state.mode;
   mode.onchange = () => withFloorSwap(() => { state.mode = mode.value; });
-  wrap.append(field('Mode', mode));
+  box.append(field('Mode', mode));
 
   if (isPlayer()) {
     const cult = el('select', 'osel');
     for (const c of ORIGIN.cultures)
-      cult.append(new Option(c[0].toUpperCase() + c.slice(1), c));
+      cult.append(new Option(cap1(c), c));
     cult.value = state.culture;
     cult.onchange = () => withFloorSwap(() => {
       state.culture = cult.value;
@@ -397,7 +435,7 @@ function renderOrigin() {
         if (o && o.cultures && !o.cultures.includes(state.culture)) state.origin[i] = null;
       });
     });
-    wrap.append(field('Culture', cult));
+    box.append(field('Culture', cult));
 
     ORIGIN.stages.forEach((st, i) => {
       if (!stageActive(st)) return;
@@ -411,22 +449,20 @@ function renderOrigin() {
         sel.append(new Option(o.label + extra, o.id));
       }
       sel.value = state.origin[i] || '';
-      sel.onchange = () => withFloorSwap(() => { state.origin[i] = sel.value || null; });
+      sel.onchange = () => {
+        const o = st.options.find(x => x.id === sel.value);
+        originDescText = o && o.desc || '';
+        withFloorSwap(() => { state.origin[i] = sel.value || null; });
+      };
       sel.title = st.desc;
-      wrap.append(field(st.title, sel));
+      box.append(field(st.title, sel));
     });
-
-    // summary chips: traits + renown from origin
-    const opts = chosenOptions();
-    const traits = opts.flatMap(o => (o.traits || []).map(t => t));
-    const renown = opts.reduce((n, o) => n + (o.renown || 0), 0);
-    if (traits.length || renown) {
-      wrap.append(el('span', 'ochips',
-        [traits.length ? 'Traits: ' + traits.join(', ') : '',
-         renown ? `Renown +${renown}` : ''].filter(Boolean).join(' · ')));
-    }
   }
-  bar.append(wrap);
+
+  document.getElementById('originChips').textContent = originChipsText();
+  document.getElementById('originDesc').textContent = originDescText ||
+    'Pick each stage of your backstory — every choice grants skill focus, skill ' +
+    'levels, and usually +1 to an attribute, exactly as in character creation.';
 }
 function field(label, ctl) {
   const f = el('label', 'ofield');
@@ -453,6 +489,7 @@ function render() {
   renderOrigin();
   renderRows(as >= ab, fs >= fb);
   renderDetail(fs >= fb);
+  renderChosen();
 }
 
 function renderRows(attrCapped, focusCapped) {
@@ -488,7 +525,7 @@ function renderRows(attrCapped, focusCapped) {
   }
 
   const naval = SKILLS.filter(s => s.attributes.length > 1);
-  if (naval.length) {
+  if (naval.length && state.naval !== false) {
     const row = el('div', 'arow');
     const tab = el('div', 'atab naval');
     tab.append(el('div', 'ab', '⚓'), el('div', 'avn', 'Naval'));
@@ -589,18 +626,19 @@ function renderDetail(focusCapped) {
   d.append(el('div', 'hint',
     'Perks unlock at the skill values marked under the track. One choice per tier. ' +
     'Training past the cap is allowed but the learning rate falls by 1 + 0.1 per point over, to zero.'));
-
-  d.append(summary());
 }
 
 /* Every perk chosen across the whole build — the thing you actually want to
-   read back when planning, and it fills the panel below the track. */
-function summary() {
-  const box = el('div', 'summary');
-  box.append(el('h4', null, `Chosen perks <em>${state.perks.size} selected</em>`));
+   read back when planning. Lives in its own panel under the detail pane. */
+function renderChosen() {
+  const box = document.getElementById('chosen');
+  const badge = document.getElementById('chosenBadge');
+  if (!box) return;
+  badge.textContent = `${state.perks.size} selected`;
+  box.innerHTML = '';
   if (!state.perks.size) {
     box.append(el('div', 'none', 'None yet. Raise a skill to 25 or more, then pick from the track above.'));
-    return box;
+    return;
   }
   const grid = el('div', 'sgrid');
   for (const sk of SKILLS) {
@@ -625,21 +663,29 @@ function summary() {
   }
   box.append(grid);
 
-  // By role: the grouping that answers "what does this build DO" — each
-  // effect filed under the role it applies to (a perk can serve several).
+  // By role: the grouping that answers "what does this build DO". Effects
+  // sharing the same description template stack, so show ONE line with the
+  // summed value and list the contributing perks under it — "+3 loyalty
+  // (A · B · C)" instead of three separate "+1 loyalty" rows.
   const ROLE_LABEL = r => r.replace(/([a-z])([A-Z])/g, '$1 $2');
   const byRole = new Map();
   for (const p of PERKS) {
     if (!state.perks.has(p.id)) continue;
     (p.effects || []).forEach((e, i) => {
-      const line = perkDesc(p, i);
-      if (!line) return;
-      if (!byRole.has(e.role)) byRole.set(e.role, []);
-      byRole.get(e.role).push({ p, line });
+      const tpl = (p.descriptions || [])[i];
+      if (!tpl) return;
+      if (!byRole.has(e.role)) byRole.set(e.role, new Map());
+      const m = byRole.get(e.role);
+      const key = tpl + '|' + (e.type || '');
+      if (!m.has(key)) m.set(key, { tpl, type: e.type,
+        hasVal: /\{VALUE\}/.test(tpl) && typeof e.value === 'number', sum: 0, perks: [] });
+      const b = m.get(key);
+      b.sum += (typeof e.value === 'number' ? e.value : 0);
+      b.perks.push(p);
     });
   }
   if (byRole.size) {
-    box.append(el('h4', null, `By role <em>where each effect applies</em>`));
+    box.append(el('h4', null, `By role <em>where each effect applies — stacking effects totalled</em>`));
     const rgrid = el('div', 'sgrid');
     const order = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
       'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'ArmyCommander', 'PartyMember'];
@@ -647,21 +693,32 @@ function summary() {
       (order.indexOf(a) + 99 * (order.indexOf(a) < 0)) -
       (order.indexOf(b) + 99 * (order.indexOf(b) < 0)));
     for (const role of roles) {
+      const buckets = [...byRole.get(role).values()]
+        .sort((a, b) => b.perks.length - a.perks.length);
       const g = el('div', 'sgroup');
-      g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${byRole.get(role).length}`));
-      for (const { p, line } of byRole.get(role)) {
+      g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${buckets.length}`));
+      for (const b of buckets) {
+        // Same x100 handling as perkDesc; round away float-sum noise.
+        let line;
+        if (b.hasVal) {
+          let n = b.type === 'AddFactor' ? b.sum * 100 : b.sum;
+          n = Math.round(n * 100) / 100;
+          line = esc(b.tpl.replace(/\{VALUE\}/g, Number.isInteger(n) ? String(n) : n.toFixed(1)));
+        } else {
+          line = esc(b.tpl.replace(/\{VALUE\}\s*/g, ''));
+        }
         const item = el('div', 'sperk');
         item.title = 'Show in track';
-        item.onclick = () => { state.sel = p.skill; render(); };
-        item.append(el('span', 'sname', `${esc(p.name)} <small>${esc(p.skill)} ${p.requiredSkill}</small>`));
-        item.append(el('span', 'seffect', line));
+        item.onclick = () => { state.sel = b.perks[0].skill; render(); };
+        item.append(el('span', 'sname', line));
+        item.append(el('span', 'seffect', b.perks.map(p =>
+          `${esc(p.name)} <small>${esc(p.skill)} ${p.requiredSkill}</small>`).join(' · ')));
         g.append(item);
       }
       rgrid.append(g);
     }
     box.append(rgrid);
   }
-  return box;
 }
 
 const xOf = v => clamp((v - TRACK_MIN) / (TRACK_MAX - TRACK_MIN), 0, 1) * 100;
@@ -682,7 +739,10 @@ function perkTrack(s, val, lim) {
   const cols = el('div', 'cols');
   const tiers = [...new Set(PERKS_BY_SKILL[s.id].map(p => p.tier))].sort((a, b) => a - b);
   for (const t of tiers) {
-    const opts = PERKS_BY_SKILL[s.id].filter(p => p.tier === t);
+    // Top/bottom within a pair matches the game: SkillVM.cs orders alternatives
+    // by StringId comparison (the earlier id is the "first" = top shield).
+    const opts = PERKS_BY_SKILL[s.id].filter(p => p.tier === t)
+      .sort((a, b) => a.id.localeCompare(b.id, 'en'));
     const req = REQ[t - 1];
     const col = el('div', 'col');
     col.style.left = xOf(req) + '%';
@@ -785,7 +845,23 @@ document.getElementById('reset').onclick = () => {
 /* Reset origin: restore the default backstory, preserving whatever the user
    has spent on top (floor-swap semantics). */
 document.getElementById('resetOrigin').onclick = () => {
+  originDescText = '';
   withFloorSwap(() => { applyDefaultOrigin(); });
+};
+/* Origin modal open/close. State edits inside re-render live; closing is
+   display-only. */
+{
+  const modal = document.getElementById('originModal');
+  document.getElementById('originDone').onclick = () => { modal.hidden = true; };
+  modal.addEventListener('click', e => { if (e.target === modal) modal.hidden = true; });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.hidden = true; });
+}
+/* War Sails display toggle: hides the naval row; allocations are kept. */
+document.getElementById('navalToggle').onchange = e => {
+  state.naval = e.target.checked;
+  const s = skillById(state.sel);
+  if (!state.naval && s && s.attributes.length > 1) state.sel = 'OneHanded';
+  render();
 };
 document.getElementById('share').onclick = async () => {
   syncHash();
@@ -798,7 +874,7 @@ document.getElementById('share').onclick = async () => {
     btn.textContent = '✓ Copied';
     clearTimeout(btn._t);
     btn._t = setTimeout(() => {
-      btn.classList.remove('copied'); btn.textContent = 'Copy share link';
+      btn.classList.remove('copied'); btn.textContent = 'Copy build link';
     }, 1600);
   } catch { toast('Copy failed — the URL bar holds your build'); }
 };
