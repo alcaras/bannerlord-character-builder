@@ -1,0 +1,18 @@
+{
+  "projectId": "41bbccc1-3567-4da4-bcae-20aee9fc0642",
+  "pkg": "bannerlord-ui",
+  "globalName": "BannerlordUI",
+  "shape": "package",
+  "buildCmd": "npm --prefix ds run build",
+  "cssEntry": "src/styles.css",
+  "tokensGlob": "src/tokens.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "InfoBox": {"cardMode": "column"},
+    "Panel": {"cardMode": "column"},
+    "PerkTrack": {"cardMode": "column"},
+    "Root": {"cardMode": "column"},
+    "SummaryList": {"cardMode": "column"},
+    "Toast": {"cardMode": "single", "primaryStory": "Visible"}
+  }
+}

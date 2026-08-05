@@ -1,0 +1,20 @@
+{
+  "name": "bannerlord-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bannerlord character-builder UI components — parchment/gold RPG chrome: skill tiles, perk shields, focus pips, point counters.",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "esbuild src/index.tsx --bundle --format=esm --outfile=dist/index.js --external:react --external:react-dom --jsx=automatic && tsc --emitDeclarationOnly"
+  },
+  "peerDependencies": { "react": ">=18" },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.0",
+    "@types/react": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

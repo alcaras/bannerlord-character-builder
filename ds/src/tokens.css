@@ -1,0 +1,9 @@
+/* Bannerlord Builder UI — design tokens (extracted from the live page) */
+:root{
+  --bg:#100d0a; --panel:#241d16; --tile:#1b1712; --tile2:#2a2219;
+  --edge:#7d6a4a; --line:#463724; --line2:#33291c;
+  --ink:#e6d9bd; --dim:#9d8a68; --faint:#6b5c44;
+  --gold:#d9a441; --gold2:#f0c268; --amber:#e8a33d;
+  --green:#5c8a3a; --green2:#7fb254; --red:#a8412f;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
