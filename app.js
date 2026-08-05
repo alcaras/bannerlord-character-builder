@@ -97,11 +97,13 @@ function attrFloor(id) {
   return n;
 }
 function focusFloor(skillId) {
+  // No 5-clamp: the game's AddFocus never clamps, so grants (Weapon Master
+  // on a maxed skill) legitimately push focus past MaxFocusPerSkill.
   let n = perkFocusGrant(skillId);
-  if (!isPlayer()) return Math.min(n, C.maxFocusPerSkill);
+  if (!isPlayer()) return n;
   for (const o of chosenOptions())
     if ((o.skills || []).includes(skillId)) n += ORIGIN.grants.focus;
-  return Math.min(n, C.maxFocusPerSkill);
+  return n;
 }
 function skillFloor(skillId) {
   if (!isPlayer()) return 0;
@@ -135,7 +137,8 @@ const focusSpent = () => SKILLS.reduce((n, s) =>
    even for unchecked grants, so a grant landing on a maxed attribute is lost.
    Focus does NOT clamp (AddFocus has no max check), so grant floors may exceed 5. */
 function applyFloors() {
-  if (!isPlayer()) return;
+  // No player-mode gate: the floor functions are mode-aware, and perk grants
+  // (the only NPC-mode floors) apply to wanderers exactly as to players.
   for (const a of ATTRS)
     state.attr[a.id] = Math.min(C.maxAttribute, Math.max(state.attr[a.id], attrFloor(a.id)));
   for (const sk of SKILLS) {
@@ -199,16 +202,35 @@ const maxReachable = s =>
 const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
 
 /* Perks that permanently grant points when taken
-   (PerkActivationHandlerCampaignBehavior) — they raise the free floors. */
-const PERK_GRANTS = {
-  CraftingVigorousSmith: { attr: 'vigor' },
-  CraftingStrongSmith: { attr: 'control' },
-  CraftingEnduringSmith: { attr: 'endurance' },
-  CraftingWeaponMasterSmith: { focus: ['OneHanded', 'TwoHanded'] },
-  AthleticsDurable: { attr: 'endurance' },
-  AthleticsSteady: { attr: 'control' },
-  AthleticsStrong: { attr: 'vigor' },
+   (PerkActivationHandlerCampaignBehavior) — they raise the free floors.
+   Defined by skill+property and resolved to StringIds at load: perk ids are
+   StringIds, which for Crafting do NOT carry the skill prefix ("VigorousSmith",
+   not "CraftingVigorousSmith") — hardcoded ids silently missed all four
+   smithing grants. */
+const GRANT_DEFS = {
+  'Crafting.VigorousSmith': { attr: 'vigor' },
+  'Crafting.StrongSmith': { attr: 'control' },
+  'Crafting.EnduringSmith': { attr: 'endurance' },
+  'Crafting.WeaponMasterSmith': { focus: ['OneHanded', 'TwoHanded'] },
+  'Athletics.Durable': { attr: 'endurance' },
+  'Athletics.Steady': { attr: 'control' },
+  'Athletics.Strong': { attr: 'vigor' },
 };
+/* prop may be a backing-field fallback (_athleticsWalkItOff); normalize. */
+const propOf = p => {
+  let x = p.prop || '';
+  if (x[0] === '_') {
+    const lc = p.skill[0].toLowerCase() + p.skill.slice(1);
+    x = x.slice(1);
+    if (x.startsWith(lc)) x = x.slice(lc.length);
+  }
+  return x;
+};
+const PERK_GRANTS = {};
+for (const p of PERKS) {
+  const g = GRANT_DEFS[p.skill + '.' + propOf(p)];
+  if (g) PERK_GRANTS[p.id] = g;
+}
 function perkAttrGrant(id) {
   let n = 0;
   for (const pid of state.perks)
