@@ -332,15 +332,22 @@ const syncHash = () => history.replaceState(null, '', '#' + encode());
 const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-/* Mirrors SkillHelper.GetEffectDescriptionForSkillLevel: AddFactor is shown x100
-   and the description supplies its own '%', so substitute the bare number. */
+/* "PartyLeader" -> "Party Leader", as the game prints it in tooltips. */
+const ROLE_LABEL = r => r ? r.replace(/([a-z])([A-Z])/g, '$1 $2') : '';
+
+/* Mirrors StringHelpers.SetEffectIncrementTypeTextVariable exactly: AddFactor
+   is shown x100 (the description supplies its own '%'), the number is rounded
+   to one decimal ("{0:0.#}"), and positive bonuses get a leading '+'. */
+function fmtEffectValue(value, type) {
+  const n = Math.round((type === 'AddFactor' ? value * 100 : value) * 10) / 10;
+  return (value > 0 ? '+' : '') + n;
+}
 function perkDesc(p, which = 0) {
   const d = (p.descriptions || [])[which] || '';
   const v = p.effects && p.effects[which];
   if (!d) return '';
   if (!v) return esc(d.replace(/\{VALUE\}\s*/g, ''));
-  const n = v.type === 'AddFactor' ? v.value * 100 : v.value;
-  return esc(d.replace(/\{VALUE\}/g, Number.isInteger(n) ? String(n) : n.toFixed(1)));
+  return esc(d.replace(/\{VALUE\}/g, fmtEffectValue(v.value, v.type)));
 }
 
 /* Build a masked sprite element for an extracted icon, or null if absent. */
@@ -653,10 +660,12 @@ function renderChosen() {
       const head = el('span', 'sname',
         `${esc(p.name)} <small>${p.requiredSkill}</small>`);
       item.append(head);
-      // the actual effects, same substitution as the hover readout
-      const d1 = perkDesc(p, 0), d2 = perkDesc(p, 1);
-      if (d1) item.append(el('span', 'seffect', d1));
-      if (d2) item.append(el('span', 'seffect', d2));
+      // the actual effects with their roles, same as the hover readout
+      (p.effects || []).forEach((e, i) => {
+        const d = perkDesc(p, i);
+        if (d) item.append(el('span', 'seffect',
+          (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') + d));
+      });
       g.append(item);
     }
     grid.append(g);
@@ -667,7 +676,6 @@ function renderChosen() {
   // sharing the same description template stack, so show ONE line with the
   // summed value and list the contributing perks under it — "+3 loyalty
   // (A · B · C)" instead of three separate "+1 loyalty" rows.
-  const ROLE_LABEL = r => r.replace(/([a-z])([A-Z])/g, '$1 $2');
   const byRole = new Map();
   for (const p of PERKS) {
     if (!state.perks.has(p.id)) continue;
@@ -698,15 +706,10 @@ function renderChosen() {
       const g = el('div', 'sgroup');
       g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${buckets.length}`));
       for (const b of buckets) {
-        // Same x100 handling as perkDesc; round away float-sum noise.
-        let line;
-        if (b.hasVal) {
-          let n = b.type === 'AddFactor' ? b.sum * 100 : b.sum;
-          n = Math.round(n * 100) / 100;
-          line = esc(b.tpl.replace(/\{VALUE\}/g, Number.isInteger(n) ? String(n) : n.toFixed(1)));
-        } else {
-          line = esc(b.tpl.replace(/\{VALUE\}\s*/g, ''));
-        }
+        // Same formatting as individual lines, applied to the summed value.
+        const line = b.hasVal
+          ? esc(b.tpl.replace(/\{VALUE\}/g, fmtEffectValue(b.sum, b.type)))
+          : esc(b.tpl.replace(/\{VALUE\}\s*/g, ''));
         const item = el('div', 'sperk');
         item.title = 'Show in track';
         item.onclick = () => { state.sel = b.perks[0].skill; render(); };
@@ -816,9 +819,12 @@ function updateInfo(p) {
   }
   infoBox.className = 'perkinfo';
   infoBox.append(el('h4', null, esc(p.name)));
-  const d1 = perkDesc(p, 0), d2 = perkDesc(p, 1);
-  if (d1) infoBox.append(el('p', null, d1));
-  if (d2) infoBox.append(el('p', null, d2));
+  // Each effect line carries its role, "(Party Leader) …", as in the game.
+  (p.effects || []).forEach((e, i) => {
+    const d = perkDesc(p, i);
+    if (d) infoBox.append(el('p', null,
+      (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') + d));
+  });
   infoBox.append(el('div', 'req', `requires ${p.skill} ${p.requiredSkill}` +
     (perkUnlocked(p) ? '' : ` — click to take it (sets skill to ${p.requiredSkill})`)));
 }

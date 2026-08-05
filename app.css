@@ -8,12 +8,14 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;height:100%}
+/* Everything below is rem-sized, so the root size scales the whole UI. */
+html{font-size:17px}
 body{
   background:
     radial-gradient(120% 80% at 50% 0%,#1d1712 0%,#100d0a 70%),
     var(--bg);
   color:var(--ink);
-  font:13.5px/1.45 var(--serif);
+  font:14px/1.45 var(--serif);
   min-height:100%;overflow-x:hidden;
 }
 
@@ -196,6 +198,7 @@ body{
   height:7.6rem;overflow-y:auto}
 .perkinfo h4{margin:0 0 .15rem;font-size:.85rem;color:var(--gold2);font-weight:600}
 .perkinfo p{margin:.1rem 0;font-size:.75rem;color:var(--dim)}
+.erole{color:var(--faint)}
 .perkinfo .req{font-size:.66rem;color:var(--faint)}
 .perkinfo.empty{color:var(--faint);font-size:.75rem;display:grid;place-items:center}
 
