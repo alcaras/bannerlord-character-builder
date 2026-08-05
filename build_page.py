@@ -10,6 +10,7 @@ Run:  python3 sim/extract_builder_data.py && python3 builder/build_page.py
 from __future__ import annotations
 
 import hashlib
+import datetime
 import json
 from pathlib import Path
 
@@ -40,9 +41,11 @@ __CSS__
 <body>
 <header class="topbar">
   <div class="brand">Character Builder
-    <small>Mount &amp; Blade II: Bannerlord v1.4.7 — rules read from the shipped assemblies</small>
+    <small>Mount &amp; Blade II: Bannerlord v1.4.7 &middot; tool updated __BUILT__</small>
   </div>
   <div class="tools">
+    <input id="perkSearch" class="psearch" type="search"
+           placeholder="Search perks — try &#8220;party size&#8221;">
     <label class="lvl">Level <input id="level" type="number" min="1" max="62" value="1"></label>
     <label class="chk"><input id="navalToggle" type="checkbox" checked> War Sails</label>
     <button id="share" class="btn primary">Copy build link</button>
@@ -66,6 +69,16 @@ __CSS__
     <div class="rows" id="rows"></div>
   </aside>
   <section class="rightcol">
+    <div class="panelbox" id="searchbox" hidden>
+      <div class="panel-head sub">
+        <h2>Search results</h2>
+        <span class="shead-tools">
+          <span class="badge" id="searchBadge">0 perks</span>
+          <button id="searchTakeAll" class="btn">Take all</button>
+        </span>
+      </div>
+      <div class="chosenbody" id="searchResults"></div>
+    </div>
     <div class="panelbox">
       <section class="detail" id="detail"></section>
     </div>
@@ -160,6 +173,7 @@ def main() -> None:
 
     origin_js = ORIGIN.read_text() if ORIGIN.exists() else "null"
     html = (HTML
+            .replace("__BUILT__", datetime.date.today().isoformat())
             .replace("__ORIGIN__", origin_js)
             .replace("__VER__", json.dumps(
                 {"cur": dv, "v1": reg["v1"], "entries": reg["entries"]},

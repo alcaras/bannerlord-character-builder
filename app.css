@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;height:100%}
 /* Everything below is rem-sized, so the root size scales the whole UI. */
-html{font-size:17px}
+html{font-size:18px}
 body{
   background:
     radial-gradient(120% 80% at 50% 0%,#1d1712 0%,#100d0a 70%),
@@ -31,6 +31,21 @@ body{
 .chk{display:flex;align-items:center;gap:.4rem;color:var(--dim);cursor:pointer;
      font-size:.66rem;text-transform:uppercase;letter-spacing:.08em}
 .chk input{accent-color:var(--gold);width:14px;height:14px;cursor:pointer}
+
+/* ---------- perk search ---------- */
+.psearch{width:15rem;background:#15110d;color:var(--ink);border:1px solid var(--line);
+  border-radius:3px;padding:.35rem .5rem;font:inherit;font-size:.78rem}
+.psearch:focus{outline:none;border-color:var(--gold)}
+.psearch::placeholder{color:var(--faint)}
+.shead-tools{display:flex;align-items:center;gap:.7rem}
+.stake{margin-left:.5rem;background:#2a2219;color:var(--dim);border:1px solid var(--line);
+  border-radius:3px;padding:.05rem .45rem;font:inherit;font-size:.62rem;cursor:pointer;
+  text-transform:uppercase;letter-spacing:.06em;vertical-align:middle}
+.stake:hover{border-color:var(--gold);color:var(--gold2)}
+.staken{font-style:normal;font-size:.62rem;color:var(--green2);letter-spacing:.04em}
+mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padding:0}
+.sperk mark{color:inherit;font-weight:700;border-bottom-color:var(--edge)}
+.sname mark{color:var(--gold2)}
 .lvl{display:flex;align-items:center;gap:.35rem;color:var(--dim);
      font-size:.66rem;text-transform:uppercase;letter-spacing:.08em}
 .lvl input{width:3.4rem;background:#15110d;color:var(--ink);border:1px solid var(--line);
@@ -155,8 +170,10 @@ body{
 .rate.zero{color:#e8705c}
 
 /* ---------- perk track ---------- */
-.trackscroll{overflow-x:auto;overflow-y:hidden;padding-bottom:.2rem}
-.trackwrap{position:relative;padding:3.5rem 0 1.7rem;margin-top:.2rem;min-width:660px}
+/* Side padding absorbs the half-shield/tick overhang of the 300 column at
+   100% — without it that overhang forces a scrollbar at any width. */
+.trackscroll{overflow-x:auto;overflow-y:hidden;padding:0 1.7rem .2rem}
+.trackwrap{position:relative;padding:3.5rem 0 1.7rem;margin-top:.2rem;min-width:640px}
 .band{position:relative;height:9.1rem;border-radius:2px;
   background:linear-gradient(#b18a4e,#8a6a3b);box-shadow:0 2px 10px #0006 inset}
 .band .zone{position:absolute;top:0;bottom:0;pointer-events:none}

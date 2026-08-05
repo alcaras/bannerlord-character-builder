@@ -497,6 +497,7 @@ function render() {
   renderRows(as >= ab, fs >= fb);
   renderDetail(fs >= fb);
   renderChosen();
+  renderSearch();
 }
 
 function renderRows(attrCapped, focusCapped) {
@@ -764,18 +765,7 @@ function perkTrack(s, val, lim) {
       b.title = p.name;
       if (!perkUnlocked(p)) b.classList.add('locked');
       b.onmouseenter = () => updateInfo(p);   // sticky: no clear on leave
-      b.onclick = () => {
-        const apply = () => {
-          if (!perkUnlocked(p))
-            state.skill[p.skill] = Math.max(state.skill[p.skill], p.requiredSkill);
-          if (state.perks.has(p.id)) state.perks.delete(p.id);
-          else { for (const o of opts) state.perks.delete(o.id); state.perks.add(p.id); }
-        };
-        // Point-granting perks change the free floors; swap floors so the
-        // grant appears/disappears cleanly instead of ratcheting.
-        if (PERK_GRANTS[p.id] || opts.some(o => PERK_GRANTS[o.id])) withFloorSwap(apply);
-        else { apply(); commit(); }
-      };
+      b.onclick = () => takePerk(p);
       col.append(b);
     }
     cols.append(col);
@@ -806,6 +796,128 @@ function perkTrack(s, val, lim) {
     wrap.append(cap);
   }
   return wrap;
+}
+
+/* Toggle a perk exactly like clicking its shield: raise the skill to the
+   requirement if needed, displace the pair alternative. */
+function takePerk(p) {
+  const opts = PERKS_BY_SKILL[p.skill].filter(x => x.tier === p.tier);
+  const apply = () => {
+    if (!perkUnlocked(p))
+      state.skill[p.skill] = Math.max(state.skill[p.skill], p.requiredSkill);
+    if (state.perks.has(p.id)) state.perks.delete(p.id);
+    else { for (const o of opts) state.perks.delete(o.id); state.perks.add(p.id); }
+  };
+  // Point-granting perks change the free floors; swap floors so the
+  // grant appears/disappears cleanly instead of ratcheting.
+  if (opts.some(o => PERK_GRANTS[o.id])) withFloorSwap(apply);
+  else { apply(); commit(); }
+}
+
+/* ---------------- perk search ---------------- */
+/* Per-field matching: a perk matches when ALL terms land in the SAME field —
+   its name+skill, ONE effect line, or its role list. "party size" then means
+   the stat, not "a Party Leader perk mentioning any size"; searching a role
+   ("governor") still works via the role field. */
+let SEARCH_INDEX = null;
+function searchPerks(q) {
+  if (!SEARCH_INDEX) SEARCH_INDEX = PERKS.map(p => [
+    `${p.name} ${skillById(p.skill)?.name || p.skill}`,
+    (p.effects || []).map(e => ROLE_LABEL(e.role)).join(' '),
+    ...(p.descriptions || []),
+  ].map(f => f.replace(/\{VALUE\}/g, '').toLowerCase()));
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return [];
+  return PERKS.filter((p, i) =>
+    SEARCH_INDEX[i].some(f => terms.every(t => f.includes(t))));
+}
+
+const markTerms = (escaped, terms) => terms.reduce((s, t) =>
+  s.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'),
+    '<mark>$1</mark>'), escaped);
+
+/* Take every matching perk. Pairs are respected: an already-decided pair
+   keeps the user's pick; when both alternatives match, prefer the one whose
+   matching effects total higher (planning for the searched stat). */
+function takeAllResults(results, terms) {
+  const byPair = new Map();
+  for (const p of results) {
+    const k = p.skill + '|' + p.tier;
+    if (!byPair.has(k)) byPair.set(k, []);
+    byPair.get(k).push(p);
+  }
+  const matchedValue = p => (p.effects || []).reduce((s, e, i) => {
+    const tpl = ((p.descriptions || [])[i] || '').toLowerCase();
+    return s + (terms.every(t => tpl.includes(t)) ? Math.abs(e.value || 0) : 0);
+  }, 0);
+  let taken = 0, kept = 0;
+  withFloorSwap(() => {
+    for (const list of byPair.values()) {
+      const opts = PERKS_BY_SKILL[list[0].skill].filter(x => x.tier === list[0].tier);
+      if (opts.some(o => state.perks.has(o.id))) {
+        if (!list.some(p => state.perks.has(p.id))) kept++;
+        continue;
+      }
+      const pick = list.length === 1 ? list[0]
+        : list.slice().sort((a, b) => matchedValue(b) - matchedValue(a))[0];
+      if (!perkUnlocked(pick))
+        state.skill[pick.skill] = Math.max(state.skill[pick.skill], pick.requiredSkill);
+      state.perks.add(pick.id);
+      taken++;
+    }
+  });
+  toast(`Took ${taken} perk${taken === 1 ? '' : 's'}` +
+    (kept ? ` — kept your existing pick in ${kept} pair${kept === 1 ? '' : 's'}` : ''));
+}
+
+function renderSearch() {
+  const boxWrap = document.getElementById('searchbox');
+  if (!boxWrap) return;
+  const q = (state.query || '').trim();
+  boxWrap.hidden = !q;
+  if (!q) return;
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const results = searchPerks(q);
+  document.getElementById('searchBadge').textContent =
+    `${results.length} perk${results.length === 1 ? '' : 's'}`;
+  const takeBtn = document.getElementById('searchTakeAll');
+  takeBtn.disabled = !results.length;
+  takeBtn.onclick = () => takeAllResults(results, terms);
+  const body = document.getElementById('searchResults');
+  body.innerHTML = '';
+  if (!results.length) {
+    body.append(el('div', 'none', `No perks match “${esc(q)}”. Try a shorter term — the search covers perk names, skills, roles, and effect text.`));
+    return;
+  }
+  const grid = el('div', 'sgrid');
+  for (const sk of SKILLS) {
+    const hits = results.filter(p => p.skill === sk.id);
+    if (!hits.length) continue;
+    const g = el('div', 'sgroup');
+    g.append(el('b', null, `${esc(sk.name)} · ${hits.length}`));
+    for (const p of hits) {
+      const item = el('div', 'sperk');
+      item.title = 'Show in track';
+      item.onclick = () => { state.sel = sk.id; render(); updateInfo(p); };
+      const chosen = state.perks.has(p.id);
+      const head = el('span', 'sname',
+        `${markTerms(esc(p.name), terms)} <small>${p.requiredSkill}</small>` +
+        (chosen ? ' <em class="staken">✓ taken</em>' : ''));
+      const take = el('button', 'stake', chosen ? 'Drop' : 'Take');
+      take.onclick = e => { e.stopPropagation(); takePerk(p); };
+      head.append(take);
+      item.append(head);
+      (p.effects || []).forEach((e, i) => {
+        const d = perkDesc(p, i);
+        if (d) item.append(el('span', 'seffect',
+          (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') +
+          markTerms(d, terms)));
+      });
+      g.append(item);
+    }
+    grid.append(g);
+  }
+  body.append(grid);
 }
 
 let infoBox = null;
@@ -862,6 +974,15 @@ document.getElementById('resetOrigin').onclick = () => {
   modal.addEventListener('click', e => { if (e.target === modal) modal.hidden = true; });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.hidden = true; });
 }
+/* Perk search: live as you type. Only the results panel re-renders on input
+   (a full render would rebuild the input and drop focus). */
+document.getElementById('perkSearch').oninput = e => {
+  state.query = e.target.value;
+  renderSearch();
+};
+document.getElementById('perkSearch').addEventListener('keydown', e => {
+  if (e.key === 'Escape') { e.target.value = ''; state.query = ''; renderSearch(); }
+});
 /* War Sails display toggle: hides the naval row; allocations are kept. */
 document.getElementById('navalToggle').onchange = e => {
   state.naval = e.target.checked;
