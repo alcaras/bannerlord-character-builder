@@ -49,6 +49,10 @@ body{
 .osel.browse{max-width:11rem;font-size:.75rem;padding:.35rem .4rem}
 .implchip{cursor:pointer;border-bottom:1px dotted var(--faint)}
 .implchip:hover{color:var(--gold2);border-bottom-color:var(--gold)}
+.conflictnote{margin-bottom:.6rem;padding:.45rem .6rem;border:1px solid var(--edge);
+  border-radius:3px;background:#2e2415;font-size:.78rem;color:var(--dim)}
+.conflictpick{cursor:pointer;color:var(--gold2);border-bottom:1px dotted var(--gold)}
+.conflictpick:hover{color:#fff1d2;border-bottom-style:solid}
 .psearch:focus{outline:none;border-color:var(--gold)}
 .psearch::placeholder{color:var(--faint)}
 .shead-tools{display:flex;align-items:center;gap:.7rem}
@@ -3059,20 +3063,18 @@ const markTerms = (escaped, terms) => terms.reduce((s, t) =>
     '<mark>$1</mark>'), escaped);
 
 /* Take every matching perk. Pairs are respected: an already-decided pair
-   keeps the user's pick; when both alternatives match, prefer the one whose
-   matching effects total higher (planning for the searched stat). */
-function takeAllResults(results, terms) {
+   keeps the user's pick, and a pair where BOTH alternatives match is skipped
+   entirely — those are the user's call, listed above the results. */
+let takeAllConflicts = [];
+function takeAllResults(results) {
   const byPair = new Map();
   for (const p of results) {
     const k = p.skill + '|' + p.tier;
     if (!byPair.has(k)) byPair.set(k, []);
     byPair.get(k).push(p);
   }
-  const matchedValue = p => (p.effects || []).reduce((s, e, i) => {
-    const tpl = ((p.descriptions || [])[i] || '').toLowerCase();
-    return s + (terms.every(t => tpl.includes(t)) ? Math.abs(e.value || 0) : 0);
-  }, 0);
   let taken = 0, kept = 0;
+  const conflicts = [];
   withFloorSwap(() => {
     for (const list of byPair.values()) {
       const opts = PERKS_BY_SKILL[list[0].skill].filter(x => x.tier === list[0].tier);
@@ -3080,15 +3082,18 @@ function takeAllResults(results, terms) {
         if (!list.some(p => state.perks.has(p.id))) kept++;
         continue;
       }
-      const pick = list.length === 1 ? list[0]
-        : list.slice().sort((a, b) => matchedValue(b) - matchedValue(a))[0];
+      if (list.length > 1) { conflicts.push(list); continue; }
+      const pick = list[0];
       if (!perkUnlocked(pick))
         state.skill[pick.skill] = Math.max(state.skill[pick.skill], pick.requiredSkill);
       state.perks.add(pick.id);
       taken++;
     }
   });
+  takeAllConflicts = conflicts;
+  renderSearch();   // the floor-swap re-render ran before conflicts were known
   toast(`Took ${taken} perk${taken === 1 ? '' : 's'}` +
+    (conflicts.length ? ` — ${conflicts.length} pair${conflicts.length === 1 ? ' needs' : 's need'} your call` : '') +
     (kept ? ` — kept your existing pick in ${kept} pair${kept === 1 ? '' : 's'}` : ''));
 }
 
@@ -3146,6 +3151,7 @@ function buildBrowseMenu() {
     const [kind, key] = sel.value.split('|');
     state.query = '';
     document.getElementById('perkSearch').value = '';
+    takeAllConflicts = [];
     state.browse = { kind, key,
       label: sel.options[sel.selectedIndex].text.replace(/ \(\d+\)$/, '') };
     renderSearch();
@@ -3163,6 +3169,7 @@ function browsePerks(b) {
 
 function openBrowse(kind, key, label) {
   state.query = '';
+  takeAllConflicts = [];
   document.getElementById('perkSearch').value = '';
   state.browse = { kind, key, label };
   const sel = document.getElementById('perkBrowse');
@@ -3190,7 +3197,7 @@ function renderSearch() {
     `${results.length} perk${results.length === 1 ? '' : 's'}`;
   const takeBtn = document.getElementById('searchTakeAll');
   takeBtn.disabled = !results.length;
-  takeBtn.onclick = () => takeAllResults(results, terms);
+  takeBtn.onclick = () => takeAllResults(results);
   const body = document.getElementById('searchResults');
   body.innerHTML = '';
   if (!results.length) {
@@ -3200,6 +3207,25 @@ function renderSearch() {
   if (state.browse && state.browse.kind === 'none') {
     body.append(el('div', 'none',
       'No reference to these perks exists anywhere in the decompiled game code — they are most likely not implemented.'));
+  }
+  // Pairs Take-all left for the user; drop any resolved since. Each name is
+  // clickable and takes that perk.
+  takeAllConflicts = takeAllConflicts.filter(list =>
+    !PERKS_BY_SKILL[list[0].skill].some(x => x.tier === list[0].tier && state.perks.has(x.id)));
+  if (takeAllConflicts.length) {
+    const note = el('div', 'conflictnote',
+      `${takeAllConflicts.length} pair${takeAllConflicts.length === 1 ? ' needs' : 's need'} your call — click your pick: `);
+    takeAllConflicts.forEach((list, i) => {
+      if (i) note.append(document.createTextNode(' · '));
+      list.forEach((p, j) => {
+        if (j) note.append(document.createTextNode(' vs '));
+        const a = el('span', 'conflictpick', esc(p.name));
+        a.title = `${p.skill} ${p.requiredSkill}`;
+        a.onclick = () => takePerk(p);
+        note.append(a);
+      });
+    });
+    body.append(note);
   }
   const grid = el('div', 'sgrid');
   for (const sk of SKILLS) {
@@ -3303,6 +3329,7 @@ document.getElementById('resetOrigin').onclick = () => {
 document.getElementById('perkSearch').oninput = e => {
   state.query = e.target.value;
   state.browse = null;
+  takeAllConflicts = [];
   document.getElementById('perkBrowse').value = '';
   renderSearch();
 };
@@ -3313,6 +3340,7 @@ function clearSearch() {
   document.getElementById('perkSearch').value = '';
   state.query = '';
   state.browse = null;
+  takeAllConflicts = [];
   document.getElementById('perkBrowse').value = '';
   renderSearch();
 }
