@@ -207,6 +207,36 @@
    "attributes": [
     "intelligence"
    ]
+  },
+  {
+   "id": "Mariner",
+   "name": "Mariner",
+   "description": "Enhances your personal combat prowess during naval engagements and bolsters your effectiveness in leading troops and employing tactics in sea battles.",
+   "attributes": [
+    "endurance",
+    "cunning"
+   ],
+   "dlc": "warsails"
+  },
+  {
+   "id": "Boatswain",
+   "name": "Boatswain",
+   "description": "Governs the well-being and discipline of your ship's crew, as well as the vessel's overall combat readiness, including rigging and supplies.",
+   "attributes": [
+    "control",
+    "social"
+   ],
+   "dlc": "warsails"
+  },
+  {
+   "id": "Shipmaster",
+   "name": "Shipmaster",
+   "description": "Improves your navigational abilities, the effectiveness of naval siege engines under your command, and the speed and quality of ship repairs and upgrades.",
+   "attributes": [
+    "vigor",
+    "intelligence"
+   ],
+   "dlc": "warsails"
   }
  ],
  "perks": [
@@ -9768,6 +9798,1600 @@
      "role": "Engineer",
      "value": 0.01,
      "type": "AddFactor"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "RollingThunder",
+   "field": "_rollingThunder",
+   "prop": "RollingThunder",
+   "name": "Rolling Thunder",
+   "skill": "Mariner",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% accuracy penalty from ship roll.",
+    "{VALUE}% conformity gain for pirate prisoners in your party while at sea."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.5,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "PiratesProwess"
+  },
+  {
+   "id": "PiratesProwess",
+   "field": "_piratesProwess",
+   "prop": "PiratesProwess",
+   "name": "Pirate's Prowess",
+   "skill": "Mariner",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% melee weapon handling.",
+    "{VALUE}% loot from defeated merchant convoys."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.25,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "RollingThunder"
+  },
+  {
+   "id": "Forceful",
+   "field": "_forceful",
+   "prop": "Forceful",
+   "name": "Shield Breaker",
+   "skill": "Mariner",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% damage to shields dealt by crew.",
+    "{VALUE}% naval raid speed."
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.25,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "BruteForce"
+  },
+  {
+   "id": "BruteForce",
+   "field": "_bruteForce",
+   "prop": "BruteForce",
+   "name": "Brute Force",
+   "skill": "Mariner",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% kicking and bashing damage.",
+    "{VALUE}% more loot from naval raids."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Forceful"
+  },
+  {
+   "id": "AxeOfTheNorthwind",
+   "field": "_axeOfTheNorthwind",
+   "prop": "AxeOfTheNorthwind",
+   "name": "Axe of the North Wind",
+   "skill": "Mariner",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% damage dealt by axes.",
+    "{VALUE} morale for mariner troops at start of battle."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 20.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "SunnyDisposition"
+  },
+  {
+   "id": "SunnyDisposition",
+   "field": "_sunnyDisposition",
+   "prop": "SunnyDisposition",
+   "name": "Sunny Disposition",
+   "skill": "Mariner",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% damage dealt by swords.",
+    "{VALUE} morale for regular troops at start of battle."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 20.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "AxeOfTheNorthwind"
+  },
+  {
+   "id": "EnemyOfTheWood",
+   "field": "_enemyOfTheWood",
+   "prop": "EnemyOfTheWood",
+   "name": "Enemy of the Wood",
+   "skill": "Mariner",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "{VALUE} morale to enemy for each ship destroyed in battle.",
+    "{VALUE}% fire damage dealt by your ship and crew to enemy sails."
+   ],
+   "effects": [
+    {
+     "role": "ArmyCommander",
+     "value": -10.0,
+     "type": "Add"
+    },
+    {
+     "role": "Captain",
+     "value": 0.25,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "NavalFightingTraining"
+  },
+  {
+   "id": "NavalFightingTraining",
+   "field": "_navalFightingTraining",
+   "prop": "NavalFightingTraining",
+   "name": "Naval Fighting Training",
+   "skill": "Mariner",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "{VALUE}% to xp gained by party companions after each naval battle.",
+    "{VALUE}% Increase to militia veterancy in coastal settlements."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "EnemyOfTheWood"
+  },
+  {
+   "id": "TerrorOfTheSeas",
+   "field": "_terrorOfTheSeas",
+   "prop": "TerrorOfTheSeas",
+   "name": "Terror of the Seas",
+   "skill": "Mariner",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE}% to morale loss suffered by enemy ships in battle.",
+    "{VALUE}% melee damage taken by crew while on enemy ships."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": -0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "RallyingCry"
+  },
+  {
+   "id": "RallyingCry",
+   "field": "_rallyingCry",
+   "prop": "RallyingCry",
+   "name": "Rallying Cry",
+   "skill": "Mariner",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE}% morale boost for crew while on own ship.",
+    "{VALUE}% melee damage taken by crew while on own ships."
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": -0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "TerrorOfTheSeas"
+  },
+  {
+   "id": "ShatteringBlow",
+   "field": "_shatteringBlow",
+   "prop": "ShatteringBlow",
+   "name": "Shattering Blow",
+   "skill": "Mariner",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE}% armor penetration for melee weapons.",
+    "{VALUE}% armor penetration for melee weapons wielded by crew."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.5,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ShatteringVolley"
+  },
+  {
+   "id": "ShatteringVolley",
+   "field": "_shatteringVolley",
+   "prop": "ShatteringVolley",
+   "name": "Shattering Volley",
+   "skill": "Mariner",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE}% armor penetration for ranged weapons.",
+    "{VALUE}% armor penetration for ranged weapons wielded by crew."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.5,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ShatteringBlow"
+  },
+  {
+   "id": "Arr",
+   "field": "_arr",
+   "prop": "Arr",
+   "name": "Arr!",
+   "skill": "Mariner",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "Surrendering pirate parties can be recruited.",
+    "{VALUE}% xp gain after each battle for mariner troops under character's command."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.0,
+     "type": "Add"
+    },
+    {
+     "role": "Captain",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "PirateHunter"
+  },
+  {
+   "id": "PirateHunter",
+   "field": "_pirateHunter",
+   "prop": "PirateHunter",
+   "name": "Pirate Hunter",
+   "skill": "Mariner",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "{VALUE}% bonus when crew is sent to confront pirates.",
+    "{VALUE}% xp gain after each battle for regular troops under character's command."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Arr"
+  },
+  {
+   "id": "BoardingMaster",
+   "field": "_boardingMaster",
+   "prop": "BoardingMaster",
+   "name": "Boarding Master",
+   "skill": "Mariner",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE}% melee damage dealt by character when fighting on other ships.",
+    "{VALUE}% melee damage dealt by crew when fighting on other ships."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.15,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "HomeTurfAdvantage"
+  },
+  {
+   "id": "HomeTurfAdvantage",
+   "field": "_homeTurfAdvantage",
+   "prop": "HomeTurfAdvantage",
+   "name": "Home Turf Advantage",
+   "skill": "Mariner",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE}% melee damage dealt by character when fighting on own ship.",
+    "{VALUE}% melee damage dealt by crew when fighting on own ship."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "BoardingMaster"
+  },
+  {
+   "id": "MightyBlows",
+   "field": "_mightyBlows",
+   "prop": "MightyBlows",
+   "name": "Mighty Blows",
+   "skill": "Mariner",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "Better cleave with two handed weapons swings. (Two handed weapons lose {VALUE}% less damage when they cut through the first opponent.)",
+    "{VALUE}% melee damage dealt by crew armed with two-handed weapons."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": -0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "CrewOfSpears"
+  },
+  {
+   "id": "CrewOfSpears",
+   "field": "_crewOfSpears",
+   "prop": "CrewOfSpears",
+   "name": "Crew of Spears",
+   "skill": "Mariner",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "Impale shields with thrown javelins, and throwing axes deals damage after if they break a shield.",
+    "{VALUE}% ranged damage dealt by crew armed with throwing weapons."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.0,
+     "type": "Add"
+    },
+    {
+     "role": "Captain",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "MightyBlows"
+  },
+  {
+   "id": "TheSkysFury",
+   "field": "_theSkysFury",
+   "prop": "TheSkysFury",
+   "name": "The Sky's Fury",
+   "skill": "Mariner",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE}% ranged damage dealt by character.",
+    "{VALUE}% to bow and crossbow damage dealt by crew."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.15,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "WarriorsMight"
+  },
+  {
+   "id": "WarriorsMight",
+   "field": "_warriorsMight",
+   "prop": "WarriorsMight",
+   "name": "Warrior's Might",
+   "skill": "Mariner",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE}% melee damage dealt by character.",
+    "{VALUE}% to throwing damage dealt by crew."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "TheSkysFury"
+  },
+  {
+   "id": "MerchantPrince",
+   "field": "_merchantPrince",
+   "prop": "MerchantPrince",
+   "name": "Merchant Prince",
+   "skill": "Boatswain",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% to ship repair cost",
+    "{VALUE} denars for each ship bought or sold in governed settlement."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 500.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "MasterShipwright"
+  },
+  {
+   "id": "MasterShipwright",
+   "field": "_masterShipwright",
+   "prop": "MasterShipwright",
+   "name": "Master Shipwright",
+   "skill": "Boatswain",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% to cost of ship upgrades",
+    "{VALUE} denars from each ship repaired at governed settlement"
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 30.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "MerchantPrince"
+  },
+  {
+   "id": "StreamlinedOperations",
+   "field": "_streamlinedOperations",
+   "prop": "StreamlinedOperations",
+   "name": "Streamlined Operations",
+   "skill": "Boatswain",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% ballista reload time.",
+    "{VALUE}% to shipyard production rate in governed settlement."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": 0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "WellStocked"
+  },
+  {
+   "id": "WellStocked",
+   "field": "_wellStocked",
+   "prop": "WellStocked",
+   "name": "Well Stocked",
+   "skill": "Boatswain",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% ammunition per stack for crew under command.",
+    "{VALUE} extra ammunition per stack for thrown weapons of the crew."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": 2.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "StreamlinedOperations"
+  },
+  {
+   "id": "NavalHorde",
+   "field": "_navalHorde",
+   "prop": "NavalHorde",
+   "name": "Naval Horde",
+   "skill": "Boatswain",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% to wages for cavalry troops while at sea.",
+    "{VALUE}% to weight of mounts when in ship's cargo."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Optimization"
+  },
+  {
+   "id": "Optimization",
+   "field": "_optimization",
+   "prop": "Optimization",
+   "name": "Optimization",
+   "skill": "Boatswain",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% to wages of non-mariner troops while at sea.",
+    "{VALUE}% to weight of pack animals and livestock when in ship's cargo"
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": -0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "NavalHorde"
+  },
+  {
+   "id": "GildedPurse",
+   "field": "_gildedPurse",
+   "prop": "GildedPurse",
+   "name": "Gilded Purse",
+   "skill": "Boatswain",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "{VALUE}% to chance of capturing ships after battle.",
+    "{VALUE}% to weight of trade goods in ship's cargo."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.25,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": -0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "VeteransWisdom"
+  },
+  {
+   "id": "VeteransWisdom",
+   "field": "_veteransWisdom",
+   "prop": "VeteransWisdom",
+   "name": "Veteran's Wisdom",
+   "skill": "Boatswain",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "Daily bonus of {VALUE}x character level xp to companions.",
+    "{VALUE}% overburden penalty for ships with too much cargo."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 10.0,
+     "type": "Add"
+    },
+    {
+     "role": "FirstMate",
+     "value": -0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "GildedPurse"
+  },
+  {
+   "id": "ShipwrightsInsight",
+   "field": "_shipwrightsInsight",
+   "prop": "ShipwrightsInsight",
+   "name": "Shipwright's Insight",
+   "skill": "Boatswain",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE}% damage to hulls of enemy ships dealt by ballista.",
+    "{VALUE}% extra ammo for crew."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": 0.25,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "SpecialArrows"
+  },
+  {
+   "id": "SpecialArrows",
+   "field": "_specialArrows",
+   "prop": "SpecialArrows",
+   "name": "Special Arrows",
+   "skill": "Boatswain",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE} armor for low-tier troops.",
+    "{VALUE}% damage dealt by crew to enemy sails."
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 5.0,
+     "type": "Add"
+    },
+    {
+     "role": "FirstMate",
+     "value": 0.4,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ShipwrightsInsight"
+  },
+  {
+   "id": "SmoothOperator",
+   "field": "_smoothOperator",
+   "prop": "SmoothOperator",
+   "name": "Smooth Operator",
+   "skill": "Boatswain",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE} ammo for ballista.",
+    "{VALUE}% food consumption at sea."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": 5.0,
+     "type": "Add"
+    },
+    {
+     "role": "FirstMate",
+     "value": -0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Accuracytraining"
+  },
+  {
+   "id": "Accuracytraining",
+   "field": "_accuracyTraining",
+   "prop": "AccuracyTraining",
+   "name": "Accuracy Training",
+   "skill": "Boatswain",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE}% damage dealt to shields with ranged weapons wielded by crew.",
+    "{VALUE} militia in coastal towns and villages."
+   ],
+   "effects": [
+    {
+     "role": "FirstMate",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 2.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "SmoothOperator"
+  },
+  {
+   "id": "EfficientCaptain",
+   "field": "_efficientCaptain",
+   "prop": "EfficientCaptain",
+   "name": "Efficient Captain",
+   "skill": "Boatswain",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "{VALUE}% upgrade cost for mariner troops.",
+    "{VALUE} morale for the party while waiting in a port."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 5.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "PopularCaptain"
+  },
+  {
+   "id": "PopularCaptain",
+   "field": "_popularCaptain",
+   "prop": "PopularCaptain",
+   "name": "Popular Captain",
+   "skill": "Boatswain",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "{VALUE}% recruitment cost for mariner troops.",
+    "{VALUE}% combat deck size for the ship under the character's command."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.05,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "EfficientCaptain"
+  },
+  {
+   "id": "PortAuthority",
+   "field": "_portAuthority",
+   "prop": "PortAuthority",
+   "name": "Port Authority",
+   "skill": "Boatswain",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE} ship to command limit.",
+    "{VALUE}% to production of walrus ivory and whale oil at villages of the governed settlement."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    },
+    {
+     "role": "Governor",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "BlessingsOfTheSea"
+  },
+  {
+   "id": "BlessingsOfTheSea",
+   "field": "_blessingsOfTheSea",
+   "prop": "BlessingsOfTheSea",
+   "name": "Blessings Of The Sea",
+   "skill": "Boatswain",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE} ship to command limit.",
+    "{VALUE}% to production of fish at villages governed of the governed settlement."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    },
+    {
+     "role": "Governor",
+     "value": 0.25,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "PortAuthority"
+  },
+  {
+   "id": "ShipwrightsHand",
+   "field": "_shipwrightsHand",
+   "prop": "ShipwrightsHand",
+   "name": "Shipwright's Hand",
+   "skill": "Boatswain",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "Discarded ships repair party ships.",
+    "{VALUE} recruit to garrison for each merchant convoy entering port."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.0,
+     "type": "Add"
+    },
+    {
+     "role": "Governor",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "Salvage"
+  },
+  {
+   "id": "Salvage",
+   "field": "_salvage",
+   "prop": "Salvage",
+   "name": "Salvage",
+   "skill": "Boatswain",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "Discarded ships provide influence.",
+    "{VALUE} denars gained for each merchant convoy entering port"
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.0,
+     "type": "Add"
+    },
+    {
+     "role": "Governor",
+     "value": 40.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "ShipwrightsHand"
+  },
+  {
+   "id": "MerchantFleet",
+   "field": "_merchantFleet",
+   "prop": "MerchantFleet",
+   "name": "Merchant Fleet",
+   "skill": "Boatswain",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE} to command limit of ships in battle.",
+    "{VALUE} influence gained for each ship built in the governed settlement."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    },
+    {
+     "role": "Governor",
+     "value": 5.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "Resilience"
+  },
+  {
+   "id": "Resilience",
+   "field": "_resilience",
+   "prop": "Resilience",
+   "name": "Resilience",
+   "skill": "Boatswain",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE}% of the health points lost in a battle are recovered after a victory.",
+    "{VALUE}% to troops' healing rate while at sea."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "FirstMate",
+     "value": 0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "MerchantFleet"
+  },
+  {
+   "id": "NavalBombardment",
+   "field": "_navalBombardment",
+   "prop": "NavalBombardment",
+   "name": "Naval Bombardment",
+   "skill": "Boatswain",
+   "tier": 11,
+   "requiredSkill": 275,
+   "descriptions": [
+    "Shipboard ballistas fire during sieges"
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 0.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "MasterAngler",
+   "field": "_masterAngler",
+   "prop": "MasterAngler",
+   "name": "Master Angler",
+   "skill": "Shipmaster",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% chance per hour of campaign time to catch fish while sailing on campaign map.",
+    "{VALUE}% to catch brought in by fishing boats from settlements."
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.25,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 0.15,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "OldSaltsTouch"
+  },
+  {
+   "id": "OldSaltsTouch",
+   "field": "_oldSaltsTouch",
+   "prop": "OldSaltsTouch",
+   "name": "Old Salt's Touch",
+   "skill": "Shipmaster",
+   "tier": 1,
+   "requiredSkill": 25,
+   "descriptions": [
+    "{VALUE}% to travel speed at sea.",
+    "{VALUE}% to swimming endurance of crew"
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.02,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": 0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "MasterAngler"
+  },
+  {
+   "id": "GhostShip",
+   "field": "_ghostShip",
+   "prop": "GhostShip",
+   "name": "Ghost Ship",
+   "skill": "Shipmaster",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% fewer troops lost when running a blockade and {VALUE}% chance to avoid leaving ships behind when escaping engagements.",
+    "{VALUE}% to campaign map speed of town's fishing boats."
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "WindRider"
+  },
+  {
+   "id": "WindRider",
+   "field": "_windRider",
+   "prop": "WindRider",
+   "name": "Wind Rider",
+   "skill": "Shipmaster",
+   "tier": 2,
+   "requiredSkill": 50,
+   "descriptions": [
+    "{VALUE}% to deck movement penalty.",
+    "{VALUE}% to deck movement penalty for crew."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": -0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": -0.5,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "GhostShip"
+  },
+  {
+   "id": "RiverRaider",
+   "field": "_riverRaider",
+   "prop": "RiverRaider",
+   "name": "River Raider",
+   "skill": "Shipmaster",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% to coastal movement speed penalty.",
+    "{VALUE}% to chance of capturing enemy troops as prisoners."
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": -0.03,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "NightRaider"
+  },
+  {
+   "id": "NightRaider",
+   "field": "_nightRaider",
+   "prop": "NightRaider",
+   "name": "Night Raider",
+   "skill": "Shipmaster",
+   "tier": 3,
+   "requiredSkill": 75,
+   "descriptions": [
+    "{VALUE}% to night spotting range penalty on campaign map.",
+    "{VALUE} fish per day produced by coastal villages."
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": -0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 5.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "RiverRaider"
+  },
+  {
+   "id": "Windborne",
+   "field": "_windborne",
+   "prop": "Windborne",
+   "name": "Windborne",
+   "skill": "Shipmaster",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "{VALUE}% to sail forces in missions.",
+    "{VALUE}% to duration of disorganized state while at sea."
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Navigator",
+     "value": -0.5,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ShockAndAwe"
+  },
+  {
+   "id": "ShockAndAwe",
+   "field": "_shockAndAwe",
+   "prop": "ShockAndAwe",
+   "name": "Shock and Awe",
+   "skill": "Shipmaster",
+   "tier": 4,
+   "requiredSkill": 100,
+   "descriptions": [
+    "{VALUE}% morale boost when ship rams enemy ship.",
+    "{VALUE}% to speed on campaign map when against the wind."
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Navigator",
+     "value": 0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Windborne"
+  },
+  {
+   "id": "TheHelmsmansShield",
+   "field": "_theHelmsmansShield",
+   "prop": "TheHelmsmansShield",
+   "name": "The Helmsman's Shield",
+   "skill": "Shipmaster",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE}% to ranged damage suffered by character while steering the ship.",
+    "{VALUE} prosperity for each fishing boat returning to port."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": -0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "RavenEye"
+  },
+  {
+   "id": "RavenEye",
+   "field": "_ravenEye",
+   "prop": "RavenEye",
+   "name": "Raven Eye",
+   "skill": "Shipmaster",
+   "tier": 5,
+   "requiredSkill": 125,
+   "descriptions": [
+    "{VALUE}% to spotting range on campaign map.",
+    "{VALUE} loyalty for each fishing boat returning to port."
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "TheHelmsmansShield"
+  },
+  {
+   "id": "FairWinds",
+   "field": "_fairWinds",
+   "prop": "FairWinds",
+   "name": "Fair Winds",
+   "skill": "Shipmaster",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE}% to campaign map travel speed when running before the wind.",
+    "{VALUE}% to hearth growth rate in coastal villages"
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 0.1,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "FavorableTide"
+  },
+  {
+   "id": "FavorableTide",
+   "field": "_favorableTide",
+   "prop": "FavorableTide",
+   "name": "Favorable Tide",
+   "skill": "Shipmaster",
+   "tier": 6,
+   "requiredSkill": 150,
+   "descriptions": [
+    "{VALUE}% to campaign map travel speed",
+    "{VALUE} building material in settlement for each merchant convoy visiting port"
+   ],
+   "effects": [
+    {
+     "role": "Navigator",
+     "value": 0.05,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "FairWinds"
+  },
+  {
+   "id": "Unflinching",
+   "field": "_unflinching",
+   "prop": "Unflinching",
+   "name": "Unflinching",
+   "skill": "Shipmaster",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "{VALUE}% to disembarkation speed."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ShoreMaster"
+  },
+  {
+   "id": "ShoreMaster",
+   "field": "_shoreMaster",
+   "prop": "ShoreMaster",
+   "name": "Shore Master",
+   "skill": "Shipmaster",
+   "tier": 7,
+   "requiredSkill": 175,
+   "descriptions": [
+    "{VALUE}% to ship recall time.",
+    "{VALUE}% to fleet size penalty for campaign map movement"
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": -0.5,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Navigator",
+     "value": -0.3,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "Unflinching"
+  },
+  {
+   "id": "FleetCommander",
+   "field": "_fleetCommander",
+   "prop": "FleetCommander",
+   "name": "Fleet Commander",
+   "skill": "Shipmaster",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE}% to fleet size penalty for campaign map movement",
+    "{VALUE}% to skeleton crew requirement for any ship in party"
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": -0.3,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": -0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "ChainToOars"
+  },
+  {
+   "id": "ChainToOars",
+   "field": "_chainToOars",
+   "prop": "ChainToOars",
+   "name": "Chain to Oars",
+   "skill": "Shipmaster",
+   "tier": 8,
+   "requiredSkill": 200,
+   "descriptions": [
+    "{VALUE}% to oar force in mission",
+    "Prisoners help meet skeleton crew requirement"
+   ],
+   "effects": [
+    {
+     "role": "Captain",
+     "value": 0.2,
+     "type": "AddFactor"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 0.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "FleetCommander"
+  },
+  {
+   "id": "Stormrider",
+   "field": "_stormrider",
+   "prop": "Stormrider",
+   "name": "Stormrider",
+   "skill": "Shipmaster",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "{VALUE} xp gained by each troop once per day when entering storms",
+    "{VALUE} ship to command limit."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 30.0,
+     "type": "Add"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "MasterAndCommander"
+  },
+  {
+   "id": "MasterAndCommander",
+   "field": "_masterAndCommander",
+   "prop": "MasterAndCommander",
+   "name": "Master and commander",
+   "skill": "Shipmaster",
+   "tier": 9,
+   "requiredSkill": 225,
+   "descriptions": [
+    "{VALUE} xp gained by each troop per hour at sea",
+    "{VALUE} ship to command limit."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    },
+    {
+     "role": "PartyLeader",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "Stormrider"
+  },
+  {
+   "id": "TheCorsairsEdge",
+   "field": "_theCorsairsEdge",
+   "prop": "TheCorsairsEdge",
+   "name": "The Corsair's Edge",
+   "skill": "Shipmaster",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE}% damage when wielding one-handed weapons at sea",
+    "{VALUE} fishing boat produced by each coastal settlement."
+   ],
+   "effects": [
+    {
+     "role": "Personal",
+     "value": 0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Governor",
+     "value": 1.0,
+     "type": "Add"
+    }
+   ],
+   "alternative": "SeaborneFortress"
+  },
+  {
+   "id": "SeaborneFortress",
+   "field": "_seaborneFortress",
+   "prop": "SeaborneFortress",
+   "name": "Seaborne Fortress",
+   "skill": "Shipmaster",
+   "tier": 10,
+   "requiredSkill": 250,
+   "descriptions": [
+    "{VALUE}% to damage sustained by ships when crew is sent to confront the enemies.",
+    "{VALUE}% to ranged damage taken by crew if not boarded."
+   ],
+   "effects": [
+    {
+     "role": "PartyLeader",
+     "value": -0.1,
+     "type": "AddFactor"
+    },
+    {
+     "role": "Captain",
+     "value": -0.2,
+     "type": "AddFactor"
+    }
+   ],
+   "alternative": "TheCorsairsEdge"
+  },
+  {
+   "id": "Commodore",
+   "field": "_commodore",
+   "prop": "Commodore",
+   "name": "Commodore",
+   "skill": "Shipmaster",
+   "tier": 11,
+   "requiredSkill": 275,
+   "descriptions": [
+    "Flagship figurehead provides bonus to all allied ships."
+   ],
+   "effects": [
+    {
+     "role": "ArmyCommander",
+     "value": 0.0,
+     "type": "Add"
     }
    ],
    "alternative": null

@@ -489,6 +489,266 @@
      "cultures": [
       "khuzait"
      ]
+    },
+    {
+     "id": "vlandia_coastal_fisherman_option",
+     "label": "Coastal fisherman",
+     "desc": "Your family has been fishing these waters for generations, struggling to make a living off the unpredictable sea. You grew up mending nets, hauling in catches, and dreaming of a life beyond the constant struggle for survival.",
+     "skills": [
+      "Boatswain",
+      "Scouting"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "vlandia_dockers_option",
+     "label": "Dockers",
+     "desc": "Your family toiled on the docks, their hands calloused from hauling the endless flow of goods from the sea. A vital but often thankless task that kept Vlandia's ports alive. You learned the rhythm of the tides and the languages of foreign sailors before you learned to read.",
+     "skills": [
+      "Shipmaster",
+      "Athletics"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "vlandia"
+     ]
+    },
+    {
+     "id": "sturgia_river_fisherman_option",
+     "label": "River Fisherman",
+     "desc": "Your family lived by the water, skilled in casting nets, setting lines, and mending the wear and tear of daily fishing. You understood the currents, the seasons of the fish, and the importance of a good catch for your community. Life was dictated by the river's flow and its bounty.",
+     "skills": [
+      "Boatswain",
+      "Throwing"
+     ],
+     "attr": "control",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "sturgia_shipbuilders_option",
+     "label": "Shipbuilders",
+     "desc": "Your family builded longships for the Sturgian river lords. You grew up amidst the sounds of hammering and the smell of tar, learning the craft of shipbuilding from your father and uncles.",
+     "skills": [
+      "Shipmaster",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "aserai_ferryman_option",
+     "label": "Ferryman",
+     "desc": "Your family are from a small rural community along a river bank where they operated a small ferry to transport goods and people across the river, connecting rural communities. You learned about boats and ebbs and flows of the river navigation.",
+     "skills": [
+      "Boatswain",
+      "Trade"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "aserai_corsair_traders_option",
+     "label": "Corsair Traders",
+     "desc": "Raised on Aserai dhows, your father thought you about the trade winds and routes. The ship you were raised in made long and tedious voyages, smuggling silks and spices or ambushing Vlandian ships when profits dwindled.",
+     "skills": [
+      "Boatswain",
+      "Mariner"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "battania_currach_sailors_option",
+     "label": "Currach Sailors",
+     "desc": "Your kin braved the lakes and rivers in hide-covered currachs, fishing icy waters and facing the dangers of strong currents and occasional banditry. You grew up learning to navigate the treacherous waters and to defend yourself from those who would prey on the river traffic.",
+     "skills": [
+      "Boatswain",
+      "Bow"
+     ],
+     "attr": "control",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "battania_guardian_of_the_lake_option",
+     "label": "Guardian of the Lake",
+     "desc": "Your kin were part of a group of warriors tasked with maintaining small boats for defense or patrol of vital waterways, protecting it from raiders or invaders. While they weren't around much while you were growing up, you still earned some riverine navigation and combat skills.",
+     "skills": [
+      "Mariner",
+      "Polearm"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "khuzait_river_foragers_option",
+     "label": "River Foragers",
+     "desc": "Along the winding veins of a major river that cuts through the steppe, your family carved a life from the water's edge. Using small, makeshift rafts and boats, they developed a keen eye for the river's bounty, gathering specific plants from its banks and fishing in its shallows. From your humble parents, you inherited a deep well of knowledge.",
+     "skills": [
+      "Boatswain",
+      "Shipmaster"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "khuzait_river_traders_option",
+     "label": "River Traders",
+     "desc": "Your family transports goods and people along the river, facing the dangers of strong currents and occasional banditry. You grew up learning to navigate the treacherous waters and to defend yourself from those who would prey on the river traffic.",
+     "skills": [
+      "Bow",
+      "Mariner"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "empire_small_boat_fisherman_option",
+     "label": "Small Boat Fisherman",
+     "desc": "Your family inhabited a small, relatively isolated coastal village within the Empire. They foraged along the shoreline for fish using small boats. You grew up with the smell of salt and the rhythm of the tides, learning to navigate close to shore and brave the smaller waves in your sturdy little vessel.",
+     "skills": [
+      "Boatswain",
+      "Throwing"
+     ],
+     "attr": "control",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "empire_imperial_fleet_option",
+     "label": "Imperial Fleet",
+     "desc": "Your father served in one the Imperial Navy's liburna as a quartermaster. He bought supplies for the crew and basically kept the ship running. He wanted the same path for you so you were schooled in trading and ship maintenance.",
+     "skills": [
+      "Trade",
+      "Shipmaster"
+     ],
+     "attr": "social",
+     "cultures": [
+      "empire"
+     ]
+    },
+    {
+     "id": "nord_hersir_option",
+     "label": "Hersir",
+     "desc": "Your family's loyalty ran deep, not in sprawling lands or grand titles, but in service. For generations, they'd served as hersirs, the trusted retainers, for a minor Jarl who kept watch over a windswept corner of the Nord territory.",
+     "skills": [
+      "Steward",
+      "OneHanded"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_market_trader_option",
+     "label": "Peddler",
+     "desc": "You grew up amidst the bustling chaos of a Norse market town, a hub of trade where goods from across the known world exchanged hands. Your family were established traders, perhaps dealing in furs, amber, crafted goods, or even imported luxuries. You learned the art of negotiation, the value of different commodities, and the diverse languages and customs of the merchants who passed through. The market was your school, and shrewd dealing your lesson.",
+     "skills": [
+      "Trade",
+      "Charm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_skald_option",
+     "label": "Travelling skalds",
+     "desc": "Your family's voices carried the tales of the North. Not grand courtly Skalds, but traveling storytellers with weathered cloaks and worn lutes. They wandered from village to village, weaving tales of heroes and hearth into songs and sagas. You grew up surrounded by the rhythmic strum of their instruments and the flickering firelight reflecting off their eyes as they spun fantastical yarns. These weren't just stories - they were the beating heart of Nord culture, passed down from generation to generation by your family's calloused hands and booming voices.",
+     "skills": [
+      "Scouting",
+      "Charm"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_blacksmith_option",
+     "label": "Urban artisans",
+     "desc": "The clang of hammer on hot iron was the defining sound of your upbringing. Your family were more than mere smiths; they were artisans who coaxed wonders from limited resources, shaping valuable iron into formidable weapons and treasured tools. From the forge, you learned to work with what little you had, understanding the unique properties of each piece and the almost magical skill required to transform it.",
+     "skills": [
+      "Crafting",
+      "Engineering"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_hunter_option",
+     "label": "Hunters",
+     "desc": "You were born into a family of foresters living off the land. You learned to track prey, hunt for sustenance and gathering herbs and mushrooms from a young age. The forest provided, but it also demanded respect. You learned the medicinal properties of plants and mushrooms for the inevitable scrapes and ailments that came with life in the wild. The harsh environment became your teacher, and survival your greatest lesson.",
+     "skills": [
+      "Bow",
+      "Medicine"
+     ],
+     "attr": "control",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_vagabonds_option",
+     "label": "Vagabonds",
+     "desc": "You were part of a tight-knit family scraping by on the fringes of a bustling Nord port. Hard work wasn't always an option, and your kin did what they had to - unloading ships one day, \\",
+     "skills": [
+      "Throwing",
+      "Roguery"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_sailors_option",
+     "label": "Sailors",
+     "desc": "Your family was a tight-knit crew on a sturdy fishing vessel. They weren't charting uncharted seas, but venturing just beyond the familiar fjords, bartering with coastal settlements for smoked fish and bragging rights about the biggest catch. Tales of faraway lands might have been spun under flickering lanterns, but the reality was weathered sails, calloused hands, and a knack for reading the temperamental sea.",
+     "skills": [
+      "Trade",
+      "Boatswain"
+     ],
+     "attr": "social",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "nord_shipwrights_option",
+     "label": "Shipwrights",
+     "desc": "Your kin weren't grand shipwrights building mighty drakkars, but a family of skilled boatbuilders crafting sturdy vessels. Their longships weren't feared in battle, but prized for braving the treacherous coasts. Each plank and sail held the legacy of generations, passed down through calloused hands and the rhythmic tap of the hammer.",
+     "skills": [
+      "Engineering",
+      "Shipmaster"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "nord"
+     ]
     }
    ],
    "modes": [
@@ -562,6 +822,16 @@
       "Medicine"
      ],
      "attr": "endurance"
+    },
+    {
+     "id": "childhood_predict_weather_option",
+     "label": "your uncanny ability to predict the weather.",
+     "desc": "You were fascinated with clouds and patterns and always observed weather, often warning your family of impending storms with uncanny accuracy.",
+     "skills": [
+      "Boatswain",
+      "Scouting"
+     ],
+     "attr": "intelligence"
     }
    ],
    "modes": [
@@ -695,6 +965,26 @@
       "Steward"
      ],
      "attr": "endurance"
+    },
+    {
+     "id": "education_fishing_boat",
+     "label": "worked as a deckhand on a fishing boat.",
+     "desc": "You spent your adolescence helping your uncle with his fishing business, learning the ropes (literally!) of seamanship, from mending nets to hauling in the catch.",
+     "skills": [
+      "Boatswain",
+      "Athletics"
+     ],
+     "attr": "endurance"
+    },
+    {
+     "id": "education_docks",
+     "label": "worked at the docks.",
+     "desc": "You spent your adolescence helping out at the bustling docks, assisting with the loading and unloading of ships, and learning the ins and outs of maritime trade. You witnessed the arrival and departure of exotic goods and people from far-off lands, fueling your dreams of adventure on the high seas.",
+     "skills": [
+      "Shipmaster",
+      "Trade"
+     ],
+     "attr": "social"
     }
    ],
    "modes": [
@@ -971,6 +1261,163 @@
      "cultures": [
       "battania",
       "aserai"
+     ]
+    },
+    {
+     "id": "youth_nord_guard_option",
+     "label": "served as a shieldbearer to a huscarl.",
+     "desc": "War was a constant presence in your village. You served as a shieldbearer to a renowned Huscarl, a veteran Nord warrior. Witnessing countless battles and learning the art of defense from a master, you yearn to prove yourself worthy of wielding a weapon in the front lines.",
+     "skills": [
+      "Charm",
+      "Scouting"
+     ],
+     "attr": "social",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_nord_skirmisher_option",
+     "label": "joined the raiders as a lookout.",
+     "desc": "Growing up on the harsh Nordic coast, you were trained from a young age to spot enemy sails and signal incoming raids. Agile and quick-witted, you honed your skills with a throwing axe and learned to fight in skirmishes. You dream of joining a raiding party and tasting the glory of conquest.",
+     "skills": [
+      "Throwing",
+      "Tactics"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_nord_vagabond_option",
+     "label": "drafted to war as a thrall.",
+     "desc": "Thrown into servitude to a Jarl, war ripped through your village. Drafted alongside other thralls, you were thrown into battle with minimal training and a simple spear. Though fear grips you, a deep loyalty to your Jarl and a desperate will to survive drive you forward.",
+     "skills": [
+      "OneHanded",
+      "Polearm"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_nord_artisan_option",
+     "label": "stood sentry at the Walls of the Hold.",
+     "desc": "With enemy forces constantly threatening your village, you spent your youth helping fortify the local hold. You became skilled in basic construction, learned to use a pickaxe and shovel, and assisted in defending the walls during sieges. Now, you yearn to be part of the offensive and take the fight to the enemy.",
+     "skills": [
+      "Engineering",
+      "Bow"
+     ],
+     "attr": "intelligence",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_nord_infantry_option",
+     "label": "scavenged the battlefields for scraps.",
+     "desc": "Born into a Calradia perpetually at war, you didn't know playgrounds, you knew battlefields. Survival as a youngster meant picking through the battlefields. You learned to be self-sufficient, sometimes tending to wounds amidst the carnage. The law of the battlefield was simple: take what you can, and don't get caught.",
+     "skills": [
+      "Roguery",
+      "Medicine"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_nord_mercenary_option",
+     "label": "became a warchild of the North.",
+     "desc": "War ravaged your village, leaving you orphaned and hardened by hardship. You scavenged for scraps, learning to fight for survival in the harsh wilderness. Now, driven by a thirst for vengeance and a desire to carve your own path, you seek to join a warband and prove your worth.",
+     "skills": [
+      "Throwing",
+      "OneHanded"
+     ],
+     "attr": "control",
+     "cultures": [
+      "nord"
+     ]
+    },
+    {
+     "id": "youth_crewed_a_galley_option",
+     "label": "crewed a galley in the coastal raids.",
+     "desc": "You spent your youth participating in coastal raids, learning the skills of a rower, a lookout, and a boarding party. You witnessed the thrill of naval combat firsthand, experiencing the fear and the glory of maritime warfare.",
+     "skills": [
+      "Mariner",
+      "OneHanded"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "vlandia",
+      "empire"
+     ]
+    },
+    {
+     "id": "youth_rowed_river_trader_option",
+     "label": "rowed on a river trader.",
+     "desc": "You spent your youth helping your family transport goods along the river, learning to navigate the treacherous currents and to defend yourselves from raiders. You witnessed the bustling trade centers and encountered a diverse array of cultures.",
+     "skills": [
+      "Boatswain",
+      "TwoHanded"
+     ],
+     "attr": "endurance",
+     "cultures": [
+      "sturgia"
+     ]
+    },
+    {
+     "id": "youth_deckhand_corsair_option",
+     "label": "served as a deckhand on a corsair.",
+     "desc": "Growing up in a coastal town, you were drawn to the allure of the sea and the thrill of adventure. You joined a corsair crew as a deckhand, learning the ropes seamanship and witnessing the brutality of pirate raids firsthand.",
+     "skills": [
+      "Mariner",
+      "OneHanded"
+     ],
+     "attr": "cunning",
+     "cultures": [
+      "aserai"
+     ]
+    },
+    {
+     "id": "youth_raided_river_traffic_option",
+     "label": "raided river traffic.",
+     "desc": "You grew up along the great rivers, learning to navigate the treacherous currents and to fight from swift riverboats. You learned to raid rival clans and extort tribute from wealthy merchants, honing your skills as a river pirate.",
+     "skills": [
+      "Mariner",
+      "Charm"
+     ],
+     "attr": "social",
+     "cultures": [
+      "khuzait"
+     ]
+    },
+    {
+     "id": "youth_coastal_defender_option",
+     "label": "served as a coastal defender.",
+     "desc": "You grew up amidst tales of legendary sea battles and legendary heroes, destined to carry on the proud traditions of your seafaring ancestors and defend your coastal towns just like them. You learned the skills of a mariner, a rower, and a warrior.",
+     "skills": [
+      "Bow",
+      "Boatswain"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "battania"
+     ]
+    },
+    {
+     "id": "youth_serve_raider_ship_option",
+     "label": "went serving on a raider ship.",
+     "desc": "You grew up in a coastal village, surrounded by tales of legendary Viking warriors and their daring voyages. As a youth, you learned the skills of a sailor, a warrior, and a raider, preparing for the day when you would join your kin on a voyage of exploration and conquest.",
+     "skills": [
+      "Mariner",
+      "OneHanded"
+     ],
+     "attr": "vigor",
+     "cultures": [
+      "nord"
      ]
     }
    ],

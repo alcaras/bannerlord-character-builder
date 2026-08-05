@@ -229,7 +229,8 @@ const unb64url = str => {
 
 function encode() {
   const S = ORIGIN ? ORIGIN.stages.length : 0;
-  const buf = new Uint8Array(3 + S + 3 + 9 + 36 + Math.ceil(PERKS.length / 8));
+  const FB = Math.ceil(SKILLS.length / 2), SB = SKILLS.length * 2;
+  const buf = new Uint8Array(3 + S + 3 + FB + SB + Math.ceil(PERKS.length / 8));
   buf[0] = state.mode === 'campaign' ? 1 : state.mode === 'sandbox' ? 2 : 0;
   buf[1] = state.level;
   buf[2] = ORIGIN ? ORIGIN.cultures.indexOf(state.culture) + 1 : 0;
@@ -247,12 +248,12 @@ function encode() {
     if (i % 2 === 0) buf[o + (i >> 1)] = state.focus[sk.id] << 4;
     else buf[o + (i >> 1)] |= state.focus[sk.id];
   });
-  o += 9;
+  o += FB;
   SKILLS.forEach((sk, i) => {
     const v = state.skill[sk.id];
     buf[o + i * 2] = v & 0xff; buf[o + i * 2 + 1] = v >> 8;
   });
-  o += 36;
+  o += SB;
   for (const id of state.perks) {
     const i = PERK_INDEX.get(id);
     if (i !== undefined) buf[o + (i >> 3)] |= 1 << (i & 7);
@@ -304,8 +305,12 @@ function decode(hash) {
       toast('Link uses a newer data version — loading best-effort');
     }
     if (v === '4') {
+      // Section sizes derive from the MINTING version's orderings, so links
+      // from the 18-skill era decode correctly next to 21-skill ones.
       const S = (ord.g || []).length;
-      const need = 3 + S + 3 + 9 + 36 + Math.ceil((ord.p || []).length / 8);
+      const NS = (ord.s || []).length;
+      const FB = Math.ceil(NS / 2), SB = NS * 2;
+      const need = 3 + S + 3 + FB + SB + Math.ceil((ord.p || []).length / 8);
       const raw = parts[2] ? unb64url(parts[2]) : new Uint8Array(0);
       const buf = new Uint8Array(need); buf.set(raw.slice(0, need));
       const o = 3 + S;
@@ -314,8 +319,8 @@ function decode(hash) {
       applyOrdered(ord, buf[1],
         i => (buf[o + (i >> 1)] >> (i % 2 === 0 ? 4 : 0)) & 0xf,
         i => (buf[o + 3 + (i >> 1)] >> (i % 2 === 0 ? 4 : 0)) & 0xf,
-        i => buf[o + 12 + i * 2] | (buf[o + 12 + i * 2 + 1] << 8),
-        i => buf[o + 48 + (i >> 3)] & (1 << (i & 7)));
+        i => buf[o + 3 + FB + i * 2] | (buf[o + 3 + FB + i * 2 + 1] << 8),
+        i => buf[o + 3 + FB + SB + (i >> 3)] & (1 << (i & 7)));
       return true;
     }
     return false;
@@ -474,7 +479,9 @@ function renderRows(attrCapped, focusCapped) {
     row.append(tab);
 
     const tiles = el('div', 'tiles');
-    for (const s of SKILLS.filter(s => s.attributes.includes(a.id))) {
+    // Two-attribute (naval) skills appear once, under their first attribute;
+    // the cap/rate math still averages both (matching the model).
+    for (const s of SKILLS.filter(s => s.attributes[0] === a.id)) {
       const lim = Math.round(learningLimit(s));
       const over = state.skill[s.id] > lim;
       const t = el('button', 'tile' + (state.sel === s.id ? ' sel' : '')
