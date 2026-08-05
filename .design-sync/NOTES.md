@@ -20,6 +20,21 @@
   SummaryList = column cards; Toast = single card, primaryStory Visible).
   Keep those overrides when re-syncing.
 
+## guidelines/ = full context for the design agent (manual assembly)
+
+The project's `guidelines/` folder gives Claude Design the real game context:
+game screenshots, live-app screenshots, the icon sprite sheets, and the full
+data. The converter's `guidelinesGlob` only carries .md files, so after any
+rebuild that wipes `ds-bundle/`, re-assemble before close-out:
+
+1. `cp .design-sync/guidelines/* ds-bundle/guidelines/` (README + game shots)
+2. `cp data.json origin.json icons.png icons_color.png icons.json ds-bundle/guidelines/`
+3. `node .ds-sync/shot.mjs` (fresh live-app screenshots; durable copy at
+   `.design-sync/shot.mjs` — run from `.ds-sync/` so playwright resolves)
+
+Then upload `guidelines/**` and re-arm the sentinel. The remote set is the
+16 files listed in `guidelines/README.md`.
+
 ## Re-sync risks
 
 - All 15 previews are user-authored in `.design-sync/previews/` — the converter
