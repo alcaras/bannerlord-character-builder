@@ -981,8 +981,14 @@ document.getElementById('perkSearch').oninput = e => {
   renderSearch();
 };
 document.getElementById('perkSearch').addEventListener('keydown', e => {
-  if (e.key === 'Escape') { e.target.value = ''; state.query = ''; renderSearch(); }
+  if (e.key === 'Escape') clearSearch();
 });
+function clearSearch() {
+  document.getElementById('perkSearch').value = '';
+  state.query = '';
+  renderSearch();
+}
+document.getElementById('searchClose').onclick = clearSearch;
 /* War Sails display toggle: hides the naval row; allocations are kept. */
 document.getElementById('navalToggle').onchange = e => {
   state.naval = e.target.checked;

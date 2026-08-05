@@ -75,6 +75,7 @@ __CSS__
         <span class="shead-tools">
           <span class="badge" id="searchBadge">0 perks</span>
           <button id="searchTakeAll" class="btn">Take all</button>
+          <button id="searchClose" class="btn xbtn" title="Clear search">&#215;</button>
         </span>
       </div>
       <div class="chosenbody" id="searchResults"></div>
