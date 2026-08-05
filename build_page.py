@@ -46,6 +46,7 @@ __CSS__
   <div class="tools">
     <input id="perkSearch" class="psearch" type="search"
            placeholder="Search perks — try &#8220;party size&#8221;">
+    <select id="perkBrowse" class="osel browse"></select>
     <label class="lvl">Level <input id="level" type="number" min="1" max="62" value="1"></label>
     <label class="chk"><input id="navalToggle" type="checkbox" checked> War Sails</label>
     <button id="share" class="btn primary">Copy build link</button>
@@ -71,7 +72,7 @@ __CSS__
   <section class="rightcol">
     <div class="panelbox" id="searchbox" hidden>
       <div class="panel-head sub">
-        <h2>Search results</h2>
+        <h2 id="searchTitle">Search results</h2>
         <span class="shead-tools">
           <span class="badge" id="searchBadge">0 perks</span>
           <button id="searchTakeAll" class="btn">Take all</button>

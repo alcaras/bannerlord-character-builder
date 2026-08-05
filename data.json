@@ -1672,6 +1672,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "PolearmLancer"
   },
   {
@@ -1971,6 +1974,10 @@
      "value": 20.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "PolearmSharpenTheTip"
   },
@@ -3254,6 +3261,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
+   ],
    "alternative": "CrossbowTerror"
   },
   {
@@ -3965,6 +3976,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.UpdateHorseStats"
    ],
    "alternative": "RidingFullSpeed"
   },
@@ -5153,6 +5168,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSmithingModel.GetRefiningFormulas"
+   ],
    "alternative": "CharcoalYield"
   },
   {
@@ -5172,6 +5190,9 @@
      "value": 0.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetRefiningFormulas"
    ],
    "alternative": "IronYield"
   },
@@ -5193,6 +5214,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSmithingModel.GetRefiningFormulas"
+   ],
    "alternative": "CuriousSmelter"
   },
   {
@@ -5212,6 +5236,9 @@
      "value": 1.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetPartResearchGainForSmeltingItem"
    ],
    "alternative": "SteelMaker"
   },
@@ -5233,6 +5260,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSmithingModel.GetRefiningFormulas"
+   ],
    "alternative": "CuriousSmith"
   },
   {
@@ -5252,6 +5282,9 @@
      "value": 1.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetPartResearchGainForSmithingItem"
    ],
    "alternative": "SteelMaker2"
   },
@@ -5279,6 +5312,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "CraftingCampaignBehavior.CompleteOrder",
+    "DefaultSmithingModel.GetModifierQualityProbabilities"
+   ],
    "alternative": "SteelMaker3"
   },
   {
@@ -5305,6 +5342,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "CraftingCampaignBehavior.CompleteOrder",
+    "DefaultSmithingModel.GetRefiningFormulas"
+   ],
    "alternative": "ExperiencedSmith"
   },
   {
@@ -5324,6 +5365,9 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetEnergyCostForRefining"
    ],
    "alternative": "PracticalSmelter"
   },
@@ -5345,6 +5389,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSmithingModel.GetEnergyCostForSmelting"
+   ],
    "alternative": "PracticalRefiner"
   },
   {
@@ -5364,6 +5411,11 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
    ],
    "alternative": "StrongSmith"
   },
@@ -5385,6 +5437,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
+   ],
    "alternative": "VigorousSmith"
   },
   {
@@ -5404,6 +5461,9 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetEnergyCostForSmithing"
    ],
    "alternative": "ArtisanSmith"
   },
@@ -5425,6 +5485,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
+   ],
    "alternative": "PracticalSmith"
   },
   {
@@ -5444,6 +5507,9 @@
      "value": 0.075,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetModifierQualityProbabilities"
    ],
    "alternative": null
   },
@@ -5465,6 +5531,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
+   ],
    "alternative": "EnduringSmith"
   },
   {
@@ -5484,6 +5555,11 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
    ],
    "alternative": "WeaponMasterSmith"
   },
@@ -5550,6 +5626,9 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSmithingModel.GetModifierQualityProbabilities"
    ],
    "alternative": null
   },
@@ -6380,6 +6459,10 @@
      "value": 0.04,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "TacticsCoaching"
   },
@@ -9592,6 +9675,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateTownIncomeFromTariffs",
+    "DefaultItemDiscardModel.PlayerCanDonateItem",
+    "PerkHelper.PlayerHasAnyItemDonationPerk"
+   ],
    "alternative": "StewardLogistician"
   },
   {
@@ -10201,6 +10289,11 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.DailyTickParty",
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes"
    ],
    "alternative": "MedicineBestMedicine"
   },
@@ -11186,6 +11279,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateTownIncomeFromProjects",
+    "DefaultSiegeEventModel.GetRangedSiegeEngineReloadTime"
+   ],
    "alternative": "EngineeringClockwork"
   },
   {
@@ -11235,6 +11332,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentStatCalculateModel.UpdateNavalHumanStats",
+    "NavalDLCPrisonerRecruitmentCalculationModel.GetConformityChangePerHour"
+   ],
    "alternative": "PiratesProwess"
   },
   {
@@ -11260,6 +11361,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentStatCalculateModel.SetNavalPerksAndEffectsOnAgent",
+    "NavalDLCBattleRewardModel.GetLootItemChancesForWinnerParties"
    ],
    "alternative": "RollingThunder"
   },
@@ -11287,6 +11392,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalDLCRaidModel.CalculateHitDamage"
+   ],
    "alternative": "BruteForce"
   },
   {
@@ -11312,6 +11421,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalDLCRaidModel.GetRaidLootMultiplier"
    ],
    "alternative": "Forceful"
   },
@@ -11339,6 +11452,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "SunnyDisposition"
   },
   {
@@ -11364,6 +11481,10 @@
      "value": 20.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "AxeOfTheNorthwind"
   },
@@ -11391,6 +11512,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.CalculateSailFireDamage",
+    "NavalBattleMoraleModel.CalculateMoraleChangeOnShipSunk"
+   ],
    "alternative": "NavalFightingTraining"
   },
   {
@@ -11416,6 +11541,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCCombatXpModel.GetXpFromHit",
+    "NavalDLCSettlementMilitiaModel.CalculateVeteranMilitiaSpawnChance"
    ],
    "alternative": "EnemyOfTheWood"
   },
@@ -11443,6 +11572,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageReductions",
+    "NavalBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
+   ],
    "alternative": "RallyingCry"
   },
   {
@@ -11468,6 +11601,10 @@
      "value": -0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageReductions",
+    "NavalBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "TerrorOfTheSeas"
   },
@@ -11495,6 +11632,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
+   ],
    "alternative": "ShatteringVolley"
   },
   {
@@ -11520,6 +11660,9 @@
      "value": 0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
    ],
    "alternative": "ShatteringBlow"
   },
@@ -11547,6 +11690,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCEncounterModel.CanPlayerForceBanditsToJoin",
+    "NavalDLCEncounterModel.GetBribeChance",
+    "NavalDLCPartyTrainingModel.CalculateXpGainFromBattles"
+   ],
    "alternative": "PirateHunter"
   },
   {
@@ -11572,6 +11720,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCCombatSimulationModel.GetBattleAdvantage",
+    "NavalDLCPartyTrainingModel.CalculateXpGainFromBattles"
    ],
    "alternative": "Arr"
   },
@@ -11599,6 +11751,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "HomeTurfAdvantage"
   },
   {
@@ -11624,6 +11779,9 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "BoardingMaster"
   },
@@ -11651,6 +11809,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalAgentApplyDamageModel.CalculateRemainingMomentum"
+   ],
    "alternative": "CrewOfSpears"
   },
   {
@@ -11676,6 +11838,11 @@
      "value": 0.15,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalAgentApplyDamageModel.DecideMissileWeaponFlags",
+    "NavalAgentApplyDamageModel.ShouldMissilePassThroughAfterShieldBreak"
    ],
    "alternative": "MightyBlows"
   },
@@ -11703,6 +11870,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "WarriorsMight"
   },
   {
@@ -11728,6 +11898,9 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "TheSkysFury"
   },
@@ -11755,6 +11928,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalDLCShipCostModel.GetShipRepairCost",
+    "ShipTradeCampaignBehavior.OnShipOwnerChanged"
+   ],
    "alternative": "MasterShipwright"
   },
   {
@@ -11780,6 +11957,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalDLCShipCostModel.GetShipUpgradePieceValueInternal",
+    "ShipTradeCampaignBehavior.OnShipRepaired"
    ],
    "alternative": "MerchantPrince"
   },
@@ -11807,6 +11988,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalMissionSiegeEngineCalculationModel.CalculateReloadSpeed",
+    "ShipProductionCampaignBehavior.DailyTickTown"
+   ],
    "alternative": "WellStocked"
   },
   {
@@ -11832,6 +12017,9 @@
      "value": 2.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalAgentStatCalculateModel.InitializeMissionEquipmentAfterDeploymentFinished"
    ],
    "alternative": "StreamlinedOperations"
   },
@@ -11859,6 +12047,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCInventoryCapacityModel.GetItemEffectiveWeight",
+    "NavalDLCPartyWageModel.GetTotalWage",
+    "NavalVeteransWisdomCampaignBehaviour.OnPerkOpened"
+   ],
    "alternative": "Optimization"
   },
   {
@@ -11884,6 +12077,11 @@
      "value": -0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCInventoryCapacityModel.GetItemEffectiveWeight",
+    "NavalDLCPartyWageModel.GetTotalWage",
+    "NavalVeteransWisdomCampaignBehaviour.OnPerkOpened"
    ],
    "alternative": "NavalHorde"
   },
@@ -11911,6 +12109,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCBattleRewardModel.PartyLootShipScore",
+    "NavalDLCInventoryCapacityModel.GetItemEffectiveWeight",
+    "NavalVeteransWisdomCampaignBehaviour.OnPerkOpened"
+   ],
    "alternative": "VeteransWisdom"
   },
   {
@@ -11936,6 +12139,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.GetOverburdenedEffect",
+    "NavalVeteransWisdomCampaignBehaviour.OnDailyTickParty"
    ],
    "alternative": "GildedPurse"
   },
@@ -11963,6 +12170,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentStatCalculateModel.InitializeMissionEquipmentAfterDeploymentFinished",
+    "NavalMissionSiegeEngineCalculationModel.CalculateDamage"
+   ],
    "alternative": "SpecialArrows"
   },
   {
@@ -11988,6 +12199,10 @@
      "value": 0.4,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.CalculateSailFireDamage",
+    "NavalAgentStatCalculateModel.SetNavalPerksAndEffectsOnAgent"
    ],
    "alternative": "ShipwrightsInsight"
   },
@@ -12015,6 +12230,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCMobilePartyFoodConsumptionModel.CalculateDailyFoodConsumptionf",
+    "NavalMissionSiegeEngineCalculationModel.CalculateShipSiegeWeaponAmmoCount"
+   ],
    "alternative": "Accuracytraining"
   },
   {
@@ -12040,6 +12259,10 @@
      "value": 2.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalDLCSettlementMilitiaModel.CalculateMilitiaChange"
    ],
    "alternative": "SmoothOperator"
   },
@@ -12067,6 +12290,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalDLCPartyMoraleModel.GetEffectivePartyMorale",
+    "NavalDLCPartyTroopUpgradeModel.GetGoldCostForUpgrade"
+   ],
    "alternative": "PopularCaptain"
   },
   {
@@ -12092,6 +12319,11 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "MissionShip.CheckSpawnPoints",
+    "NavalDLCPartyWageModel.GetTroopRecruitmentCost",
+    "NavalMissionShipParametersModel.CalculateMainDeckCrewSize"
    ],
    "alternative": "EfficientCaptain"
   },
@@ -12119,6 +12351,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCShipDeploymentModel.GetShipDeploymentLimit",
+    "NavalDLCVillageProductionCalculatorModel.CalculateDailyProductionAmount"
+   ],
    "alternative": "BlessingsOfTheSea"
   },
   {
@@ -12144,6 +12380,10 @@
      "value": 0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCShipDeploymentModel.GetShipDeploymentLimit",
+    "NavalDLCVillageProductionCalculatorModel.CalculateDailyProductionAmount"
    ],
    "alternative": "PortAuthority"
   },
@@ -12171,6 +12411,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "ShipRepairCampaignBehavior.OnShipDestroyed",
+    "ShipTradeCampaignBehavior.OnSettlementEntered"
+   ],
    "alternative": "Salvage"
   },
   {
@@ -12196,6 +12440,10 @@
      "value": 40.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "ShipProductionCampaignBehavior.OnShipDestroyed",
+    "ShipTradeCampaignBehavior.OnSettlementEntered"
    ],
    "alternative": "ShipwrightsHand"
   },
@@ -12223,6 +12471,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalDLCShipDeploymentModel.GetShipDeploymentLimit",
+    "ShipProductionCampaignBehavior.OnShipCreated"
+   ],
    "alternative": "Resilience"
   },
   {
@@ -12248,6 +12500,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCPartyHealingModel.GetBattleEndHealingAmount",
+    "NavalDLCPartyHealingModel.GetDailyHealingForRegulars"
    ],
    "alternative": "MerchantFleet"
   },
@@ -12295,6 +12551,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "FishingPartyCampaignBehavior.CatchFish",
+    "NavalFishingCampaignBehaviour.OnHourlyTickParty"
+   ],
    "alternative": "OldSaltsTouch"
   },
   {
@@ -12320,6 +12580,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentStatCalculateModel.GetBreatheHoldMaxDuration",
+    "NavalDLCPartySpeedCalculationModel.CalculateFinalSpeed"
    ],
    "alternative": "MasterAngler"
   },
@@ -12347,6 +12611,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.CalculateNavalBaseSpeed",
+    "NavalDLCTroopSacrificeModel.CanPlayerSideTryToGetAwayWithTheirShipStats",
+    "NavalDLCTroopSacrificeModel.GetLostTroopCountForBreakingInBesiegedSettlement",
+    "NavalDLCTroopSacrificeModel.GetLostTroopCountForBreakingOutOfBesiegedSettlement"
+   ],
    "alternative": "WindRider"
   },
   {
@@ -12372,6 +12642,9 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalAgentStatCalculateModel.UpdateNavalHumanStats"
    ],
    "alternative": "GhostShip"
   },
@@ -12399,6 +12672,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCBattleRewardModel.GetCaptureMemberChancesForWinnerParties",
+    "NavalDLCPartySpeedCalculationModel.CalculateFinalSpeed"
+   ],
    "alternative": "NightRaider"
   },
   {
@@ -12424,6 +12701,10 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalDLCMapVisibilityModel.GetPartySeeingRangeBase",
+    "NavalFishingCampaignBehaviour.OnDailyTickSettlement"
    ],
    "alternative": "RiverRaider"
   },
@@ -12451,6 +12732,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalCustomBattleMissionShipParametersModel.CalculateWindBonus",
+    "NavalDLCPartyImpairmentModel.GetDisorganizedStateDuration",
+    "NavalMissionShipParametersModel.CalculateWindBonus"
+   ],
    "alternative": "ShockAndAwe"
   },
   {
@@ -12476,6 +12762,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalBattleMoraleModel.CalculateMoraleOnRamming",
+    "NavalDLCPartySpeedCalculationModel.CalculateWindBoostForParty"
    ],
    "alternative": "Windborne"
   },
@@ -12503,6 +12793,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "FishingPartyCampaignBehavior.OnDropOff",
+    "NavalAgentApplyDamageModel.ApplyDamageReductions",
+    "ShipControllerMachine.EnsureStandingPointComponents"
+   ],
    "alternative": "RavenEye"
   },
   {
@@ -12528,6 +12823,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "FishingPartyCampaignBehavior.OnDropOff",
+    "NavalDLCMapVisibilityModel.GetPartySpottingRange"
    ],
    "alternative": "TheHelmsmansShield"
   },
@@ -12555,6 +12854,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.CalculateWindBoostForParty",
+    "NavalDLCSettlementProsperityModel.CalculateHearthChange"
+   ],
    "alternative": "FavorableTide"
   },
   {
@@ -12581,6 +12884,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.CalculateFinalSpeed",
+    "NavalNimbleSurgeCampaignBehaviour.OnSettlementEntered"
+   ],
    "alternative": "FairWinds"
   },
   {
@@ -12600,6 +12907,9 @@
      "value": 1.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCPartyTransitionModel.GetTransitionTimeDisembarking"
    ],
    "alternative": "ShoreMaster"
   },
@@ -12627,6 +12937,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.CalculateNavalBaseSpeed",
+    "NavalDLCPartyTransitionModel.GetFleetTravelTimeToSettlement"
+   ],
    "alternative": "Unflinching"
   },
   {
@@ -12652,6 +12966,9 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalDLCPartySpeedCalculationModel.CalculateNavalBaseSpeed"
    ],
    "alternative": "ChainToOars"
   },
@@ -12679,6 +12996,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalCustomBattleMissionShipParametersModel.CalculateOarForceMultiplier",
+    "NavalDLCPartySpeedCalculationModel.CalculateNavalBaseSpeed",
+    "NavalMissionShipParametersModel.CalculateOarForceMultiplier"
+   ],
    "alternative": "FleetCommander"
   },
   {
@@ -12704,6 +13026,11 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalDLCShipDeploymentModel.GetShipDeploymentLimit",
+    "NavalStormriderCampaignBehaviour.OnPartyEnteredStorm",
+    "NavalStormriderCampaignBehaviour.TickEvent"
    ],
    "alternative": "MasterAndCommander"
   },
@@ -12731,6 +13058,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "NavalDLCShipDeploymentModel.GetShipDeploymentLimit",
+    "SeaDamageCampaignBehavior.HourlyTickParty"
+   ],
    "alternative": "Stormrider"
   },
   {
@@ -12756,6 +13087,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "FishingPartyCampaignBehavior.GetIdealFishingPartyCount",
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "SeaborneFortress"
   },
@@ -12783,6 +13118,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalAgentApplyDamageModel.ApplyDamageAmplifications",
+    "NavalDLCCombatSimulationModel.SimulateHit"
+   ],
    "alternative": "TheCorsairsEdge"
   },
   {
@@ -12802,6 +13141,10 @@
      "value": 0.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "NavalAgentStatCalculateModel.InitializeAgentStatsAfterDeploymentFinished",
+    "NavalBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": null
   }

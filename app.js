@@ -919,14 +919,100 @@ function takeAllResults(results, terms) {
     (kept ? ` — kept your existing pick in ${kept} pair${kept === 1 ? '' : 's'}` : ''));
 }
 
+/* ---------------- perk browser (menu-driven views of the same panel) ---- */
+/* A friendly label for a consuming class: DefaultPartySizeLimitModel ->
+   "Party Size Limit". */
+const catLabel = cls => deCamel(cls
+  .replace(/^(Default|Sandbox)/, '')
+  .replace(/(CalculationModel|CalculatingModel|Model|CampaignBehavior|IssueBehavior|Behavior)$/, ''))
+  .trim();
+const implClass = site => site.split('.')[0];
+/* Plumbing classes that reference perks but aren't stat systems. */
+const CAT_SKIP = /^(PerkResetCampaignBehavior|PerkActivationHandlerCampaignBehavior|PerkHelper|CampaignCheats)$/;
+
+function buildBrowseMenu() {
+  const sel = document.getElementById('perkBrowse');
+  if (!sel) return;
+  sel.append(new Option('Browse perks…', ''));
+
+  const og1 = document.createElement('optgroup');
+  og1.label = 'Overview';
+  og1.append(new Option(`All perks (${PERKS.length})`, 'all|'));
+  og1.append(new Option('Point-granting perks', 'grants|'));
+  const none = PERKS.filter(p => !p.impl).length;
+  if (none) og1.append(new Option(`No code consumer found (${none})`, 'none|'));
+  sel.append(og1);
+
+  const roleCount = new Map();
+  for (const p of PERKS) for (const r of new Set((p.effects || []).map(e => e.role)))
+    roleCount.set(r, (roleCount.get(r) || 0) + 1);
+  const og2 = document.createElement('optgroup');
+  og2.label = 'By role';
+  const roleOrder = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
+    'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'ArmyCommander', 'PartyMember'];
+  for (const r of [...roleCount.keys()].sort((a, b) =>
+      (roleOrder.indexOf(a) + 99 * (roleOrder.indexOf(a) < 0)) -
+      (roleOrder.indexOf(b) + 99 * (roleOrder.indexOf(b) < 0))))
+    og2.append(new Option(`${ROLE_LABEL(r)} (${roleCount.get(r)})`, 'role|' + r));
+  sel.append(og2);
+
+  const cats = new Map();
+  for (const p of PERKS)
+    for (const c of new Set((p.impl || []).map(implClass)))
+      if (!CAT_SKIP.test(c)) cats.set(c, (cats.get(c) || 0) + 1);
+  const og3 = document.createElement('optgroup');
+  og3.label = 'By system (from the game code)';
+  for (const [c, n] of [...cats.entries()]
+      .filter(([, n]) => n >= 2)
+      .sort((a, b) => catLabel(a[0]).localeCompare(catLabel(b[0]))))
+    og3.append(new Option(`${catLabel(c)} (${n})`, 'impl|' + c));
+  sel.append(og3);
+
+  sel.onchange = () => {
+    if (!sel.value) { state.browse = null; renderSearch(); return; }
+    const [kind, key] = sel.value.split('|');
+    state.query = '';
+    document.getElementById('perkSearch').value = '';
+    state.browse = { kind, key,
+      label: sel.options[sel.selectedIndex].text.replace(/ \(\d+\)$/, '') };
+    renderSearch();
+  };
+}
+
+function browsePerks(b) {
+  if (b.kind === 'all') return PERKS.slice();
+  if (b.kind === 'role') return PERKS.filter(p => (p.effects || []).some(e => e.role === b.key));
+  if (b.kind === 'impl') return PERKS.filter(p => (p.impl || []).some(s => implClass(s) === b.key));
+  if (b.kind === 'grants') return PERKS.filter(p => PERK_GRANTS[p.id]);
+  if (b.kind === 'none') return PERKS.filter(p => !p.impl);
+  return [];
+}
+
+function openBrowse(kind, key, label) {
+  state.query = '';
+  document.getElementById('perkSearch').value = '';
+  state.browse = { kind, key, label };
+  const sel = document.getElementById('perkBrowse');
+  sel.value = kind + '|' + key;
+  if (sel.value !== kind + '|' + key) sel.value = '';   // not in the menu
+  renderSearch();
+}
+
 function renderSearch() {
   const boxWrap = document.getElementById('searchbox');
   if (!boxWrap) return;
   const q = (state.query || '').trim();
-  boxWrap.hidden = !q;
-  if (!q) return;
-  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-  const results = searchPerks(q);
+  let terms = [], results, title;
+  if (q) {
+    terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    results = searchPerks(q);
+    title = `Search: ${q}`;
+  } else if (state.browse) {
+    results = browsePerks(state.browse);
+    title = state.browse.label;
+  } else { boxWrap.hidden = true; return; }
+  boxWrap.hidden = false;
+  document.getElementById('searchTitle').textContent = title;
   document.getElementById('searchBadge').textContent =
     `${results.length} perk${results.length === 1 ? '' : 's'}`;
   const takeBtn = document.getElementById('searchTakeAll');
@@ -935,8 +1021,12 @@ function renderSearch() {
   const body = document.getElementById('searchResults');
   body.innerHTML = '';
   if (!results.length) {
-    body.append(el('div', 'none', `No perks match “${esc(q)}”. Try a shorter term — the search covers perk names, skills, roles, and effect text.`));
+    body.append(el('div', 'none', `No perks match “${esc(q)}”. Try a shorter term — the search covers perk names, skills, roles, effect text, and the consuming code sites.`));
     return;
+  }
+  if (state.browse && state.browse.kind === 'none') {
+    body.append(el('div', 'none',
+      'No reference to these perks exists anywhere in the decompiled game code — they are most likely not implemented.'));
   }
   const grid = el('div', 'sgrid');
   for (const sk of SKILLS) {
@@ -986,8 +1076,18 @@ function updateInfo(p) {
     if (d) infoBox.append(el('p', null,
       (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') + d));
   });
-  if (p.impl) infoBox.append(el('div', 'impl',
-    'code: ' + p.impl.map(x => esc(x.replace(/^Default/, ''))).join(' · ')));
+  if (p.impl) {
+    const line = el('div', 'impl');
+    line.append(document.createTextNode('code: '));
+    p.impl.forEach((x, i) => {
+      if (i) line.append(document.createTextNode(' · '));
+      const chip = el('span', 'implchip', esc(x.replace(/^Default/, '')));
+      chip.title = 'Show every perk this system reads';
+      chip.onclick = () => openBrowse('impl', implClass(x), catLabel(implClass(x)));
+      line.append(chip);
+    });
+    infoBox.append(line);
+  }
   infoBox.append(el('div', 'req', `requires ${p.skill} ${p.requiredSkill}` +
     (perkUnlocked(p) ? '' : ` — click to take it (sets skill to ${p.requiredSkill})`)));
 }
@@ -1029,6 +1129,8 @@ document.getElementById('resetOrigin').onclick = () => {
    (a full render would rebuild the input and drop focus). */
 document.getElementById('perkSearch').oninput = e => {
   state.query = e.target.value;
+  state.browse = null;
+  document.getElementById('perkBrowse').value = '';
   renderSearch();
 };
 document.getElementById('perkSearch').addEventListener('keydown', e => {
@@ -1037,9 +1139,12 @@ document.getElementById('perkSearch').addEventListener('keydown', e => {
 function clearSearch() {
   document.getElementById('perkSearch').value = '';
   state.query = '';
+  state.browse = null;
+  document.getElementById('perkBrowse').value = '';
   renderSearch();
 }
 document.getElementById('searchClose').onclick = clearSearch;
+buildBrowseMenu();
 /* War Sails display toggle: hides the naval row; allocations are kept. */
 document.getElementById('navalToggle').onchange = e => {
   state.naval = e.target.checked;
