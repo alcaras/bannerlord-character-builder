@@ -479,29 +479,46 @@ function renderRows(attrCapped, focusCapped) {
     row.append(tab);
 
     const tiles = el('div', 'tiles');
-    // Two-attribute (naval) skills appear once, under their first attribute;
-    // the cap/rate math still averages both (matching the model).
-    for (const s of SKILLS.filter(s => s.attributes[0] === a.id)) {
-      const lim = Math.round(learningLimit(s));
-      const over = state.skill[s.id] > lim;
-      const t = el('button', 'tile' + (state.sel === s.id ? ' sel' : '')
-        + (over ? ' capped' : '') + (state.skill[s.id] === 0 ? ' zero' : ''));
-      t.append(el('div', 'tname', esc(s.name)));
-      const body = el('div', 'tbody');
-      const ti = iconEl('skill:' + s.id, 34) || el('div', 'ticon');
-      ti.classList.add('ticon');
-      body.append(ti, el('div', 'tval', String(state.skill[s.id])));
-      t.append(body);
-      const fx = el('div', 'tfocus');
-      for (let i = 1; i <= C.maxFocusPerSkill; i++) fx.append(el('i', i <= state.focus[s.id] ? 'on' : ''));
-      t.append(fx);
-      t.title = `${s.name} — cap ${lim}${over ? ` (${state.skill[s.id] - lim} over)` : ''}`;
-      t.onclick = () => { state.sel = s.id; render(); };
-      tiles.append(t);
-    }
+    // Single-attribute skills sit in their attribute's row; the naval
+    // two-attribute skills get their own bottom row, like the game's screen.
+    for (const s of SKILLS.filter(s => s.attributes.length === 1 && s.attributes[0] === a.id))
+      tiles.append(skillTile(s));
     row.append(tiles);
     rows.append(row);
   }
+
+  const naval = SKILLS.filter(s => s.attributes.length > 1);
+  if (naval.length) {
+    const row = el('div', 'arow');
+    const tab = el('div', 'atab naval');
+    tab.append(el('div', 'ab', '⚓'), el('div', 'avn', 'Naval'));
+    tab.title = 'War Sails skills — each governed by two attributes; ' +
+      'the skill cap uses the average of both';
+    row.append(tab);
+    const tiles = el('div', 'tiles');
+    for (const s of naval) tiles.append(skillTile(s));
+    row.append(tiles);
+    rows.append(row);
+  }
+}
+
+function skillTile(s) {
+  const lim = Math.round(learningLimit(s));
+  const over = state.skill[s.id] > lim;
+  const t = el('button', 'tile' + (state.sel === s.id ? ' sel' : '')
+    + (over ? ' capped' : '') + (state.skill[s.id] === 0 ? ' zero' : ''));
+  t.append(el('div', 'tname', esc(s.name)));
+  const body = el('div', 'tbody');
+  const ti = iconEl('skill:' + s.id, 34) || el('div', 'ticon');
+  ti.classList.add('ticon');
+  body.append(ti, el('div', 'tval', String(state.skill[s.id])));
+  t.append(body);
+  const fx = el('div', 'tfocus');
+  for (let i = 1; i <= C.maxFocusPerSkill; i++) fx.append(el('i', i <= state.focus[s.id] ? 'on' : ''));
+  t.append(fx);
+  t.title = `${s.name} — cap ${lim}${over ? ` (${state.skill[s.id] - lim} over)` : ''}`;
+  t.onclick = () => { state.sel = s.id; render(); };
+  return t;
 }
 
 function renderDetail(focusCapped) {

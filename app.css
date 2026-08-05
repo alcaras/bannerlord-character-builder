@@ -259,3 +259,6 @@ body{
 /* The detail panel scrolls; its children must never be compressed to fit —
    flex-shrink was letting a tall summary crush the perk track. */
 .detail>*{flex:0 0 auto}
+
+.atab.naval .ab{font-size:1.05rem;color:var(--gold)}
+.atab.naval .avn{font-size:.55rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
