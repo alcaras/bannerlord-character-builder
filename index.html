@@ -226,10 +226,10 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
   box-shadow:0 0 6px #f0c268}
 .pin.cap .stem{width:2px;height:.8rem;background:var(--gold2);margin:0 auto;border-radius:1px}
 .pin.cap .lab{font-size:.6rem;color:var(--gold2)}
-.pin.max{bottom:.15rem}
+.pin.max{top:.85rem}
 .pin.max .dot{width:.45rem;height:.45rem;border-radius:50%;background:var(--dim);margin:0 auto}
 .pin.max .stem{width:2px;height:.5rem;background:var(--dim);margin:0 auto;border-radius:1px;opacity:.7}
-.pin.max .lab{font-size:.6rem;color:var(--dim)}
+.pin.max .lab{font-size:.6rem;color:var(--dim);white-space:nowrap}
 
 /* perk detail readout */
 .perkinfo{border:1px solid var(--line);border-radius:4px;background:#1a1510;padding:.5rem .65rem;
@@ -2998,10 +2998,12 @@ function perkTrack(s, val, lim) {
   const cap = el('div', 'pin cap', `<div class="dot"></div><div class="stem"></div><div class="lab">cap ${lim}</div>`);
   cap.style.left = pinX(lim) + '%';
   wrap.append(cap);
+  // Max pin rides the TOP edge so it never collides with the cap pin when
+  // both clamp to the right end of the track.
   const maxR = maxReachable(s);
   if (maxR > lim) {
     const mp = el('div', 'pin max',
-      `<div class="dot"></div><div class="stem"></div><div class="lab">max ${maxR}</div>`);
+      `<div class="lab">max ${maxR}</div><div class="stem"></div><div class="dot"></div>`);
     mp.style.left = pinX(maxR) + '%';
     mp.title = 'The value where the learning rate reaches zero — nothing past this is attainable with the current attribute and focus';
     wrap.append(mp);

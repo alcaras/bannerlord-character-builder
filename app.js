@@ -829,10 +829,12 @@ function perkTrack(s, val, lim) {
   const cap = el('div', 'pin cap', `<div class="dot"></div><div class="stem"></div><div class="lab">cap ${lim}</div>`);
   cap.style.left = pinX(lim) + '%';
   wrap.append(cap);
+  // Max pin rides the TOP edge so it never collides with the cap pin when
+  // both clamp to the right end of the track.
   const maxR = maxReachable(s);
   if (maxR > lim) {
     const mp = el('div', 'pin max',
-      `<div class="dot"></div><div class="stem"></div><div class="lab">max ${maxR}</div>`);
+      `<div class="lab">max ${maxR}</div><div class="stem"></div><div class="dot"></div>`);
     mp.style.left = pinX(maxR) + '%';
     mp.title = 'The value where the learning rate reaches zero — nothing past this is attainable with the current attribute and focus';
     wrap.append(mp);

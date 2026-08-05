@@ -215,10 +215,10 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
   box-shadow:0 0 6px #f0c268}
 .pin.cap .stem{width:2px;height:.8rem;background:var(--gold2);margin:0 auto;border-radius:1px}
 .pin.cap .lab{font-size:.6rem;color:var(--gold2)}
-.pin.max{bottom:.15rem}
+.pin.max{top:.85rem}
 .pin.max .dot{width:.45rem;height:.45rem;border-radius:50%;background:var(--dim);margin:0 auto}
 .pin.max .stem{width:2px;height:.5rem;background:var(--dim);margin:0 auto;border-radius:1px;opacity:.7}
-.pin.max .lab{font-size:.6rem;color:var(--dim)}
+.pin.max .lab{font-size:.6rem;color:var(--dim);white-space:nowrap}
 
 /* perk detail readout */
 .perkinfo{border:1px solid var(--line);border-radius:4px;background:#1a1510;padding:.5rem .65rem;
