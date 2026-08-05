@@ -17,7 +17,14 @@ const TRACK_MAX = REQ[REQ.length - 1];      // 300
 // The game's parchment band begins at the first perk tier, not at zero —
 // values below it put the marker on dark background, not on an empty strip.
 const TRACK_MIN = REQ[0] - 13;              // 12
-const MAX_SKILL = 330;
+// The game has no fixed skill ceiling below its 1024-entry XP table
+// (DefaultCharacterDevelopmentModel.MaxSkillLevels); the real limit is where
+// the learning rate hits zero, which grant-stacked builds can push past 400.
+const MAX_SKILL = 1024;
+// Spending stops at 5 focus (the game's gate), but unchecked grants — child
+// education stages, the "Lord Needs a Tutor" quest, the smithy Weapon Master
+// perk — stack on top with no clamp. 8 covers realistic grant stacking.
+const MAX_FOCUS = 8;
 
 /* Default starting point: a sensible, popular sandbox build so the page is
    immediately usable — level 25, Vlandia, merchant/social-INT background,
@@ -114,13 +121,23 @@ const attrBudget = lv => isPlayer()
 const focusBudget = lv => isPlayer()
   ? lv * C.focusPointsPerLevel + ageGrants().f
   : (lv - 1) * C.focusPointsPerLevel + C.focusPointsAtStart;
-/* Spent = what came out of the budget, i.e. value above the free floor. */
+/* Spent = what came out of the budget, i.e. value above the free floor.
+   Focus above 5 never comes from the budget (the game's spend gate stops at
+   MaxFocusPerSkill; higher values exist only via unchecked grants), so only
+   the first-five band counts as spent. */
 const attrSpent = () => ATTRS.reduce((n, a) => n + Math.max(0, state.attr[a.id] - attrFloor(a.id)), 0);
-const focusSpent = () => SKILLS.reduce((n, s) => n + Math.max(0, state.focus[s.id] - focusFloor(s.id)), 0);
-/* Origin floors are hard minima; commit() re-asserts them after any change. */
+const focusSpentOf = (f, floor) =>
+  Math.max(0, Math.min(f, C.maxFocusPerSkill) - Math.min(floor, C.maxFocusPerSkill));
+const focusSpent = () => SKILLS.reduce((n, s) =>
+  n + focusSpentOf(state.focus[s.id], focusFloor(s.id)), 0);
+/* Origin floors are hard minima; commit() re-asserts them after any change.
+   Attributes clamp at 10 — HeroDeveloper.AddAttribute refuses past MaxAttribute
+   even for unchecked grants, so a grant landing on a maxed attribute is lost.
+   Focus does NOT clamp (AddFocus has no max check), so grant floors may exceed 5. */
 function applyFloors() {
   if (!isPlayer()) return;
-  for (const a of ATTRS) state.attr[a.id] = Math.max(state.attr[a.id], attrFloor(a.id));
+  for (const a of ATTRS)
+    state.attr[a.id] = Math.min(C.maxAttribute, Math.max(state.attr[a.id], attrFloor(a.id)));
   for (const sk of SKILLS) {
     state.focus[sk.id] = Math.max(state.focus[sk.id], focusFloor(sk.id));
     state.skill[sk.id] = Math.max(state.skill[sk.id], skillFloor(sk.id));
@@ -137,9 +154,10 @@ function withFloorSwap(change) {
   const oldS = Object.fromEntries(SKILLS.map(k => [k.id, skillFloor(k.id)]));
   change();
   for (const a of ATTRS)
-    state.attr[a.id] = attrFloor(a.id) + Math.max(0, state.attr[a.id] - oldA[a.id]);
+    state.attr[a.id] = Math.min(C.maxAttribute,
+      attrFloor(a.id) + Math.max(0, state.attr[a.id] - oldA[a.id]));
   for (const k of SKILLS) {
-    state.focus[k.id] = Math.min(C.maxFocusPerSkill,
+    state.focus[k.id] = Math.min(MAX_FOCUS,
       focusFloor(k.id) + Math.max(0, state.focus[k.id] - oldF[k.id]));
     state.skill[k.id] = Math.min(MAX_SKILL,
       skillFloor(k.id) + Math.max(0, state.skill[k.id] - oldS[k.id]));
@@ -172,6 +190,12 @@ function learningRate(s) {
   if (v > lim) f += -1 - 0.1 * (v - lim);
   return Math.max(0, C.baseLearningRate * (1 + f));
 }
+/* Where the learning rate reaches exactly zero — the highest value this
+   attr/focus combination can ever grind to. Solving rate = 0:
+   over = 10 * (0.4*attr + focus), so max = limit + 4*attr + 10*focus. */
+const maxReachable = s =>
+  Math.round(learningLimit(s) + 4 * attrAvg(s) + 10 * state.focus[s.id]);
+
 const perkUnlocked = p => state.skill[p.skill] >= p.requiredSkill;
 
 /* Perks that permanently grant points when taken
@@ -559,7 +583,10 @@ function skillTile(s) {
   body.append(ti, el('div', 'tval', String(state.skill[s.id])));
   t.append(body);
   const fx = el('div', 'tfocus');
-  for (let i = 1; i <= C.maxFocusPerSkill; i++) fx.append(el('i', i <= state.focus[s.id] ? 'on' : ''));
+  const nPips = Math.max(C.maxFocusPerSkill, state.focus[s.id]);
+  for (let i = 1; i <= nPips; i++)
+    fx.append(el('i', (i <= state.focus[s.id] ? 'on' : '')
+      + (i > C.maxFocusPerSkill ? ' bonus' : '')));
   t.append(fx);
   t.title = `${s.name} — cap ${lim}${over ? ` (${state.skill[s.id] - lim} over)` : ''}`;
   t.onclick = () => { state.sel = s.id; render(); };
@@ -583,7 +610,8 @@ function renderDetail(focusCapped) {
   const title = el('div', 'dtitle');
   title.append(el('h3', null, esc(s.name)));
   title.append(el('p', null, esc(s.description)));
-  title.append(el('p', 'learn', `Skill cap <b>${lim}</b> · governed by <b>${esc(
+  title.append(el('p', 'learn', `Skill cap <b>${lim}</b> · max reachable <b>${maxReachable(s)}</b>` +
+    ` · governed by <b>${esc(
     s.attributes.map(a => ATTRS.find(x => x.id === a).name).join(', '))}</b>`));
   head.append(title);
   d.append(head);
@@ -599,15 +627,21 @@ function renderDetail(focusCapped) {
   const f2 = el('div', 'field');
   f2.append(el('label', null, 'Focus'));
   const fx = el('div', 'dfocus');
-  for (let i = 1; i <= C.maxFocusPerSkill; i++) {
-    const dot = el('i', i <= state.focus[s.id] ? 'on' : '');
+  for (let i = 1; i <= MAX_FOCUS; i++) {
+    const bonus = i > C.maxFocusPerSkill;
+    const dot = el('i', (i <= state.focus[s.id] ? 'on' : '') + (bonus ? ' bonus' : ''));
+    if (bonus) dot.title = 'Beyond the 5-point spending cap — in game this is only ' +
+      'reachable through grants (childhood education stages, the "Lord Needs a Tutor" ' +
+      'quest, the smithy Weapon Master perk). Costs no focus points here.';
     dot.onclick = () => {
       const cur = state.focus[s.id];
       let next = cur === i ? i - 1 : i;
       if (next < cur && next < focusFloor(s.id)) { denyPoints('focusPts',
         'Those focus points come from your origin choices — they cannot be removed'); return; }
       next = Math.max(next, focusFloor(s.id));
-      if (next > cur && focusSpent() + (next - cur) > focusBudget(state.level)) {
+      // Only the first-five band draws on the budget; grant pips are free.
+      const delta = focusSpentOf(next, focusFloor(s.id)) - focusSpentOf(cur, focusFloor(s.id));
+      if (delta > 0 && focusSpent() + delta > focusBudget(state.level)) {
         denyPoints('focusPts', focusBudget(state.level) === 0
           ? 'No focus points yet — raise Level (top right); each level grants one'
           : 'Out of focus points — raise Level or free some elsewhere');
@@ -790,10 +824,18 @@ function perkTrack(s, val, lim) {
   const cur = el('div', 'pin cur', `<div class="lab">${val}</div><div class="stem"></div><div class="dot"></div>`);
   cur.style.left = pinX(val) + '%';
   wrap.append(cur);
-  if (lim <= TRACK_MAX) {
-    const cap = el('div', 'pin cap', `<div class="dot"></div><div class="stem"></div><div class="lab">cap ${lim}</div>`);
-    cap.style.left = pinX(lim) + '%';
-    wrap.append(cap);
+  // Cap and max-reachable pins always render; past 300 they clamp to the
+  // track edge (the label still tells the number).
+  const cap = el('div', 'pin cap', `<div class="dot"></div><div class="stem"></div><div class="lab">cap ${lim}</div>`);
+  cap.style.left = pinX(lim) + '%';
+  wrap.append(cap);
+  const maxR = maxReachable(s);
+  if (maxR > lim) {
+    const mp = el('div', 'pin max',
+      `<div class="dot"></div><div class="stem"></div><div class="lab">max ${maxR}</div>`);
+    mp.style.left = pinX(maxR) + '%';
+    mp.title = 'The value where the learning rate reaches zero — nothing past this is attainable with the current attribute and focus';
+    wrap.append(mp);
   }
   return wrap;
 }
@@ -819,12 +861,17 @@ function takePerk(p) {
    its name+skill, ONE effect line, or its role list. "party size" then means
    the stat, not "a Party Leader perk mentioning any size"; searching a role
    ("governor") still works via the role field. */
+const deCamel = s => s.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
 let SEARCH_INDEX = null;
 function searchPerks(q) {
   if (!SEARCH_INDEX) SEARCH_INDEX = PERKS.map(p => [
     `${p.name} ${skillById(p.skill)?.name || p.skill}`,
     (p.effects || []).map(e => ROLE_LABEL(e.role)).join(' '),
     ...(p.descriptions || []),
+    // The consuming code sites, de-camelled: "party member size limit" etc.
+    // This is the programmatic identity — description prose can be
+    // inconsistent, but every real party-size perk hits the same model.
+    ...(p.impl || []).map(deCamel),
   ].map(f => f.replace(/\{VALUE\}/g, '').toLowerCase()));
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   if (!terms.length) return [];
@@ -937,6 +984,8 @@ function updateInfo(p) {
     if (d) infoBox.append(el('p', null,
       (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') + d));
   });
+  if (p.impl) infoBox.append(el('div', 'impl',
+    'code: ' + p.impl.map(x => esc(x.replace(/^Default/, ''))).join(' · ')));
   infoBox.append(el('div', 'req', `requires ${p.skill} ${p.requiredSkill}` +
     (perkUnlocked(p) ? '' : ` — click to take it (sets skill to ${p.requiredSkill})`)));
 }

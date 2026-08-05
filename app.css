@@ -165,6 +165,11 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
   border-radius:2px;cursor:pointer;display:block}
 .dfocus i.on{background:linear-gradient(#f0c268,#c9922e);border-color:var(--gold2)}
 .dfocus i:hover{border-color:var(--gold2)}
+/* grant pips (6-8): reachable only via in-game grants, never the budget */
+.dfocus i.bonus{width:.55rem;border-style:dashed;border-color:#4a5c33;margin-top:.25rem;height:1.45rem}
+.dfocus i.bonus.on{background:linear-gradient(#a9c96a,#6f8a3a);border-color:var(--green2);border-style:solid}
+.tfocus i.bonus{border-style:dashed;border-color:#4a5c33}
+.tfocus i.bonus.on{background:var(--green2);border-color:var(--green2);border-style:solid}
 .rate{font-family:var(--serif);font-size:1.15rem;color:#f2e7cd;line-height:1.1;margin-left:auto}
 .rate small{display:block;font-family:inherit;font-size:.62rem;color:var(--faint);
   text-transform:uppercase;letter-spacing:.08em}
@@ -210,6 +215,10 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
   box-shadow:0 0 6px #f0c268}
 .pin.cap .stem{width:2px;height:.8rem;background:var(--gold2);margin:0 auto;border-radius:1px}
 .pin.cap .lab{font-size:.6rem;color:var(--gold2)}
+.pin.max{bottom:.15rem}
+.pin.max .dot{width:.45rem;height:.45rem;border-radius:50%;background:var(--dim);margin:0 auto}
+.pin.max .stem{width:2px;height:.5rem;background:var(--dim);margin:0 auto;border-radius:1px;opacity:.7}
+.pin.max .lab{font-size:.6rem;color:var(--dim)}
 
 /* perk detail readout */
 .perkinfo{border:1px solid var(--line);border-radius:4px;background:#1a1510;padding:.5rem .65rem;
@@ -218,6 +227,8 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
 .perkinfo p{margin:.1rem 0;font-size:.75rem;color:var(--dim)}
 .erole{color:var(--faint)}
 .perkinfo .req{font-size:.66rem;color:var(--faint)}
+.perkinfo .impl{font-size:.62rem;color:var(--faint);font-family:ui-monospace,monospace;
+  margin-top:.2rem;opacity:.85}
 .perkinfo.empty{color:var(--faint);font-size:.75rem;display:grid;place-items:center}
 
 .hint{color:var(--faint);font-size:.7rem;line-height:1.5}

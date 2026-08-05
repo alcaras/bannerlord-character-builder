@@ -264,6 +264,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "OneHandedBasher"
   },
   {
@@ -289,6 +293,11 @@
      "value": -0.04,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "OneHandedWrappedHandles"
   },
@@ -316,6 +325,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "OneHandedSwiftStrike"
   },
   {
@@ -341,6 +354,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "OneHandedToBeBlunt"
   },
@@ -368,6 +385,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "OneHandedShieldBearer"
   },
   {
@@ -393,6 +413,10 @@
      "value": 0.03,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent",
+    "SandboxAgentStatCalculateModel.UpdateHumanStats"
    ],
    "alternative": "OneHandedCavalry"
   },
@@ -420,6 +444,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
+   ],
    "alternative": "OneHandedDuelist"
   },
   {
@@ -445,6 +474,10 @@
      "value": 2.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultTournamentModel.GetRenownReward",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "OneHandedTrainer"
   },
@@ -472,6 +505,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "OneHandedArrowCatcher"
   },
   {
@@ -497,6 +534,9 @@
      "value": 0.01,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "OneHandedShieldWall"
   },
@@ -524,6 +564,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "DefaultPartyWageModel.GetTotalWage"
+   ],
    "alternative": "OneHandedCorpsACorps"
   },
   {
@@ -549,6 +594,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "DefaultPartySizeLimitModel.AddGarrisonOwnerPerkEffects"
    ],
    "alternative": "OneHandedMilitaryTradition"
   },
@@ -576,6 +625,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "OneHandedLeadByExample"
   },
   {
@@ -601,6 +654,10 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "OneHandedStandUnited"
   },
@@ -628,6 +685,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
+   ],
    "alternative": "OneHandedFleetOfFoot"
   },
   {
@@ -653,6 +713,9 @@
      "value": 0.04,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "OneHandedSteelCoreShields"
   },
@@ -680,6 +743,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "OneHandedUnwaveringDefense"
   },
   {
@@ -705,6 +771,11 @@
      "value": 10.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "OneHandedDeadlyPurpose"
   },
@@ -732,6 +803,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "OneHandedChinkInTheArmor"
   },
   {
@@ -757,6 +833,11 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
    ],
    "alternative": "OneHandedPrestige"
   },
@@ -784,6 +865,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": null
   },
   {
@@ -809,6 +894,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "TwoHandedWoodChopper"
   },
@@ -836,6 +925,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TwoHandedStrongGrip"
   },
   {
@@ -861,6 +953,9 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "TwoHandedHeadBasher"
   },
@@ -888,6 +983,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TwoHandedOnTheEdge"
   },
   {
@@ -913,6 +1011,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "SandboxAgentApplyDamageModel.GetKnockDownPenetration"
    ],
    "alternative": "TwoHandedBaptisedInBlood"
   },
@@ -940,6 +1042,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "BattleCampaignBehavior.OnHeroCombatHit",
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks"
+   ],
    "alternative": "TwoHandedShowOfStrength"
   },
   {
@@ -965,6 +1071,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "TwoHandedShieldBreaker"
   },
@@ -992,6 +1101,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TwoHandedBeastSlayer"
   },
   {
@@ -1017,6 +1129,10 @@
      "value": -0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "TwoHandedConfidence"
   },
@@ -1044,6 +1160,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TwoHandedBerserker"
   },
   {
@@ -1069,6 +1189,11 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "DefaultDailyTroopXpBonusModel.CalculateTroopXpBonusInternal",
+    "SandboxAgentStatCalculateModel.InitializeAgentStats"
    ],
    "alternative": null
   },
@@ -1096,6 +1221,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.AddMobilePartyLeaderPrisonerSizePerkEffects",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
+   ],
    "alternative": "TwoHandedHope"
   },
   {
@@ -1121,6 +1250,11 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "TwoHandedTerror"
   },
@@ -1148,6 +1282,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
+   ],
    "alternative": "TwoHandedThickHides"
   },
   {
@@ -1173,6 +1313,11 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "TwoHandedRecklessCharge"
   },
@@ -1200,6 +1345,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "TwoHandedVandal"
   },
   {
@@ -1225,6 +1374,11 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
    ],
    "alternative": "TwoHandedBladeMaster"
   },
@@ -1252,6 +1406,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": null
   },
   {
@@ -1277,6 +1435,9 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "PolearmCavalry"
   },
@@ -1304,6 +1465,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "PolearmPikeman"
   },
   {
@@ -1329,6 +1493,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.GetDismountPenetration"
    ],
    "alternative": "PolearmKeepAtBay"
   },
@@ -1356,6 +1524,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "SandboxAgentApplyDamageModel.GetKnockBackPenetration"
+   ],
    "alternative": "PolearmBraced"
   },
   {
@@ -1381,6 +1553,9 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "PolearmCleanThrust"
   },
@@ -1408,6 +1583,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
+   ],
    "alternative": "PolearmSwiftSwing"
   },
   {
@@ -1434,6 +1613,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "PolearmHardKnock"
   },
   {
@@ -1459,6 +1641,10 @@
      "value": 3.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.GetKnockDownPenetration",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "PolearmFootwork"
   },
@@ -1512,6 +1698,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxStrikeMagnitudeModel.CalculateBaseBlowMagnitudeForPassiveUsage",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
+   ],
    "alternative": "PolearmSteadKiller"
   },
   {
@@ -1537,6 +1728,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity",
+    "SandboxAgentApplyDamageModel.DecidePassiveAttackCollisionReaction"
    ],
    "alternative": "PolearmGuards"
   },
@@ -1564,6 +1759,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "PolearmSkewer"
   },
   {
@@ -1589,6 +1788,11 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentPanicked"
    ],
    "alternative": "PolearmPhalanx"
   },
@@ -1616,6 +1820,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
+   ],
    "alternative": "PolearmStandardBearer"
   },
   {
@@ -1641,6 +1849,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "PolearmDrills"
   },
@@ -1668,6 +1880,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "DefaultSettlementMilitiaModel.CalculateVeteranMilitiaSpawnChance"
+   ],
    "alternative": "PolearmHardyFrontline"
   },
   {
@@ -1694,6 +1911,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
+   ],
    "alternative": "PolearmUnstoppableForce"
   },
   {
@@ -1719,6 +1939,12 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.CalculatePassiveAttackDamage",
+    "SandboxStrikeMagnitudeModel.CalculateBaseBlowMagnitudeForPassiveUsage",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
    ],
    "alternative": "PolearmSureFooted"
   },
@@ -1772,6 +1998,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "PolearmCounterweight"
   },
   {
@@ -1797,6 +2026,10 @@
      "value": 0.005,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": null
   },
@@ -1824,6 +2057,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "BowDeadAim"
   },
   {
@@ -1849,6 +2086,10 @@
      "value": 20.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
    ],
    "alternative": "BowBowControl"
   },
@@ -1876,6 +2117,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
+   ],
    "alternative": "BowNockingPoint"
   },
   {
@@ -1901,6 +2146,9 @@
      "value": 0.03,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "BowBodkin"
   },
@@ -1928,6 +2176,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "BowQuickAdjustments"
   },
   {
@@ -1953,6 +2204,10 @@
      "value": -0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetWeaponInaccuracy",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "BowRapidFire"
   },
@@ -1980,6 +2235,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
+   ],
    "alternative": "BowMountedArchery"
   },
   {
@@ -2005,6 +2265,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "BowMerryMen"
   },
@@ -2032,6 +2296,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "MobilePartyTrainingBehavior.OnDailyTickParty"
+   ],
    "alternative": "BowStrongBows"
   },
   {
@@ -2057,6 +2326,9 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "BowTrainer"
   },
@@ -2084,6 +2356,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "BowHunterClan"
   },
   {
@@ -2109,6 +2385,10 @@
      "value": -0.15,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "BowDiscipline"
   },
@@ -2136,6 +2416,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
+   ],
    "alternative": "BowEagleEye"
   },
   {
@@ -2161,6 +2444,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "SandboxAgentStatCalculateModel.GetMaxCameraZoom"
    ],
    "alternative": "BowSkirmishPhaseMaster"
   },
@@ -2188,6 +2475,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops"
+   ],
    "alternative": "BowRenownedArcher"
   },
   {
@@ -2213,6 +2505,11 @@
      "value": -0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyTroopUpgradeModel.GetGoldCostForUpgrade",
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "BowBullsEye"
   },
@@ -2240,6 +2537,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.InitializeAgentStats"
+   ],
    "alternative": "BowDeepQuivers"
   },
   {
@@ -2265,6 +2566,9 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
    ],
    "alternative": "BowHorseMaster"
   },
@@ -2292,6 +2596,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSettlementTaxModel.CalculateDailyTaxInternal",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "BowRangersSwiftness"
   },
   {
@@ -2317,6 +2625,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity",
+    "SandboxAgentStatCalculateModel.UpdateHumanStats"
    ],
    "alternative": "BowQuickDraw"
   },
@@ -2344,6 +2656,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": null
   },
   {
@@ -2369,6 +2685,11 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
    ],
    "alternative": "CrossbowMarksmen"
   },
@@ -2396,6 +2717,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "CrossbowPiercer"
   },
   {
@@ -2421,6 +2746,9 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "CrossbowWindWinder"
   },
@@ -2448,6 +2776,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "CrossbowUnhorser"
   },
   {
@@ -2473,6 +2804,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "CrossbowSheriff"
   },
@@ -2500,6 +2835,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "CrossbowDonkeysSwiftness"
   },
   {
@@ -2525,6 +2863,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyMoraleModel.GetMoraleEffectsFromPerks",
+    "DefaultPartyWageModel.GetTotalWage"
    ],
    "alternative": "CrossbowRenownMarksmen"
   },
@@ -2552,6 +2894,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity"
+   ],
    "alternative": "CrossbowPeasantLeader"
   },
   {
@@ -2577,6 +2924,9 @@
      "value": 2.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
    ],
    "alternative": "CrossbowPuncture"
   },
@@ -2604,6 +2954,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
+   ],
    "alternative": "CrossbowFletcher"
   },
   {
@@ -2629,6 +2983,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent",
+    "SandboxAgentStatCalculateModel.UpdateHumanStats"
    ],
    "alternative": "CrossbowDeftHands"
   },
@@ -2656,6 +3014,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.CalculateStaggerThresholdDamage"
+   ],
    "alternative": "CrossbowLooseAndMove"
   },
   {
@@ -2681,6 +3042,9 @@
      "value": -0.03,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
    ],
    "alternative": "CrossbowMountedCrossbowman"
   },
@@ -2708,6 +3072,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "SandboxAgentStatCalculateModel.InitializeAgentStats"
+   ],
    "alternative": "CrossbowCounterFire"
   },
   {
@@ -2733,6 +3101,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateTownIncomeFromTariffs",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "CrossbowLongShots"
   },
@@ -2760,6 +3132,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "SandboxAgentStatCalculateModel.GetMaxCameraZoom"
+   ],
    "alternative": "CrossbowSteady"
   },
   {
@@ -2785,6 +3161,11 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.CanWeaponDismount",
+    "SandboxAgentApplyDamageModel.GetDismountPenetration"
    ],
    "alternative": "CrossbowPavise"
   },
@@ -2812,6 +3193,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineHitChance",
+    "SandboxAgentApplyDamageModel.IsDamageIgnored"
+   ],
    "alternative": "CrossbowHammerBolts"
   },
   {
@@ -2837,6 +3222,11 @@
      "value": 0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetColleteralDamageCasualties",
+    "NavalDLCCombatSimulationModel.SimulateHit",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "CrossbowBoltenGuard"
   },
@@ -2890,6 +3280,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": null
   },
   {
@@ -2915,6 +3309,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "ThrowingShieldBreaker"
   },
@@ -2942,6 +3339,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "ThrowingQuickDraw"
   },
   {
@@ -2967,6 +3367,9 @@
      "value": 0.08,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "ThrowingFlexibleFighter"
   },
@@ -2994,6 +3397,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
+   ],
    "alternative": "ThrowingHunter"
   },
   {
@@ -3019,6 +3426,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "ThrowingWellPrepared"
   },
@@ -3046,6 +3457,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
+   ],
    "alternative": "ThrowingMountedSkirmisher"
   },
   {
@@ -3071,6 +3485,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForMissile"
    ],
    "alternative": "ThrowingKnockOff"
   },
@@ -3098,6 +3516,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.CanWeaponDismount",
+    "SandboxAgentApplyDamageModel.GetDismountPenetration"
+   ],
    "alternative": "ThrowingRunningThrow"
   },
   {
@@ -3123,6 +3546,9 @@
      "value": -0.03,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
    ],
    "alternative": "ThrowingSaddlebags"
   },
@@ -3150,6 +3576,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
+   ],
    "alternative": "ThrowingSkirmisher"
   },
   {
@@ -3175,6 +3606,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity",
+    "SandboxAgentStatCalculateModel.GetMaxCameraZoom"
    ],
    "alternative": "ThrowingLastHit"
   },
@@ -3202,6 +3637,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "ThrowingFocus"
   },
   {
@@ -3227,6 +3666,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTroopRecruitmentCost",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "ThrowingSlingingCompetitions"
   },
@@ -3254,6 +3697,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
+   ],
    "alternative": "ThrowingHeadHunter"
   },
   {
@@ -3279,6 +3727,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
    ],
    "alternative": "ThrowingSplinters"
   },
@@ -3306,6 +3758,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "ThrowingResourceful"
   },
   {
@@ -3331,6 +3786,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "ThrowingLongReach"
   },
@@ -3358,6 +3816,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBattleRewardModel.CalculateMoraleGainVictory",
+    "DefaultBattleRewardModel.CalculateRenownGain",
+    "SandboxAgentStatCalculateModel.GetInteractionDistance"
+   ],
    "alternative": "ThrowingPerfectTechnique"
   },
   {
@@ -3383,6 +3846,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "NavalStrikeMagnitudeModel.CalculateAdjustedArmorForBlow",
+    "SandboxStrikeMagnitudeModel.CalculateAdjustedArmorForBlow"
    ],
    "alternative": "ThrowingImpale"
   },
@@ -3410,6 +3877,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.DecideMissileWeaponFlags"
+   ],
    "alternative": "ThrowingWeakSpot"
   },
   {
@@ -3436,6 +3907,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": null
   },
   {
@@ -3461,6 +3936,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "RidingNimbleStead"
   },
@@ -3514,6 +3992,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks",
+    "MountAgentLogic.OnAgentRemoved"
+   ],
    "alternative": "RidingVeterinary"
   },
   {
@@ -3539,6 +4021,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "RidingWellStraped"
   },
@@ -3566,6 +4051,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateLandBaseSpeed",
+    "SandboxStrikeMagnitudeModel.CalculateBaseBlowMagnitudeForPassiveUsage",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
+   ],
    "alternative": "RidingDeeperSacks"
   },
   {
@@ -3591,6 +4082,10 @@
      "value": -0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
    ],
    "alternative": "RidingNomadicTraditions"
   },
@@ -3618,6 +4113,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "RidingSweepingWind"
   },
   {
@@ -3643,6 +4141,10 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateLandBaseSpeed",
+    "SandboxAgentStatCalculateModel.UpdateHorseStats"
    ],
    "alternative": "RidingSagittarius"
   },
@@ -3670,6 +4172,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": null
   },
   {
@@ -3695,6 +4201,9 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "RidingHorseArcher"
   },
@@ -3722,6 +4231,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "RidingMountedWarrior"
   },
   {
@@ -3747,6 +4259,10 @@
      "value": 0.15,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateLandBaseSpeed",
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount"
    ],
    "alternative": "RidingBreeder"
   },
@@ -3774,6 +4290,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount",
+    "FoodConsumptionBehavior.CheckAnimalBreeding"
+   ],
    "alternative": "RidingShepherd"
   },
   {
@@ -3799,6 +4319,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "RidingAnnoyingBuzz"
   },
@@ -3826,6 +4349,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
+   ],
    "alternative": "RidingThunderousCharge"
   },
   {
@@ -3851,6 +4377,9 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick"
    ],
    "alternative": "RidingCavalryTactics"
   },
@@ -3878,6 +4407,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultVolunteerModel.GetDailyVolunteerProductionProbability"
+   ],
    "alternative": "RidingMountedPatrols"
   },
   {
@@ -3903,6 +4436,10 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.CalculateStaggerThresholdDamage",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "RidingToughSteed"
   },
@@ -3930,6 +4467,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.UpdateHorseStats"
+   ],
    "alternative": "RidingDauntlessSteed"
   },
   {
@@ -3949,6 +4489,10 @@
      "value": 0.3,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.UpdateHorseStats"
    ],
    "alternative": null
   },
@@ -3976,6 +4520,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "AthleticsWellBuilt"
   },
   {
@@ -4001,6 +4548,11 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": "AthleticsMorningExercise"
   },
@@ -4028,6 +4580,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "AthleticsFormFittingArmor"
   },
   {
@@ -4053,6 +4608,10 @@
      "value": 0.04,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveArmorEncumbrance",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "AthleticsFury"
   },
@@ -4080,6 +4639,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "DefaultPersuasionModel.GetBonusSuccessChance",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
+   ],
    "alternative": "AthleticsStamina"
   },
   {
@@ -4105,6 +4669,11 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "CraftingCampaignBehavior.GetStaminaHourlyRecoveryRate",
+    "DefaultPartySizeLimitModel.AddMobilePartyLeaderPrisonerSizePerkEffects",
+    "PrisonerReleaseCampaignBehavior.ApplyEscapeChanceToExceededPrisoners"
    ],
    "alternative": "AthleticsImposingStature"
   },
@@ -4132,6 +4701,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "AthleticsPowerful"
   },
   {
@@ -4157,6 +4729,9 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "AthleticsSprint"
   },
@@ -4184,6 +4759,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxStrikeMagnitudeModel.CalculateBaseBlowMagnitudeForPassiveUsage",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
+   ],
    "alternative": "AthleticsBraced"
   },
   {
@@ -4209,6 +4789,9 @@
      "value": -0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
    ],
    "alternative": "AthleticsSurgingBlow"
   },
@@ -4236,6 +4819,12 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops"
+   ],
    "alternative": "AthleticsAGoodDaysRest"
   },
   {
@@ -4261,6 +4850,12 @@
      "value": 10.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops"
    ],
    "alternative": "AthleticsWalkItOff"
   },
@@ -4288,6 +4883,12 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
+   ],
    "alternative": "AthleticsEnergetic"
   },
   {
@@ -4313,6 +4914,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.GetOverburdenedEffect",
+    "DefaultSettlementProsperityModel.CalculateHearthChangeInternal"
    ],
    "alternative": "AthleticsDurable"
   },
@@ -4340,6 +4945,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
+   ],
    "alternative": "AthleticsStrong"
   },
   {
@@ -4365,6 +4976,12 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.GetFootmenPerkBonus",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened",
+    "PerkHelper.ClearPermanentBonusesIfExists",
+    "PerkResetCampaignBehavior.ClearPermanentBonusesIfExists"
    ],
    "alternative": "AthleticsSteady"
   },
@@ -4392,6 +5009,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
+   ],
    "alternative": "AthleticsStrongArms"
   },
   {
@@ -4417,6 +5039,10 @@
      "value": 20.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
    ],
    "alternative": "AthleticsStrongLegs"
   },
@@ -4444,6 +5070,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "SandboxAgentApplyDamageModel.CalculateStaggerThresholdDamage"
+   ],
    "alternative": "AthleticsIgnorePain"
   },
   {
@@ -4470,6 +5100,9 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "AthleticsSpartan"
   },
   {
@@ -4495,6 +5128,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "SandboxAgentApplyDamageModel.CalculateDefendedBlowStunMultipliers"
    ],
    "alternative": null
   },
@@ -4868,6 +5505,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing"
+   ],
    "alternative": "CraftingSharpenedTip"
   },
   {
@@ -4887,6 +5527,9 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
    ],
    "alternative": "CraftingSharpenedEdge"
   },
@@ -4934,6 +5577,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
+   ],
    "alternative": "ScoutingNightRunner"
   },
   {
@@ -4959,6 +5606,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
    ],
    "alternative": "ScoutingDayTraveler"
   },
@@ -4986,6 +5637,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed",
+    "PlayerTownVisitCampaignBehavior.CheckPerkAndGiveRelation"
+   ],
    "alternative": "ScoutingWaterDiviner"
   },
   {
@@ -5011,6 +5666,10 @@
      "value": 0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "PlayerTownVisitCampaignBehavior.CheckPerkAndGiveRelation"
    ],
    "alternative": "ScoutingPathfinder"
   },
@@ -5038,6 +5697,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateVillageIncome",
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
+   ],
    "alternative": "ScoutingDesertBorn"
   },
   {
@@ -5063,6 +5726,10 @@
      "value": 0.025,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed",
+    "DefaultSettlementTaxModel.CalculateDailyTaxInternal"
    ],
    "alternative": "ScoutingForestKin"
   },
@@ -5090,6 +5757,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience"
+   ],
    "alternative": "ScoutingUnburdened"
   },
   {
@@ -5115,6 +5786,10 @@
      "value": 2.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.GetOverburdenedEffect",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience"
    ],
    "alternative": "ScoutingForcedMarch"
   },
@@ -5142,6 +5817,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMapTrackModel.GetTrackLife",
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
+   ],
    "alternative": "ScoutingRanger"
   },
   {
@@ -5167,6 +5846,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapTrackModel.GetMaxTrackSpottingDistanceForMainParty",
+    "DefaultMapTrackModel.GetTrackDetectionDifficultyForMainParty"
    ],
    "alternative": "ScoutingTracker"
   },
@@ -5194,6 +5877,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
+   ],
    "alternative": "ScoutingPatrols"
   },
   {
@@ -5219,6 +5907,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.GetPartyBattleAdvantage",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "ScoutingMountedScouts"
   },
@@ -5246,6 +5938,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPartyImpairmentModel.GetDisorganizedStateDuration"
+   ],
    "alternative": "ScoutingBeastWhisperer"
   },
   {
@@ -5271,6 +5967,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity",
+    "FindingItemOnMapBehavior.DailyTickParty"
    ],
    "alternative": "ScoutingForagers"
   },
@@ -5298,6 +5998,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.FindAppropriateInitialRosterForMobileParty",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
+   ],
    "alternative": "ScoutingRumourNetwork"
   },
   {
@@ -5323,6 +6027,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetHideoutSpottingDistance",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
    ],
    "alternative": "ScoutingVillageNetwork"
   },
@@ -5350,6 +6058,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRange",
+    "DefaultPartySizeLimitModel.AddMobilePartyLeaderPrisonerSizePerkEffects"
+   ],
    "alternative": "ScoutingKeenSight"
   },
   {
@@ -5375,6 +6087,10 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMapVisibilityModel.GetPartySpottingRatioForMainPartySeeingRange",
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick"
    ],
    "alternative": "ScoutingVantagePoint"
   },
@@ -5402,6 +6118,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects"
+   ],
    "alternative": "ScoutingRearguard"
   },
   {
@@ -5428,6 +6147,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars"
+   ],
    "alternative": "ScoutingVanguard"
   },
   {
@@ -5447,6 +6170,9 @@
      "value": 0.001,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
    ],
    "alternative": null
   },
@@ -5474,6 +6200,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
+   ],
    "alternative": "TacticsLooseFormations"
   },
   {
@@ -5499,6 +6229,10 @@
      "value": -0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "TacticsTightFormations"
   },
@@ -5526,6 +6260,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "TacticsDecisiveBattle"
   },
   {
@@ -5551,6 +6289,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "TacticsExtendedSkirmish"
   },
@@ -5578,6 +6320,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBanditDensityModel.GetMaximumTroopCountForHideoutMission",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "TacticsHordeLeader"
   },
   {
@@ -5603,6 +6349,11 @@
      "value": -0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultArmyManagementCalculationModel.CalculateDailyCohesionChange",
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
    ],
    "alternative": "TacticsSmallUnitTactics"
   },
@@ -5656,6 +6407,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TacticsLawkeeper"
   },
   {
@@ -5681,6 +6436,10 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyImpairmentModel.GetDisorganizedStateDuration",
+    "DefaultTroopSacrificeModel.GetNumberOfTroopsSacrificedForTryingToGetAway"
    ],
    "alternative": "TacticsImproviser"
   },
@@ -5708,6 +6467,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTroopSacrificeModel.GetLostTroopCount",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "TacticsSwiftRegroup"
   },
   {
@@ -5733,6 +6496,9 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSettlementAdvantagePerkEffects"
    ],
    "alternative": "TacticsCallToArms"
   },
@@ -5760,6 +6526,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultArmyManagementCalculationModel.CalculatePartyInfluenceCost",
+    "DefaultPartySpeedCalculatingModel.CalculateFinalSpeed"
+   ],
    "alternative": "TacticsOnTheMarch"
   },
   {
@@ -5785,6 +6555,9 @@
      "value": 0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SiegeEventCampaignBehavior.OnSiegeEngineDestroyed"
    ],
    "alternative": "TacticsMakeThemPay"
   },
@@ -5812,6 +6585,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineDamage"
+   ],
    "alternative": "TacticsPickThemOfTheWalls"
   },
   {
@@ -5837,6 +6613,10 @@
      "value": -0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "SandboxAgentApplyDamageModel.ApplyDamageReductions"
    ],
    "alternative": "TacticsEncirclement"
   },
@@ -5864,6 +6644,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultArmyManagementCalculationModel.CalculateTotalInfluenceCostInternal",
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects"
+   ],
    "alternative": "TacticsEliteReserves"
   },
   {
@@ -5889,6 +6673,10 @@
      "value": 0.01,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.GetPartyBattleAdvantage",
+    "GainKingdomInfluenceAction.ApplyInternal"
    ],
    "alternative": "TacticsBesieged"
   },
@@ -5916,6 +6704,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects",
+    "GainKingdomInfluenceAction.ApplyInternal"
+   ],
    "alternative": "TacticsPreBattleManeuvers"
   },
   {
@@ -5941,6 +6733,9 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects"
    ],
    "alternative": "TacticsGensdarmes"
   },
@@ -5968,6 +6763,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "TacticsCounteroffensive"
   },
   {
@@ -5987,6 +6786,9 @@
      "value": 0.005,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCombatSimulationModel.CalculateSimulationDamagePerkEffects"
    ],
    "alternative": null
   },
@@ -6014,6 +6816,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCombatXpModel.GetBattleXpBonusFromPerks",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultRaidModel.CalculateHitDamage"
+   ],
    "alternative": "RoguerySweetTalker"
   },
   {
@@ -6039,6 +6846,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick",
+    "SafePassageBarterable.GetUnitValueForFaction"
    ],
    "alternative": "RogueryNoRestForTheWicked"
   },
@@ -6066,6 +6877,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultDisguiseDetectionModel.CalculateDisguiseDetectionProbability",
+    "DefaultPrisonerRecruitmentCalculationModel.GetPrisonerRecruitmentMoraleEffect"
+   ],
    "alternative": "RogueryDeepPockets"
   },
   {
@@ -6091,6 +6906,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "TournamentBehavior.GetMaximumBet"
    ],
    "alternative": "RogueryTwoFaced"
   },
@@ -6118,6 +6937,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "VillageHealCampaignBehavior.DailyTickSettlement",
+    "VillageHostileActionCampaignBehavior.village_force_volunteers_ended_successfully_on_consequence"
+   ],
    "alternative": "RogueryKnowHow"
   },
   {
@@ -6143,6 +6966,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultBattleRewardModel.GetLootItemChancesForWinnerParties",
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity"
    ],
    "alternative": "RogueryInBestLight"
   },
@@ -6170,6 +6997,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour"
+   ],
    "alternative": "RogueryManhunter"
   },
   {
@@ -6195,6 +7026,10 @@
      "value": 10.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartySizeLimitModel.AddMobilePartyLeaderPrisonerSizePerkEffects",
+    "DefaultRansomValueCalculationModel.PrisonerRansomValue"
    ],
    "alternative": "RogueryPromises"
   },
@@ -6222,6 +7057,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultEncounterModel.GetBribeChance",
+    "DefaultEncounterModel.GetSurrenderChance",
+    "Town.DailyTick"
+   ],
    "alternative": "RogueryWhiteLies"
   },
   {
@@ -6247,6 +7087,10 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCrimeModel.GetDailyCrimeRatingChange",
+    "Town.DailyTick"
    ],
    "alternative": "RogueryScarface"
   },
@@ -6274,6 +7118,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSettlementAccessModel.CanMainHeroTrade",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "TradersCampaignBehavior.conversation_weaponsmith_talk_start_normal_on_condition"
+   ],
    "alternative": "RogueryPartnersInCrime"
   },
   {
@@ -6299,6 +7148,11 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "BanditInteractionsCampaignBehavior.conversation_bandits_will_join_player_on_condition",
+    "DefaultEncounterModel.CanPlayerForceBanditsToJoin",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "RoguerySmugglerConnections"
   },
@@ -6326,6 +7180,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultVolunteerModel.MaximumIndexCanPartyRecruitFromHeroInternal",
+    "SandboxAgentStatCalculateModel.GetEffectiveSkill"
+   ],
    "alternative": "RoguerySaltTheEarth"
   },
   {
@@ -6351,6 +7209,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateTownIncomeFromTariffs",
+    "VillagerCampaignBehavior.CalculateConversationPartyBribeAmount"
    ],
    "alternative": "RogueryOneOfTheFamily"
   },
@@ -6378,6 +7240,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "RogueryRansomBroker"
   },
   {
@@ -6403,6 +7268,10 @@
      "value": -0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultRansomValueCalculationModel.PrisonerRansomValue",
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick"
    ],
    "alternative": "RogueryCarver"
   },
@@ -6430,6 +7299,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
+   ],
    "alternative": "RogueryDirtyFighting"
   },
   {
@@ -6455,6 +7328,10 @@
      "value": 2.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSettlementFoodModel.CalculateTownFoodChangeInternal",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
    ],
    "alternative": "RogueryArmsDealer"
   },
@@ -6482,6 +7359,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForSwing",
+    "SandboxStrikeMagnitudeModel.CalculateStrikeMagnitudeForThrust"
+   ],
    "alternative": "RogueryFleetFooted"
   },
   {
@@ -6508,6 +7390,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "PlayerCaptivityCampaignBehavior.CheckCaptivityChange",
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "RogueryDashAndSlash"
   },
   {
@@ -6527,6 +7414,9 @@
      "value": 0.01,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBattleRewardModel.GetLootItemChancesForWinnerParties"
    ],
    "alternative": null
   },
@@ -6554,6 +7444,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "BuildingsCampaignBehavior.DailyTickSettlement",
+    "DefaultPregnancyModel.GetDailyChanceOfPregnancyForHero"
+   ],
    "alternative": "CharmSelfPromoter"
   },
   {
@@ -6579,6 +7473,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartyMoraleModel.GetMoraleEffectsFromPerks",
+    "DefaultTournamentModel.GetRenownReward"
    ],
    "alternative": "CharmVirile"
   },
@@ -6606,6 +7504,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.MapEventEnded",
+    "IssuesCampaignBehavior.OnIssueUpdated"
+   ],
    "alternative": "CharmWarlord"
   },
   {
@@ -6631,6 +7533,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.MapEventEnded",
+    "DefaultBattleRewardModel.CalculateInfluenceGain"
    ],
    "alternative": "CharmOratory"
   },
@@ -6658,6 +7564,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.DailyTick",
+    "Persuasion.CheckPerkEffectOnResult"
+   ],
    "alternative": "CharmMeaningfulFavors"
   },
   {
@@ -6683,6 +7593,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPersuasionModel.GetChances",
+    "GovernorCampaignBehavior.DailyTickSettlement"
    ],
    "alternative": "CharmForgivableGrievances"
   },
@@ -6710,6 +7624,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultDiplomacyModel.GetRelationIncreaseFactor",
+    "GovernorCampaignBehavior.DailyTickSettlement"
+   ],
    "alternative": "CharmYoungAndRespectful"
   },
   {
@@ -6735,6 +7653,10 @@
      "value": 0.02,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultDiplomacyModel.GetRelationIncreaseFactor",
+    "GovernorCampaignBehavior.DailyTickSettlement"
    ],
    "alternative": "CharmInBloom"
   },
@@ -6762,6 +7684,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultDiplomacyModel.GetPerkEffectsOnKingdomDecisionInfluenceCost",
+    "DefaultVolunteerModel.MaximumIndexHeroCanRecruitFromHero"
+   ],
    "alternative": "CharmFlexibleEthics"
   },
   {
@@ -6787,6 +7713,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultVolunteerModel.MaximumIndexHeroCanRecruitFromHero",
+    "KingdomDecision.GetInfluenceCostOfSupport"
    ],
    "alternative": "CharmFirebrand"
   },
@@ -6814,6 +7744,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBarterModel.GetBarterPenalty",
+    "HideoutCampaignBehavior.SetCleanHideoutRelations"
+   ],
    "alternative": "CharmSlickNegotiator"
   },
   {
@@ -6839,6 +7773,10 @@
      "value": -0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBarterModel.GetBarterPenalty",
+    "DefaultPartyWageModel.GetTroopRecruitmentCost"
    ],
    "alternative": "CharmEffortForThePeople"
   },
@@ -6866,6 +7804,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultDiplomacyModel.GetRelationIncreaseFactor",
+    "KingdomElection.HandleInfluenceCosts"
+   ],
    "alternative": "CharmTribute"
   },
   {
@@ -6891,6 +7833,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultBarterModel.CalculateOverpayRelationIncreaseCosts",
+    "DefaultDiplomacyModel.GetRelationIncreaseFactor"
    ],
    "alternative": "CharmGoodNatured"
   },
@@ -6918,6 +7864,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "BuildingsCampaignBehavior.OnBuildingLevelChanged",
+    "DefaultPersuasionModel.CalculatePersuasionGoalValue"
+   ],
    "alternative": "CharmNaturalLeader"
   },
   {
@@ -6943,6 +7893,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultGenericXpModel.GetXpMultiplier",
+    "DefaultPersuasionModel.CalculatePersuasionGoalValue"
    ],
    "alternative": "CharmMoralLeader"
   },
@@ -6970,6 +7924,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBattleRewardModel.CalculateRenownGain",
+    "DefaultBuildingEffectModel.GetBuildingEffect"
+   ],
    "alternative": "CharmParade"
   },
   {
@@ -6995,6 +7953,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.DailyTickParty",
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks"
    ],
    "alternative": "CharmPublicSpeaker"
   },
@@ -7022,6 +7984,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultBattleRewardModel.GetPlayerGainedRelationAmount",
+    "DefaultClanTierModel.GetCompanionLimit"
+   ],
    "alternative": null
   },
   {
@@ -7041,6 +8007,9 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultClanPoliticsModel.CalculateInfluenceChangeInternal"
    ],
    "alternative": null
   },
@@ -7068,6 +8037,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "DefaultVolunteerModel.MaximumIndexHeroCanRecruitFromHero"
+   ],
    "alternative": "LeadershipRaiseTheMeek"
   },
   {
@@ -7093,6 +8067,11 @@
      "value": 3.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultDailyTroopXpBonusModel.CalculateTroopXpBonusInternal",
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops"
    ],
    "alternative": "LeadershipCombatTips"
   },
@@ -7120,6 +8099,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "LeadershipStoutDefender"
   },
   {
@@ -7145,6 +8128,10 @@
      "value": 0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "LeadershipFerventAttacker"
   },
@@ -7172,6 +8159,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "DefaultSettlementSecurityModel.CalculateGarrisonEffectsOnSecurity",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
+   ],
    "alternative": "LeadershipHeroicLeader"
   },
   {
@@ -7197,6 +8189,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "LeadershipAuthority"
   },
@@ -7224,6 +8220,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour",
+    "SandboxBattleMoraleModel.CanPanicDueToMorale"
+   ],
    "alternative": "LeadershipFamousCommander"
   },
   {
@@ -7249,6 +8249,11 @@
      "value": 200.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultBattleRewardModel.CalculateRenownGain",
+    "RecruitmentCampaignBehavior.OnTroopRecruited",
+    "RecruitmentCampaignBehavior.OnUnitRecruited"
    ],
    "alternative": "LeadershipLoyaltyAndHonor"
   },
@@ -7276,6 +8281,12 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPrisonerRecruitmentCalculationModel.GetPrisonerRecruitmentMoraleEffect",
+    "DefaultPrisonerRecruitmentCalculationModel.ShouldPartyRecruitPrisoners",
+    "DefaultSettlementSecurityModel.CalculatePerkEffectsOnSecurity",
+    "DefaultSettlementSecurityModel._003CCalculatePerkEffectsOnSecurity_003Eb__0"
+   ],
    "alternative": "LeadershipLeaderOfMasses"
   },
   {
@@ -7301,6 +8312,11 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "DefaultPartyTrainingModel.GenerateSharedXp",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
    ],
    "alternative": "LeadershipPresence"
   },
@@ -7328,6 +8344,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySizeLimitModel.AddGarrisonOwnerPerkEffects",
+    "DefaultPartyTroopUpgradeModel.DoesPartyHaveRequiredPerksForUpgrade"
+   ],
    "alternative": "LeadershipCitizenMilitia"
   },
   {
@@ -7353,6 +8373,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBattleRewardModel.CalculateMoraleGainVictory",
+    "DefaultSettlementMilitiaModel.CalculateVeteranMilitiaSpawnChance"
    ],
    "alternative": "LeadershipVeteransRespect"
   },
@@ -7380,6 +8404,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultArmyManagementCalculationModel.CalculatePartyInfluenceCost",
+    "DefaultCombatXpModel.GetXpFromHit"
+   ],
    "alternative": "LeadershipUpliftingSpirit"
   },
   {
@@ -7405,6 +8433,10 @@
      "value": 10.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "LeadershipInspiringLeader"
   },
@@ -7432,6 +8464,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.CalculateXpGainFromBattles",
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour"
+   ],
    "alternative": "LeadershipLeadByExample"
   },
   {
@@ -7457,6 +8493,10 @@
      "value": 0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyTrainingModel.GenerateSharedXp",
+    "DefaultPrisonerRecruitmentCalculationModel.GetConformityChangePerHour"
    ],
    "alternative": "LeadershipTrustedCommander"
   },
@@ -7484,6 +8524,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GenerateSharedXp",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
+   ],
    "alternative": "LeadershipGreatLeader"
   },
   {
@@ -7509,6 +8553,9 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
    ],
    "alternative": "LeadershipMakeADifference"
   },
@@ -7536,6 +8583,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultClanTierModel.GetCompanionLimit",
+    "SandboxBattleMoraleModel.GetEffectiveInitialMorale"
+   ],
    "alternative": "LeadershipTalentMagnet"
   },
   {
@@ -7562,6 +8613,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultClanTierModel.AddPartyLimitPerkEffects",
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize"
+   ],
    "alternative": "LeadershipWePledgeOurSwords"
   },
   {
@@ -7581,6 +8636,10 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartySizeLimitModel.CalculateBaseMemberSize",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
    ],
    "alternative": null
   },
@@ -7608,6 +8667,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
+   ],
    "alternative": "TradeWholeSeller"
   },
   {
@@ -7633,6 +8695,9 @@
      "value": 0.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
    ],
    "alternative": "TradeAppraiser"
   },
@@ -7660,6 +8725,9 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity"
+   ],
    "alternative": "TradeMarketDealer"
   },
   {
@@ -7685,6 +8753,9 @@
      "value": 0.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "SafePassageBarterable.GetUnitValueForFaction"
    ],
    "alternative": "TradeCaravanMaster"
   },
@@ -7712,6 +8783,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "IssuesCampaignBehavior.OnIssueUpdated"
+   ],
    "alternative": "TradeLocalConnection"
   },
   {
@@ -7737,6 +8812,10 @@
      "value": -0.15,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "IssuesCampaignBehavior.OnIssueUpdated"
    ],
    "alternative": "TradeDistributedGoods"
   },
@@ -7764,6 +8843,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "TradeRumorsCampaignBehavior.OnSettlementEntered",
+    "VillagerCampaignBehavior.OnSettlementEntered"
+   ],
    "alternative": "TradeTollgates"
   },
   {
@@ -7789,6 +8872,10 @@
      "value": 30.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "CaravansCampaignBehavior.OnSettlementEntered",
+    "TradeRumorsCampaignBehavior.AddDailyTradeRumors"
    ],
    "alternative": "TradeTravelingRumors"
   },
@@ -7816,6 +8903,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateHeroIncomeFromWorkshops",
+    "DefaultVolunteerModel.MaximumIndexHeroCanRecruitFromHero"
+   ],
    "alternative": "TradeGreatInvestor"
   },
   {
@@ -7841,6 +8932,10 @@
      "value": -0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultClanFinanceModel.AddIncomeFromParty",
+    "DefaultCompanionHiringPriceCalculationModel.GetCompanionHiringPrice"
    ],
    "alternative": "TradeArtisanCommunity"
   },
@@ -7868,6 +8963,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultWorkshopModel.GetEffectiveConversionSpeedOfProduction"
+   ],
    "alternative": "TradeContentTrades"
   },
   {
@@ -7893,6 +8992,10 @@
      "value": -0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateTownIncomeFromTariffs",
+    "DefaultPartyWageModel.GetTotalWage"
    ],
    "alternative": "TradeMercenaryConnections"
   },
@@ -7920,6 +9023,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "DestroyPartyAction.ApplyInternal"
+   ],
    "alternative": "TradeRapidDevelopment"
   },
   {
@@ -7945,6 +9052,10 @@
      "value": -0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "WorkshopsCampaignBehavior.OnSettlementOwnerChanged"
    ],
    "alternative": "TradeInsurancePlans"
   },
@@ -7972,6 +9083,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount"
+   ],
    "alternative": "TradeTradeyardForeman"
   },
   {
@@ -7997,6 +9112,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty",
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount"
    ],
    "alternative": "TradeGranaryAccountant"
   },
@@ -8024,6 +9143,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultPartyWageModel.GetTroopRecruitmentCost"
+   ],
    "alternative": "TradeSelfMadeMan"
   },
   {
@@ -8049,6 +9172,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBarterModel.GetBarterPenalty",
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal"
    ],
    "alternative": "TradeSwordForBarter"
   },
@@ -8076,6 +9203,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultTradeItemPriceFactorModel.GetPrice",
+    "JoinKingdomAsClanBarterable.GetUnitValueForFaction",
+    "VillagerCampaignBehavior.village_farmer_buy_products_on_condition"
+   ],
    "alternative": "TradeSpringOfGold"
   },
   {
@@ -8101,6 +9233,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingConstructionModel.GetBoostAmount",
+    "DefaultClanFinanceModel.CalculateClanIncomeInternal"
    ],
    "alternative": "TradeSilverTongue"
   },
@@ -8128,6 +9264,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMinorFactionsModel.GetMercenaryAwardFactorToJoinKingdom",
+    "PlayerCaptivity.GetPlayerRansomValue"
+   ],
    "alternative": "TradeTrickleDown"
   },
   {
@@ -8154,6 +9294,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSettlementProsperityModel.CalculateProsperityChangeInternal",
+    "InventoryLogic.DoneLogic"
+   ],
    "alternative": "TradeManOfMeans"
   },
   {
@@ -8173,6 +9317,9 @@
      "value": 0.0,
      "type": "Invalid"
     }
+   ],
+   "impl": [
+    "FiefBarterBehavior.CheckForBarters"
    ],
    "alternative": null
   },
@@ -8200,6 +9347,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPartyMoraleModel.CalculateFoodVarietyMoraleBonus"
+   ],
    "alternative": "StewardFrugal"
   },
   {
@@ -8225,6 +9376,10 @@
      "value": -0.15,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultPartyWageModel.GetTroopRecruitmentCost"
    ],
    "alternative": "StewardWarriorsDiet"
   },
@@ -8252,6 +9407,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultSettlementMilitiaModel.CalculateVeteranMilitiaSpawnChance",
+    "DefaultSettlementMilitiaModel.GetSettlementMilitiaChangeDueToPerks"
+   ],
    "alternative": "StewardDrillSergant"
   },
   {
@@ -8277,6 +9437,11 @@
      "value": -0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyTrainingModel.GetEffectiveDailyExperience",
+    "DefaultPartyTrainingModel.GetPerkExperiencesForTroops",
+    "DefaultPartyWageModel.GetTotalWage"
    ],
    "alternative": "StewardSevenVeterans"
   },
@@ -8304,6 +9469,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetConstructionProgressPerHour",
+    "DefaultWorkshopModel.GetEffectiveConversionSpeedOfProduction"
+   ],
    "alternative": "StewardStiffUpperLip"
   },
   {
@@ -8329,6 +9498,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPartyWageModel.GetTotalWage"
    ],
    "alternative": "StewardSweatshops"
   },
@@ -8356,6 +9529,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultCompanionHiringPriceCalculationModel.GetCompanionHiringPrice",
+    "DefaultItemDiscardModel.PlayerCanDonateItem",
+    "DefaultPartyWageModel.GetTotalWage",
+    "PerkHelper.PlayerHasAnyItemDonationPerk"
+   ],
    "alternative": "StewardEfficientCampaigner"
   },
   {
@@ -8381,6 +9560,11 @@
      "value": -0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "RaidEventComponent.LootItemInRaid",
+    "RaidEventComponent.Update"
    ],
    "alternative": "StewardPaidInPromise"
   },
@@ -8434,6 +9618,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultClanFinanceModel.CalculateVillageIncome",
+    "DefaultPartyMoraleModel.GetMoraleEffectsFromPerks",
+    "DefaultSettlementTaxModel.CalculateDailyTaxInternal"
+   ],
    "alternative": "StewardForeseeableFuture"
   },
   {
@@ -8459,6 +9648,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingConstructionModel.GetBoostAmount",
+    "DefaultPrisonerDonationModel.CalculateInfluenceGainAfterTroopDonation"
    ],
    "alternative": "StewardAidCorps"
   },
@@ -8486,6 +9679,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultSettlementProsperityModel.CalculateHearthChangeInternal",
+    "NavalDLCPartyWageModel.GetTotalWage"
+   ],
    "alternative": "StewardRelocation"
   },
   {
@@ -8511,6 +9709,11 @@
      "value": -0.1,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyMoraleModel.CalculateFoodVarietyMoraleBonus",
+    "DefaultSettlementFoodModel.CalculateTownFoodChangeInternal",
+    "GarrisonTroopsCampaignBehavior.CalculateMaxGarrisonSizeTownCanFeed"
    ],
    "alternative": "StewardSoundReserves"
   },
@@ -8538,6 +9741,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPartyTroopUpgradeModel.GetGoldCostForUpgrade"
+   ],
    "alternative": "StewardGourmet"
   },
   {
@@ -8563,6 +9770,10 @@
      "value": 0.01,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity"
    ],
    "alternative": "StewardContractors"
   },
@@ -8590,6 +9801,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBuildingEffectModel.GetBuildingEffect",
+    "DefaultPartyTroopUpgradeModel.GetGoldCostForUpgrade",
+    "DefaultPartyWageModel.GetTotalWage"
+   ],
    "alternative": "StewardForcedLabor"
   },
   {
@@ -8615,6 +9831,10 @@
      "value": -0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
    ],
    "alternative": "StewardArenicosHorses"
   },
@@ -8642,6 +9862,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultInventoryCapacityModel.CalculateInventoryCapacity",
+    "DefaultTradeItemPriceFactorModel.GetTradePenalty"
+   ],
    "alternative": "StewardArenicosMules"
   },
   {
@@ -8667,6 +9891,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingEffectModel.GetBuildingEffect",
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects"
    ],
    "alternative": "StewardMasterOfWarcraft"
   },
@@ -8694,6 +9922,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultSettlementFoodModel.CalculateTownFoodChangeInternal",
+    "GarrisonTroopsCampaignBehavior.CalculateMaxGarrisonSizeTownCanFeed"
+   ],
    "alternative": "StewardMasterOfPlanning"
   },
   {
@@ -8719,6 +9952,13 @@
      "value": 0.005,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultMobilePartyFoodConsumptionModel.CalculatePerkEffects",
+    "DefaultPartyWageModel.GetTotalWage",
+    "DefaultSettlementTaxModel.CalculateDailyTaxInternal",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentPanicked"
    ],
    "alternative": null
   },
@@ -8746,6 +9986,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetHeroesEffectedHealingAmount",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "MedicinePreventiveMedicine"
   },
   {
@@ -8771,6 +10015,11 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "DefaultPartyHealingModel.GetBattleEndHealingAmount",
+    "PerkActivationHandlerCampaignBehavior.OnPerkOpened"
    ],
    "alternative": "MedicineSelfMedication"
   },
@@ -8798,6 +10047,12 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes",
+    "DefaultSettlementFoodModel.CalculateTownFoodChangeInternal",
+    "GarrisonTroopsCampaignBehavior.CalculateMaxGarrisonSizeTownCanFeed"
+   ],
    "alternative": "MedicineWalkItOff"
   },
   {
@@ -8823,6 +10078,11 @@
      "value": 10.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultPartyHealingModel.GetBattleEndHealingAmount",
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes"
    ],
    "alternative": "MedicineTriageTent"
   },
@@ -8850,6 +10110,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultPartySpeedCalculatingModel.GetWoundedModifier",
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
+   ],
    "alternative": "MedicineDoctorsOath"
   },
   {
@@ -8876,6 +10140,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints",
+    "DefaultPartyHealingModel.GetSurvivalChance",
+    "MapEventSide.ApplySimulationDamageToSelectedTroop"
+   ],
    "alternative": "MedicineSledges"
   },
   {
@@ -8901,6 +10170,11 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "CharacterRelationCampaignBehavior.DailyTickParty",
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes"
    ],
    "alternative": "MedicineGoodLodging"
   },
@@ -8954,6 +10228,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetSiegeBombardmentHitSurgeryChance",
+    "DefaultSiegeEventModel.GetCasualtyChance"
+   ],
    "alternative": "MedicineVeterinarian"
   },
   {
@@ -8979,6 +10257,11 @@
      "value": 0.5,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "CampaignBattleRecoveryBehavior.CheckRecoveryForMapEventSide",
+    "CampaignBattleRecoveryBehavior.DailyTickParty",
+    "CampaignBattleRecoveryBehavior.RecoverMountWithChance"
    ],
    "alternative": "MedicineSiegeMedic"
   },
@@ -9006,6 +10289,11 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes",
+    "DefaultSettlementProsperityModel.CalculateProsperityChangeInternal"
+   ],
    "alternative": "MedicineBushDoctor"
   },
   {
@@ -9031,6 +10319,11 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultPartyHealingModel.GetDailyHealingHpForHeroes",
+    "DefaultSettlementProsperityModel.CalculateHearthChangeInternal"
    ],
    "alternative": "MedicinePristineStreets"
   },
@@ -9058,6 +10351,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultVillageProductionCalculatorModel.CalculateDailyProductionAmount"
+   ],
    "alternative": "MedicineHealthAdvise"
   },
   {
@@ -9083,6 +10380,10 @@
      "value": 0.0,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "AgingCampaignBehavior.OnPerkOpened",
+    "SandboxBattleMoraleModel.CalculateMaxMoraleChangeDueToAgentIncapacitated"
    ],
    "alternative": "MedicinePerfectHealth"
   },
@@ -9110,6 +10411,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetSurvivalChance",
+    "DefaultSettlementLoyaltyModel.GetSettlementLoyaltyChangeDueToGovernorPerks"
+   ],
    "alternative": "MedicineCleanInfrastructure"
   },
   {
@@ -9135,6 +10440,10 @@
      "value": 0.3,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSettlementProsperityModel.CalculateProsperityChangeInternal",
+    "VillageHealCampaignBehavior.DailyTickSettlement"
    ],
    "alternative": "MedicinePhysicianOfPeople"
   },
@@ -9162,6 +10471,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "AgingCampaignBehavior.OnPerkOpened",
+    "DefaultPartyHealingModel.GetSurvivalChance"
+   ],
    "alternative": "MedicineFortitudeTonic"
   },
   {
@@ -9187,6 +10500,9 @@
      "value": 5.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultCharacterStatsModel.MaxHitpoints"
    ],
    "alternative": "MedicineCheatDeath"
   },
@@ -9214,6 +10530,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultPartyHealingModel.GetDailyHealingForRegulars",
+    "DefaultSettlementProsperityModel.CalculateProsperityChangeInternal"
+   ],
    "alternative": "MedicineBattleHardened"
   },
   {
@@ -9240,6 +10560,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "CampaignBattleRecoveryBehavior.CheckRecoveryForMapEventSide",
+    "DefaultSiegeEventModel.GetCasualtyChance"
+   ],
    "alternative": "MedicineHelpingHands"
   },
   {
@@ -9259,6 +10583,9 @@
      "value": 1.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "SandboxAgentStatCalculateModel.GetEffectiveMaxHealth"
    ],
    "alternative": null
   },
@@ -9286,6 +10613,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetConstructionProgressPerHour",
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
+   ],
    "alternative": "EngineeringTorsionEngines"
   },
   {
@@ -9311,6 +10642,10 @@
      "value": 3.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetConstructionProgressPerHour",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "EngineeringScaffolds"
   },
@@ -9338,6 +10673,10 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetPrebuiltSiegeEnginesOfSettlement",
+    "DefaultSiegeEventModel.GetSiegeEngineHitPoints"
+   ],
    "alternative": "EngineeringDungeonArchitect"
   },
   {
@@ -9363,6 +10702,10 @@
      "value": -0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineHitChance",
+    "PrisonerReleaseCampaignBehavior.DailyHeroTick"
    ],
    "alternative": "EngineeringSiegeWorks"
   },
@@ -9390,6 +10733,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "DefaultSiegeEventModel.GetSiegeEngineHitPoints"
+   ],
    "alternative": "EngineeringMilitaryPlanner"
   },
   {
@@ -9415,6 +10762,10 @@
      "value": 0.25,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "SandboxAgentStatCalculateModel.InitializeMissionEquipment"
    ],
    "alternative": "EngineeringCarpenters"
   },
@@ -9442,6 +10793,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineDamage",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "EngineeringDreadfulSieger"
   },
   {
@@ -9467,6 +10822,10 @@
      "value": 0.05,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineHitChance",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
    ],
    "alternative": "EngineeringWallBreaker"
   },
@@ -9494,6 +10853,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetConstructionProgressPerHour",
+    "DefaultSiegeEventModel.GetSiegeEngineHitChance"
+   ],
    "alternative": "EngineeringForeman"
   },
   {
@@ -9519,6 +10882,10 @@
      "value": 100.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "BuildingsCampaignBehavior.OnBuildingLevelChanged",
+    "DefaultSiegeEventModel.GetSiegeEngineHitChance"
    ],
    "alternative": "EngineeringSalvager"
   },
@@ -9546,6 +10913,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "DefaultSiegeEventModel.GetAvailableAttackerRangedSiegeEngines",
+    "DefaultSiegeEventModel.GetAvailableDefenderSiegeEngines"
+   ],
    "alternative": "EngineeringSiegeEngineer"
   },
   {
@@ -9571,6 +10943,11 @@
      "value": 0.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetAvailableAttackerRangedSiegeEngines",
+    "DefaultSiegeEventModel.GetAvailableDefenderSiegeEngines",
+    "DefaultSiegeEventModel.GetSiegeEngineHitPoints"
    ],
    "alternative": "EngineeringStonecutters"
   },
@@ -9598,6 +10975,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultArmyManagementCalculationModel.CalculateDailyCohesionChange",
+    "DefaultSiegeEventModel.GetCasualtyChance"
+   ],
    "alternative": "EngineeringBattlements"
   },
   {
@@ -9623,6 +11004,10 @@
      "value": 100.0,
      "type": "Add"
     }
+   ],
+   "impl": [
+    "DefaultBuildingEffectModel.GetBuildingEffect",
+    "DefaultSiegeEventModel.GetPrebuiltSiegeEnginesOfSiegeCamp"
    ],
    "alternative": "EngineeringCampBuilding"
   },
@@ -9650,6 +11035,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultVolunteerModel.MaximumIndexHeroCanRecruitFromHero",
+    "DefaultWallHitPointCalculationModel.CalculateMaximumWallHitPointInternal"
+   ],
    "alternative": "EngineeringApprenticeship"
   },
   {
@@ -9675,6 +11064,10 @@
      "value": 0.01,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSettlementProsperityModel.CalculateProsperityChangeInternal",
+    "SiegeEventCampaignBehavior.OnSiegeEngineBuilt"
    ],
    "alternative": "EngineeringEngineeringGuilds"
   },
@@ -9702,6 +11095,11 @@
      "type": "Add"
     }
    ],
+   "impl": [
+    "BattleCampaignBehavior.OnCollectLootItems",
+    "DefaultBattleRewardModel.GetLootedItemFromTroop",
+    "SandboxAgentStatCalculateModel.SetPerkAndBannerEffectsOnAgent"
+   ],
    "alternative": "EngineeringImprovedTools"
   },
   {
@@ -9728,6 +11126,10 @@
      "type": "AddFactor"
     }
    ],
+   "impl": [
+    "DefaultSiegeEventModel.GetConstructionProgressPerHour",
+    "SandboxAgentApplyDamageModel.ApplyDamageAmplifications"
+   ],
    "alternative": "EngineeringMetallurgy"
   },
   {
@@ -9753,6 +11155,10 @@
      "value": 0.2,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultBuildingConstructionModel.CalculateDailyConstructionPowerInternal",
+    "DefaultSiegeEventModel.GetRangedSiegeEngineReloadTime"
    ],
    "alternative": "EngineeringArchitecturalCommissions"
   },
@@ -9799,6 +11205,9 @@
      "value": 0.01,
      "type": "AddFactor"
     }
+   ],
+   "impl": [
+    "DefaultSiegeEventModel.GetSiegeEngineDamage"
    ],
    "alternative": null
   },
