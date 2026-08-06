@@ -380,6 +380,12 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 /* "PartyLeader" -> "Party Leader", as the game prints it in tooltips. */
 const ROLE_LABEL = r => r ? r.replace(/([a-z])([A-Z])/g, '$1 $2') : '';
+/* Canonical role order: player hats first, then clan-member roles (incl. the
+   War Sails ship officers First Mate and Navigator), then the rest. */
+const ROLE_ORDER = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
+  'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'FirstMate', 'Navigator',
+  'ArmyCommander', 'PartyMember'];
+const roleRank = r => { const i = ROLE_ORDER.indexOf(r); return i < 0 ? 99 : i; };
 
 /* Mirrors StringHelpers.SetEffectIncrementTypeTextVariable exactly: AddFactor
    is shown x100 (the description supplies its own '%'), the number is rounded
@@ -752,11 +758,7 @@ function renderChosen() {
   if (byRole.size) {
     box.append(el('h4', null, `By role <em>where each effect applies — stacking effects totalled</em>`));
     const rgrid = el('div', 'sgrid');
-    const order = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
-      'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'ArmyCommander', 'PartyMember'];
-    const roles = [...byRole.keys()].sort((a, b) =>
-      (order.indexOf(a) + 99 * (order.indexOf(a) < 0)) -
-      (order.indexOf(b) + 99 * (order.indexOf(b) < 0)));
+    const roles = [...byRole.keys()].sort((a, b) => roleRank(a) - roleRank(b));
     // Same-stat lines cluster: effects worded differently still stack in game
     // ("% handling to one handed weapons" + "% melee weapon handling" + "%
     // weapon handling while on foot"), so group buckets that share their most
@@ -1000,11 +1002,7 @@ function buildBrowseMenu() {
     roleCount.set(r, (roleCount.get(r) || 0) + 1);
   const og2 = document.createElement('optgroup');
   og2.label = 'By role';
-  const roleOrder = ['Personal', 'PartyLeader', 'Captain', 'Governor', 'ClanLeader',
-    'Quartermaster', 'Scout', 'Surgeon', 'Engineer', 'ArmyCommander', 'PartyMember'];
-  for (const r of [...roleCount.keys()].sort((a, b) =>
-      (roleOrder.indexOf(a) + 99 * (roleOrder.indexOf(a) < 0)) -
-      (roleOrder.indexOf(b) + 99 * (roleOrder.indexOf(b) < 0))))
+  for (const r of [...roleCount.keys()].sort((a, b) => roleRank(a) - roleRank(b)))
     og2.append(new Option(`${ROLE_LABEL(r)} (${roleCount.get(r)})`, 'role|' + r));
   sel.append(og2);
 
