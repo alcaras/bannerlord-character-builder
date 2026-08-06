@@ -277,6 +277,8 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
 .sperk:hover .sname{color:#fff1d2}
 .sperk .seffect{display:block;color:var(--dim);line-height:1.4;padding-left:.85rem;font-size:.7rem}
 .sperk .seffect small{color:var(--faint)}
+.scluster{display:block;margin:.35rem 0 .05rem;font-size:.6rem;font-style:italic;
+  color:var(--green2);letter-spacing:.05em}
 .chosenbody .none{color:var(--faint);font-size:.78rem}
 
 /* ---------- extracted game icons (CSS mask so we can tint by state) ---------- */
@@ -347,7 +349,7 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
 <body>
 <header class="topbar">
   <div class="brand">Character Builder
-    <small>Mount &amp; Blade II: Bannerlord v1.4.7 &middot; tool updated 2026-08-05</small>
+    <small>Mount &amp; Blade II: Bannerlord v1.4.7 &middot; tool updated 2026-08-06</small>
   </div>
   <div class="tools">
     <input id="perkSearch" class="psearch" type="search"
@@ -2934,12 +2936,41 @@ function renderChosen() {
     const roles = [...byRole.keys()].sort((a, b) =>
       (order.indexOf(a) + 99 * (order.indexOf(a) < 0)) -
       (order.indexOf(b) + 99 * (order.indexOf(b) < 0)));
+    // Same-stat lines cluster: effects worded differently still stack in game
+    // ("% handling to one handed weapons" + "% melee weapon handling" + "%
+    // weapon handling while on foot"), so group buckets that share their most
+    // distinctive template word and label the cluster.
+    const STOP = new Set(['the', 'your', 'you', 'with', 'while', 'from', 'when',
+      'for', 'and', 'are', 'per', 'each', 'more', 'less', 'not', 'due', 'that',
+      'into', 'against', 'all', 'have', 'has']);
+    const tokensOf = tpl => [...new Set(tpl.toLowerCase()
+      .replace(/\{value\}/g, ' ').replace(/[^a-z\s-]/g, ' ').split(/\s+/)
+      .map(w => w.replace(/s$/, '')).filter(w => w.length > 2 && !STOP.has(w)))];
     for (const role of roles) {
-      const buckets = [...byRole.get(role).values()]
-        .sort((a, b) => b.perks.length - a.perks.length);
+      const buckets = [...byRole.get(role).values()];
+      const tokCount = new Map();
+      for (const b of buckets)
+        for (const t of tokensOf(b.tpl)) tokCount.set(t, (tokCount.get(t) || 0) + 1);
+      const clusterSize = new Map();
+      for (const b of buckets) {
+        const shared = tokensOf(b.tpl).filter(t => tokCount.get(t) >= 2)
+          .sort((x, y) => tokCount.get(y) - tokCount.get(x) || x.localeCompare(y));
+        b.cluster = shared[0] || '';
+        if (b.cluster) clusterSize.set(b.cluster, (clusterSize.get(b.cluster) || 0) + 1);
+      }
+      for (const b of buckets)
+        if (b.cluster && clusterSize.get(b.cluster) < 2) b.cluster = '';
+      buckets.sort((a, b) =>
+        (a.cluster === '') - (b.cluster === '') ||
+        a.cluster.localeCompare(b.cluster) ||
+        b.perks.length - a.perks.length);
       const g = el('div', 'sgroup');
       g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${buckets.length}`));
+      let lastCluster = null;
       for (const b of buckets) {
+        if (b.cluster && b.cluster !== lastCluster)
+          g.append(el('span', 'scluster', '≈ ' + esc(b.cluster)));
+        lastCluster = b.cluster;
         // Same formatting as individual lines, applied to the summed value.
         const line = b.hasVal
           ? esc(b.tpl.replace(/\{VALUE\}/g, fmtEffectValue(b.sum, b.type)))

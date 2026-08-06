@@ -266,6 +266,8 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
 .sperk:hover .sname{color:#fff1d2}
 .sperk .seffect{display:block;color:var(--dim);line-height:1.4;padding-left:.85rem;font-size:.7rem}
 .sperk .seffect small{color:var(--faint)}
+.scluster{display:block;margin:.35rem 0 .05rem;font-size:.6rem;font-style:italic;
+  color:var(--green2);letter-spacing:.05em}
 .chosenbody .none{color:var(--faint);font-size:.78rem}
 
 /* ---------- extracted game icons (CSS mask so we can tint by state) ---------- */
