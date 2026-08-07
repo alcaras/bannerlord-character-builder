@@ -698,6 +698,9 @@ function renderDetail(focusCapped) {
     'Training past the cap is allowed but the learning rate falls by 1 + 0.1 per point over, to zero.'));
 }
 
+/* Collapse state for the Chosen panel — session-only, not in share links. */
+const chosenCollapsedRoles = new Set();
+
 /* Every perk chosen across the whole build — the thing you actually want to
    read back when planning. Lives in its own panel under the detail pane. */
 function renderChosen() {
@@ -734,6 +737,16 @@ function renderChosen() {
   if (byRole.size) {
     const rgrid = el('div', 'sgrid');
     const roles = [...byRole.keys()].sort((a, b) => roleRank(a) - roleRank(b));
+    const allBtn = document.getElementById('chosenToggleAll');
+    if (allBtn) {
+      const allCollapsed = roles.every(r => chosenCollapsedRoles.has(r));
+      allBtn.textContent = allCollapsed ? 'Expand all' : 'Collapse all';
+      allBtn.onclick = () => {
+        if (roles.every(r => chosenCollapsedRoles.has(r))) chosenCollapsedRoles.clear();
+        else roles.forEach(r => chosenCollapsedRoles.add(r));
+        renderChosen();
+      };
+    }
     // Same-stat lines cluster: effects worded differently still stack in game
     // ("% handling to one handed weapons" + "% melee weapon handling" + "%
     // weapon handling while on foot"), so group buckets that share their most
@@ -779,7 +792,17 @@ function renderChosen() {
         ci.sum += b.sum;
       }
       const g = el('div', 'sgroup');
-      g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${buckets.length}`));
+      const collapsed = chosenCollapsedRoles.has(role);
+      const hdr = el('b', 'rolehdr',
+        `${collapsed ? '▸' : '▾'} ${esc(ROLE_LABEL(role))} · ${buckets.length}`);
+      hdr.title = collapsed ? 'Expand' : 'Collapse';
+      hdr.onclick = () => {
+        chosenCollapsedRoles.has(role) ? chosenCollapsedRoles.delete(role)
+          : chosenCollapsedRoles.add(role);
+        renderChosen();
+      };
+      g.append(hdr);
+      if (collapsed) { rgrid.append(g); continue; }
       let lastCluster = null;
       for (const b of buckets) {
         if (b.cluster && b.cluster !== lastCluster) {
@@ -1215,6 +1238,14 @@ function clearSearch() {
 }
 document.getElementById('searchClose').onclick = clearSearch;
 buildBrowseMenu();
+/* Whole-panel collapse for Chosen perks; the badge stays visible. */
+document.getElementById('chosenCollapse').onclick = e => {
+  const body = document.getElementById('chosen');
+  const reopen = body.style.display === 'none';
+  body.style.display = reopen ? '' : 'none';
+  e.target.innerHTML = reopen ? '&#9662;' : '&#9656;';
+  e.target.title = reopen ? 'Collapse panel' : 'Expand panel';
+};
 /* War Sails display toggle: hides the naval row; allocations are kept. */
 document.getElementById('navalToggle').onchange = e => {
   state.naval = e.target.checked;

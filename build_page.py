@@ -87,7 +87,11 @@ __CSS__
     <div class="panelbox">
       <div class="panel-head sub">
         <h2>Chosen perks</h2>
-        <span class="badge" id="chosenBadge">0 selected</span>
+        <span class="shead-tools">
+          <span class="badge" id="chosenBadge">0 selected</span>
+          <button id="chosenToggleAll" class="btn">Collapse all</button>
+          <button id="chosenCollapse" class="btn xbtn" title="Collapse panel">&#9662;</button>
+        </span>
       </div>
       <div class="chosenbody" id="chosen"></div>
     </div>
