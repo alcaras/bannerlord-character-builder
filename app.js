@@ -710,35 +710,11 @@ function renderChosen() {
     box.append(el('div', 'none', 'None yet. Raise a skill to 25 or more, then pick from the track above.'));
     return;
   }
-  const grid = el('div', 'sgrid');
-  for (const sk of SKILLS) {
-    const chosen = PERKS_BY_SKILL[sk.id].filter(p => state.perks.has(p.id));
-    if (!chosen.length) continue;
-    const g = el('div', 'sgroup');
-    g.append(el('b', null, `${esc(sk.name)} · ${chosen.length}`));
-    for (const p of chosen) {
-      const item = el('div', 'sperk');
-      item.title = 'Show in track';
-      item.onclick = () => { state.sel = sk.id; render(); };
-      const head = el('span', 'sname',
-        `${esc(p.name)} <small>${p.requiredSkill}</small>`);
-      item.append(head);
-      // the actual effects with their roles, same as the hover readout
-      (p.effects || []).forEach((e, i) => {
-        const d = perkDesc(p, i);
-        if (d) item.append(el('span', 'seffect',
-          (e.role ? `<span class="erole">(${esc(ROLE_LABEL(e.role))})</span> ` : '') + d));
-      });
-      g.append(item);
-    }
-    grid.append(g);
-  }
-  box.append(grid);
-
-  // By role: the grouping that answers "what does this build DO". Effects
-  // sharing the same description template stack, so show ONE line with the
-  // summed value and list the contributing perks under it — "+3 loyalty
-  // (A · B · C)" instead of three separate "+1 loyalty" rows.
+  // Effects grouped by role — the view that answers "what does this build
+  // DO". The old per-skill list was dropped as clutter (community feedback):
+  // per-skill picks are visible on each track, and every row here still
+  // jumps to its track. Identical templates sum into one line; related
+  // wordings cluster with a combined ceiling.
   const byRole = new Map();
   for (const p of PERKS) {
     if (!state.perks.has(p.id)) continue;
@@ -756,7 +732,6 @@ function renderChosen() {
     });
   }
   if (byRole.size) {
-    box.append(el('h4', null, `By role <em>where each effect applies — stacking effects totalled</em>`));
     const rgrid = el('div', 'sgrid');
     const roles = [...byRole.keys()].sort((a, b) => roleRank(a) - roleRank(b));
     // Same-stat lines cluster: effects worded differently still stack in game
@@ -787,12 +762,34 @@ function renderChosen() {
         (a.cluster === '') - (b.cluster === '') ||
         a.cluster.localeCompare(b.cluster) ||
         b.perks.length - a.perks.length);
+      // Cluster headers: a readable phrase (the shortest member template) and,
+      // when every member is the same effect type, the combined ceiling —
+      // "up to" because members may be conditional (Sprint's speed bonus only
+      // applies with no shield or ranged weapon; it stacks when it applies).
+      const phraseOf = tpl => tpl.replace(/\{VALUE\}%?/g, '')
+        .replace(/[.:]\s*$/, '').replace(/^[\s%+\-]+/, '').trim();
+      const clusterInfo = new Map();
+      for (const b of buckets) {
+        if (!b.cluster) continue;
+        if (!clusterInfo.has(b.cluster))
+          clusterInfo.set(b.cluster, { tpls: [], type: b.type, uniform: true, sum: 0 });
+        const ci = clusterInfo.get(b.cluster);
+        ci.tpls.push(b.tpl);
+        if (b.type !== ci.type || !b.hasVal) ci.uniform = false;
+        ci.sum += b.sum;
+      }
       const g = el('div', 'sgroup');
       g.append(el('b', null, `${esc(ROLE_LABEL(role))} · ${buckets.length}`));
       let lastCluster = null;
       for (const b of buckets) {
-        if (b.cluster && b.cluster !== lastCluster)
-          g.append(el('span', 'scluster', '≈ ' + esc(b.cluster)));
+        if (b.cluster && b.cluster !== lastCluster) {
+          const ci = clusterInfo.get(b.cluster);
+          const phrase = ci.tpls.slice().sort((x, y) => x.length - y.length)[0];
+          let head = '≈ ' + esc(phraseOf(phrase));
+          if (ci.uniform)
+            head += ` — up to ${fmtEffectValue(ci.sum, ci.type)}${ci.type === 'AddFactor' ? '%' : ''} combined`;
+          g.append(el('span', 'scluster', head));
+        }
         lastCluster = b.cluster;
         // Same formatting as individual lines, applied to the summed value.
         const line = b.hasVal
