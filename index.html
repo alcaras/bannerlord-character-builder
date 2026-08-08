@@ -351,7 +351,7 @@ mark{background:none;color:var(--gold2);border-bottom:1px solid var(--gold);padd
 <body>
 <header class="topbar">
   <div class="brand">Character Builder
-    <small>Mount &amp; Blade II: Bannerlord v1.4.7 &middot; tool updated 2026-08-06</small>
+    <small>Mount &amp; Blade II: Bannerlord v1.4.7 &middot; tool updated 2026-08-07</small>
   </div>
   <div class="tools">
     <input id="perkSearch" class="psearch" type="search"
@@ -2688,9 +2688,15 @@ function renderOriginFields() {
       for (const o of st.options) {
         if (o.cultures && !o.cultures.includes(state.culture)) continue;
         const sk = (o.skills || []).map(x => SKILLS.find(s2 => s2.id === x)?.name || x).join(', ');
-        const extra = o.attr ? ` — +1 ${o.attr.slice(0,3).toUpperCase()}${sk ? ' · ' + sk : ''}`
+        // Use the game's own abbreviation (CTR, CNG), not the first three
+        // letters of the id — that printed CON/CUN, which match no attribute
+        // in the game and read as the wrong stat.
+        const a = o.attr && ATTRS.find(x => x.id === o.attr);
+        const extra = a ? ` — +1 ${a.abbrev}${sk ? ' · ' + sk : ''}`
           : (o.unspentAttr ? ` — +${o.unspentAttr} attr, +${o.unspentFocus} focus` : '');
-        sel.append(new Option(o.label + extra, o.id));
+        const opt = new Option(o.label + extra, o.id);
+        if (a) opt.title = `+1 ${a.name}${sk ? ' · +1 focus and +10 levels: ' + sk : ''}`;
+        sel.append(opt);
       }
       sel.value = state.origin[i] || '';
       sel.onchange = () => {
